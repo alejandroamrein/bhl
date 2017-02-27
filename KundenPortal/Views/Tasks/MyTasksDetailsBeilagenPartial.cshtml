@@ -1,0 +1,21 @@
+﻿@using System.Web.UI.WebControls
+@using Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models
+@model  List<Datei>
+@Html.DevExpress().GridView(
+    settings =>
+    {
+        settings.Name = "gvBeilagen_" + ViewData["TbAFGAufgabe_id"];
+        settings.SettingsDetail.MasterGridName = "grid";
+        settings.CallbackRouteValues = new { Controller = "Tasks", Action = "MyTasksDetailsBeilagenPartial" };
+        settings.Width = Unit.Percentage(100);
+
+        settings.KeyFieldName = "Id";
+        settings.Columns.Add("DateiName");
+        settings.Columns.Add("Titel");
+        settings.Columns.Add("ErfDatum").PropertiesEdit.DisplayFormatString = "d";
+        settings.Columns.Add("DateiTyp");
+
+    }).Bind(Model).GetHtml()
+
+
+

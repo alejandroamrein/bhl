@@ -1,0 +1,26 @@
+﻿{0} {1}<br/>
+<br/>
+Besten Dank für Ihre Bestellung.<br/>
+In der Beilage senden wir Ihnen den Muster-Archivplan als Excel-Datei in {2} Sprache zu.<br/>
+Der Archivplan wurde vom <a href='http://www.acf-fgv.ch'>Freiburger Gemeindeverband</a> ausgearbeitet und wird Ihnen kostenlos zugestellt.<br/>
+<a href='http://www.dialog.ch'>Dialog Verwaltungs-Data AG</a> übernimmt keine Haftung für die Richtigkeit, Vollständigkeit und Aktualität.<br/>
+<br/>
+Weiter Informationen zu unserer modernen eGovermment Geschäftsverwaltung finden Sie unter <a href='www.dialog.ch'>www.dialog.ch</a>.<br/>
+<br/>
+Bei Fragen stehen wir Ihnen gerne zur Verfügung.<br/>
+<b>Stefan Fellmann</b><br/>
+<b>Geschäftsleiter</b><br/>
+<br/>
+Dialog Verwaltungs-Data AG<br/>
+Seebadstrasse 32<br/>
+6283 Baldegg<br/>
+<br/>
+<table border='0'>
+<tr><td>Telefon Zentrale:</td><td>+41 41 289 22 22</td></tr>
+<tr><td>Telefon direkt:</td><td>+41 41 289 22 89</td></tr>
+<tr><td>Fax:</td><td>+41 41 289 22 13</td></tr>
+<tr><td>Internet:</td><td><a href='http://www.dialog.ch'>www.dialog.ch</a></td></tr>
+<tr><td>E-Mail:</td><a href='mailto://stefan.fellmann@dialog.ch'>stefan.fellmann@dialog.ch</a></td></tr>
+</table><br/>
+------------------------------------------------
+Dialog ist Gold Certified Partner von Microsoft<br/>

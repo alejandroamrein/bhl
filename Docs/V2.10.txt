@@ -1,0 +1,19 @@
+ACHTUNG: Version 2.10 nicht lauffähig ohne das zu lesen.
+
+Damit die neue Version läuft muss man zuerst folgendes abklären:
+
+1) Nest_Zustelladresse
+   ------------------- 
+Ich musste die Tabelle Nest_Zustelladresse löschen. 
+Sonst konnte ich in der Tabelle TbGESTraktendenKomentar keine Indezen oder Constraints hinzufügen.
+
+2) FK User_ID
+   ----------
+Ich konnte keine FK zur Tabelle TbSysUsr erstellen, weil die Spalte User_ID (in TbGESTraktendenKomentar) 
+von Typ decimal(18,0) ist und die Spalte ID (in TbSysUsr) von Typ int ist. 
+Ich habe die Spalte User_ID als int umdefiniert.
+
+3) TbGESTraktendenKomentar gelöscht
+   --------------------------------
+Ich habe alle Einträge in TbGESTraktendenKomentar gelöscht, weil es scheinbar Inkonsistenzen vorhanden 
+waren und konnte deshalb die Tabelle nixcht richtig entwerfen.

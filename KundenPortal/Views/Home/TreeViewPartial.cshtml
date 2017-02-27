@@ -1,0 +1,31 @@
+﻿@using Dialog.Behoerdenloesung.Sitzungen.UI.Web.Controllers
+@{
+    Html.DevExpress().TreeView(
+    settings =>
+    {
+        settings.Name = "treeView";
+        settings.Width = 300;
+        //settings.ClientSideEvents.NodeClick = "function(s,e){debugger;alert(e.nodeKey);alert(e.nodeName);alert(e.node.Name);}";
+        settings.EnableClientSideAPI = true;
+        //settings.AllowCheckNodes = true;
+        settings.EnableHotTrack = true;
+        settings.EnableAnimation = true;
+        settings.ShowTreeLines = true;
+        settings.CheckNodesRecursive = true;
+        settings.TextField = "Name";
+        settings.NameField = "ID";
+        settings.SetNodeTemplateContent(c =>
+        {
+            if (c.Node.Nodes.Count > 0)
+            {
+                ViewContext.Writer.Write("<div><img alt=\"" + c.Node.Name + "\" src=\"" + Url.Content("~/Content/Images/folder.png") + "\" />&nbsp;" + c.Node.Text + "</div>");
+            }
+            else
+            {
+                ViewContext.Writer.Write("<div><img alt=\"" + c.Node.Name + "\" src=\"" + Url.Content("~/Content/Images/folder.png") + "\" />&nbsp;" + c.Node.Text + "</div>");
+            }
+        });
+    })
+    .Bind(HomeController.CategoryTreeModel.GetModel())
+    .Render();
+}

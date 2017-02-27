@@ -1,0 +1,147 @@
+﻿@model DialogPortal.Models.AdminIndexViewModel
+
+@{
+    ViewBag.Title = "Index";
+    var modBez = new Dictionary<char, string>();
+    modBez['A'] = "Aufgaben";
+    modBez['E'] = "EWK Info";
+    modBez['G'] = "Geschäft";
+    modBez['K'] = "Kalender";
+    modBez['S'] = "Sitzungen";
+    modBez['V'] = "Behördenverzeichnis";
+}
+
+<style>
+tr.duplicated .handyNummer {
+    background-color: lightpink;
+}
+</style>
+
+<h2>Verwaltung @Model.MandantBezeichnung</h2>
+
+<form id="form1">
+    <div class="row" style="margin-top:20px">
+        <div class="col-md-12">
+            <div class="table-bordered" style="margin-top: 20px">
+                <div class="text-info">Benutzer</div>
+                <table id="users" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width:120px">Handynummer</th>
+                            <th style="width:100px">Kurzname</th>
+                            <th>Vorname</th>
+                            <th>Nachname</th>
+                            <th style="width:140px">Module</th>
+                            <th style="width:80px">Admin</th>
+                            <th style="width:80px">Gesperrt</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr class="unchanged">
+                                <td><input class='handyNummer' type='text' style='width:100%' value='@item.HandyNummer' disabled="disabled" /></td>
+                                <td><input class='shortName' type='text' style='width:100%' maxlength="6" value='@item.ShortName' /></td>
+                                <td><input class='vorname' type='text' style='width:100%' value='@item.Vorname' /></td>
+                                <td><input class='name' type='text' style='width:100%' value='@item.Name' /></td>
+                                @*<td><table style='padding:0;margin:0;'><tr><td style='margin:0;padding:0'><input class='module' type='text' style='width:100%' readonly disabled value='@item.Module' /></td><td style ='margin:0;padding:0'><input class='moduleHelper btn-xs btn-default' type='button' value='...' style="margin-left:0" /></td></tr></table></td>*@
+                                <td>
+                                    <div style="text-wrap:none">
+                                        <input type='hidden' value='@(item.Module)' />
+                                        <div class='btn-group btn-group-xs'>
+                                            @foreach (var c in Model.Module)
+                                            {
+                                                var x = (item.Module ?? Model.Module).Contains(c) ? "btn-success" : "btn-danger";
+                                                <button class='module@(c) btn btn-xs @(x)' title='@(modBez[c])'>@(c)</button>
+                                            }
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><input class='admin' type='checkbox' @(item.IsAdmin ? "checked='checked'" : "") /></td>
+                                <td><input class='block' type='checkbox' @(item.IsGesperrt ? "checked='checked'" : "") /></td>
+                                <td><div title='Benutzer löschen' class='btn btn-default delete'><div class='glyphicon glyphicon-trash'></div></div></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="row" style="margin-top:20px">
+    <div class="col-md-12">
+        <a href="#" id="send" class="btn btn-default">Antrag absenden</a>
+        <a href="#" id="addUser" class="btn btn-default"><div class="glyphicon glyphicon-plus-sign"></div> Benutzer hinzufügen</a>
+    </div>
+</div>
+
+@section scripts
+{
+    @{
+        var mandantModuleButtons = string.Format("<div style='text-wrap: none'><input type='hidden' value='{0}' />", Model.Module);
+        mandantModuleButtons += "<div class='btn-group btn-group-xs'>";
+        foreach (var c in Model.Module)
+        {
+            mandantModuleButtons +=
+                string.Format("<button class='module{0} btn btn-xs btn-success' title='{1}'>{0}</button>", c, modBez[c]);
+        }
+        mandantModuleButtons += "</div></div>";
+    }
+    <script type="text/javascript">
+        var page = {};
+        page.mandantModuleButtons = "@Html.Raw(mandantModuleButtons)";
+
+        function formDataAsString() {
+            var $items = $("#users tbody tr");
+            var obj = {};
+            obj.mandantId = @Model.MandantId;
+            obj.datenbankId = @Model.DatenbankId;
+            obj.datum = '@DateTime.Now.ToString()';
+            obj.absender = '@Model.HandyNummer';
+            obj.mandantBezeichnung = '@Html.Raw(Model.MandantBezeichnung)';
+            obj.datenbankBezeichnung = '@Html.Raw(Model.DatenbankBezeichnung)';
+            obj.module = '@(Model.Module ?? "")';
+            obj.users = @(ViewBag.Users);
+            obj.items = [];
+            var itemsFound = false;
+            $items.each(function() {
+                if ($(this).hasClass("deleted") || 
+                    $(this).hasClass("added") || 
+                    $(this).hasClass("modified")) {
+                    itemsFound = true;
+                    var moduleString = "";
+                    var letters = ["A","E","G","K","S","V"];
+                    for (var i = 0; i < letters.length; i++) {
+                        var path = ".module" + letters[i];
+                        if ($(this).find(path).hasClass('btn-success')) {
+                            moduleString += letters[i];    
+                        }
+                    }
+                    if (moduleString == obj.module) {
+                        moduleString = null;
+                    }
+                    obj.items.push({
+                        status: $(this).hasClass("deleted") ? "deleted" : ($(this).hasClass("added") ? "added" : ($(this).hasClass("modified") ? "modified" : "")),
+                        handyNummer: $(this).find(".handyNummer").val(),
+                        shortName: $(this).find(".shortName").val(),
+                        vorname: $(this).find(".vorname").val(),
+                        name: $(this).find(".name").val(),
+                        module: moduleString,
+                        isAdmin: $(this).find(".admin").is(":checked"),
+                        isGesperrt: $(this).find(".block").is(":checked")
+                    });
+                }
+            });
+            if (itemsFound) {
+                var str = JSON.stringify(obj);
+                return str;
+            }
+            else{
+                return null;
+            }
+        }
+    </script>
+    <script type="text/javascript" src="~/Scripts/App/Admin/Index.js"></script>
+}

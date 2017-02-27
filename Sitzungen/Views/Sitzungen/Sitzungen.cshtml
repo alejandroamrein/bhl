@@ -1,0 +1,59 @@
+﻿@model Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models.SitzungenViewModel
+
+@using Dialog.Behoerdenloesung.Sitzungen.UI.Web.Helpers
+
+@{
+        ViewBag.Title = "Sitzungen";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-bordered" style="margin-top: 20px">
+            <div class="text-success">Aktive Sitzungen</div>
+            <table class="table table-striped">
+                @foreach (var item in Model.AktiveSitzungen)
+                {
+                    <tr>
+                        <td>@Html.NullableDate(item.SitzungsDatum)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TbBHDGremium.Bezeichnung)</td>
+                        <td class="hidden-xs">@Html.NullableTime(item.ZeitVon)</td>
+                        <td class="hidden-xs">@Html.NullableTime(item.ZeitBis)</td>
+                        <td class="hidden-xs hidden-sm">@Html.DisplayFor(modelItem => item.Bezeichnung)</td>
+                        <td>
+                            <a href="~/Sitzungen/Sitzung/@item.TbGESSitzung_id"><div class="glyphicon glyphicon-chevron-right"></div></a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-bordered" style="margin-top: 20px">
+            <div class="text-danger">Abgeschlossene Sitzungen</div>
+            <table class="table table-striped">
+                @foreach (var item in Model.AbgeschlosseneSitzungen)
+                {
+                    <tr>
+                        <td>@Html.NullableDate(item.SitzungsDatum)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TbBHDGremium.Bezeichnung)</td>
+                        <td class="hidden-xs">@Html.NullableTime(item.ZeitVon)</td>
+                        <td class="hidden-xs">@Html.NullableTime(item.ZeitBis)</td>
+                        <td class="hidden-xs hidden-sm">@Html.DisplayFor(modelItem => item.Bezeichnung)</td>
+                        <td>
+                            <a href="~/Sitzungen/Sitzung/@item.TbGESSitzung_id"><div class="glyphicon glyphicon-chevron-right"></div></a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
+<div style="width:100%; margin-top: 20px">
+    <div style="width:200px;float:right; text-align: right"><a href="~/Home/Portal" class="btn btn-default">Zurück</a></div>
+</div>
+
+

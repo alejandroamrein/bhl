@@ -1,0 +1,192 @@
+﻿@*@model MVCSchedulerReadOnly.Models.SchedulerDataObject*@
+
+@using System.Web.UI.WebControls
+@using Dialog.Behoerdenloesung.Sitzungen.UI.Web.Helpers
+
+@using DevExpress.Web.Mvc
+@using DevExpress.Web.Mvc.UI
+@using DevExpress.Web.ASPxHtmlEditor
+@using DevExpress.Web.ASPxScheduler
+
+@{
+    ViewBag.Title = "Behördenlösung - " + ViewBag.UserName;
+}
+
+@using (Html.BeginForm())
+{
+    <div class="row" style="margin-top: 20px">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="jumbotron sit @(ViewBag.S ? "moduleOn" : "moduleOff")">
+                <h3><span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>Sitzungen</h3>
+                <p>Elektronische Aktenauflage zu den Sitzungen</p>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="jumbotron afg @(ViewBag.A ? "moduleOn" : "moduleOff")">
+                <h3><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>Aufgaben</h3>
+                <p>Offene Pendenzen bewirtschaften</p>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="jumbotron kal @(ViewBag.K ? "moduleOn" : "moduleOff")">
+                <h3><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>Kalender</h3>
+                <p>Termine im Behördenkalender anzeigen</p>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="jumbotron ges @(ViewBag.G ? "moduleOn" : "moduleOff")">
+                <h3><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>Geschäft</h3>
+                <p>Zugriff auf elektronische Geschäftsdossier</p>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="jumbotron bhd @(ViewBag.V ? "moduleOn" : "moduleOff")">
+                <h3><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Behördenverzeichnis</h3>
+                <p>Behörden- und Kommissionsmitglieder abfragen</p>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="jumbotron ewk @(ViewBag.E ? "moduleOn" : "moduleOff")">
+                <h3><span class="glyphicon glyphicon-home" aria-hidden="true"></span>EWK Info</h3>
+                <p>Aktuelle Einwohnerauskunft anzeigen</p>
+            </div>
+        </div>
+    </div>
+}
+    @*<div class="row">
+
+            <script type="text/javascript">
+                function OnAppointmentClick(s, e) {
+                    var apt = s.GetAppointmentById(e.appointmentId);
+                    if (apt.SitzungID > 0) {
+                        if (apt.CanOpen) {
+                            window.location.href = "/Sitzungen/Sitzung/" + apt.SitzungID;
+                        } else {
+                            alert("Keine Berechtigung");
+                        }
+                    }
+                }
+            </script>
+
+            <div style="margin-top:5px;" class="col-xs-12">
+                @Html.DevExpress().PageControl(settings =>
+                {
+                    settings.Name = "pcFeatures";
+                    //settings.ActivateTabPageAction = options.ActivateTabPageAction;
+                    //settings.EnableHotTrack = options.EnableHotTrack;
+                    //settings.SaveStateToCookies = options.SaveStateToCookies;
+                    //settings.TabAlign = options.TabAlign;
+                    //settings.TabPosition = options.TabPosition;
+                    settings.TabPages.Add("Kalender").SetContent(() =>
+                    {
+                        Html.RenderAction("SchedulerPartial", "Calendar");
+                    });
+                    settings.TabPages.Add("Pendenzen").SetContent(() =>
+                    {
+                        //ViewContext.Writer.Write("<table style='width:100%'>");
+                        //ViewContext.Writer.Write("    <tr>");
+                        //ViewContext.Writer.Write("        <td sytle='width:auto'><input type='checkbox' id='erledigte' checked='checked' />&nbsp;Nur erledigte zeigen</td>");
+                        //ViewContext.Writer.Write("        <td><input type='checkbox' id='erledigte'/></td>");
+                        //ViewContext.Writer.Write("    </tr>");
+                        //ViewContext.Writer.Write("    <tr>");
+                        //ViewContext.Writer.Write("        <td>abc</td>");
+                        //ViewContext.Writer.Write("        <td>sgdfg</td>");
+                        //ViewContext.Writer.Write("    </tr>");
+                        //ViewContext.Writer.Write("    <tr>");
+                        //ViewContext.Writer.Write("        <td colspan='2'>&nbsp;</td>");
+                        //ViewContext.Writer.Write("    </tr>");
+                        //ViewContext.Writer.Write("</table>");
+                        Html.RenderAction("MyTasksPartial", "Tasks");
+                    });
+                }).GetHtml()
+            </div>
+        </div>
+    }
+
+    <!-- ui-dialog -->
+    <div id="dialog" title="Neue Bemerkung">
+        <table style="width:100%" border="0">
+            <tr><td style="width:auto;padding:5px;font-weight:bold">Datum:</td><td style="width:100%;padding:5px">@Html.DevExpress().DateEdit(settings =>
+                {
+                    settings.Name = "dialog-datum";
+                    settings.Properties.DisplayFormatString = "d";
+                    settings.Width = Unit.Pixel(120);
+                }).GetHtml()</td></tr>
+            <tr><td style="padding:5px;vertical-align:top;font-weight:bold">Bemerkung:</td><td style="padding:5px"><textarea id="dialog-text" name="dialog-text" rows="8" style="width:100%" placeholder="Bemerkung eingeben..."></textarea></td></tr>
+        </table>
+    </div> *@
+
+@section navbarex
+{
+}
+
+@section styles {
+    @*@Styles.Render("~/Content/ui")*@
+    <link href="~/Content/ui/jquery-ui.css" rel="stylesheet">
+    <style>
+        .jumbotron.moduleOn {
+            cursor: pointer;
+            padding: 5px; /*30px;*/
+            margin: 5px; /*30px;*/
+            line-height: 2.1428571435;
+            color: #eeeeee; /*inherit;*/
+            background-color: #0000cd; /* #3a87ad; #eeeeee;*/
+            height: 140px;
+        }
+        .jumbotron.moduleOff {
+            padding: 5px; /*30px;*/
+            margin: 5px; /*30px;*/
+            line-height: 2.1428571435;
+            color: #888888; /*inherit;*/
+            background-color: #eeeeee;
+            height: 140px;
+        }
+
+        .jumbotron h3 {
+            line-height: 1;
+            font-weight: bold;
+            color: inherit;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            padding: 15px;
+            font-size: 18px; /*21px*/            
+        }
+
+        .jumbotron .glyphicon {
+            margin-right: 10px;
+        }
+
+        .jumbotron p {
+            line-height: 1.4;
+            padding: 15px;
+            font-weight: normal;
+            font-size: 14px; /*21px*/            
+        }
+
+        .container .jumbotron {
+            border-radius: 6px;
+        }
+
+        /*@@media screen and (min-width: 768px) {
+          .jumbotron {
+            padding-top: 48px;
+            padding-bottom: 48px;
+          }
+          .container .jumbotron {
+            padding-right: 60px;
+            padding-left: 60px;
+          }
+          .jumbotron h1 {
+            font-size: 63px;
+          }
+        }*/
+    </style>
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/ui")
+    <script type="text/javascript" src="~/Scripts/Behoerdenloesung/Home/Portal.js"></script>
+}
+
+
+

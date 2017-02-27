@@ -1,0 +1,47 @@
+﻿@using System.Web.UI.WebControls
+@using Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models
+@model  List<TbAFGAufgabeMutationen>
+@Html.DevExpress().GridView(
+    settings =>
+    {
+    settings.Name = "gvMutationen_" + ViewData["TbAFGAufgabe_id"];
+    settings.SettingsDetail.MasterGridName = "grid";
+    settings.CallbackRouteValues = new { Controller = "Tasks", Action = "MyTasksDetailsMutationenPartial" };
+    settings.Width = Unit.Percentage(100);
+
+    settings.KeyFieldName = "TbAFGAufgabeMutationen_id";
+    settings.Columns.Add("Verschiebungsgrund_");
+    settings.Columns.Add("Feld");
+    settings.Columns.Add("AlteWert");
+    settings.Columns.Add("NeueWert");
+    settings.Columns.Add("MutDatum").PropertiesEdit.DisplayFormatString = "d";
+    settings.Columns.Add("Visum");
+    //settings.Columns.Add("Quantity");
+    //settings.Columns.Add(column =>
+    //{
+    //    column.FieldName = "UnitPrice";
+    //    column.PropertiesEdit.DisplayFormatString = "c";
+    //});
+    //settings.Columns.Add(column =>
+    //{
+    //    column.FieldName = "Total";
+    //    column.UnboundType = DevExpress.Data.UnboundColumnType.Decimal;
+    //    column.PropertiesEdit.DisplayFormatString = "c";
+    //});
+
+    //settings.CustomUnboundColumnData = (sender, e) =>
+    //{
+    //    if (e.Column.FieldName == "Total")
+    //    {
+    //        decimal price = (decimal)e.GetListSourceFieldValue("UnitPrice");
+    //        int quantity = Convert.ToInt32(e.GetListSourceFieldValue("Quantity"));
+    //        e.Value = price * quantity;
+    //    }
+    //};
+    //settings.Settings.ShowFooter = true;
+    //settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Total");
+    //settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Quantity");
+}).Bind(Model).GetHtml()
+
+
+

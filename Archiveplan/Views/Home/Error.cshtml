@@ -1,0 +1,16 @@
+﻿@model Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models.ErrorViewModel
+
+@using Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models
+
+@{
+    ViewBag.Title = "Error";
+}
+
+<h2>ErrorTitle</h2>
+<p>ErrorText</p>
+@Html.Encode(Model.ErrorText)
+<br />
+<br />
+<input type="button" onclick="document.location.href='/Home/Index'" value="EndButton" />
+
+

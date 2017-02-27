@@ -1,0 +1,94 @@
+﻿@using System.Web.UI.WebControls
+@model  List<Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models.EwkJubilar>
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "gvEwkJubilare1View";
+
+        settings.CallbackRouteValues = new { Controller = "Ewk", Action = "EwkJubilare1Partial" };
+        settings.Width = Unit.Percentage(100);
+
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = false;
+        //settings.Settings.ShowFilterRowMenu = true;
+        //settings.Settings.ShowHeaderFilterButton = true;
+        //settings.SettingsPopup.HeaderFilter.Height = Unit.Pixel(200);
+        //settings.SettingsBehavior.AllowSelectByRowClick = true;
+        //settings.SettingsPager.PageSize = 15;
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "NAME";
+            column.Caption = "Name";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            column.Width = Unit.Percentage(16);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "VORNAME";
+            column.Caption = "Vorname";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            column.Width = Unit.Percentage(14);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "STRASSE";
+            column.Caption = "Strasse";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            column.Width = Unit.Percentage(23);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "HAUSNR";
+            column.Caption = "Haus-Nr";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            column.Width = Unit.Percentage(7);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "HAUSNRZUSATZ";
+            column.Caption = "Zusatz";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            column.Width = Unit.Percentage(7);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "PLZ";
+            column.Caption = "PLZ";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            column.Width = Unit.Percentage(7);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "ORT";
+            column.Caption = "Ort";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            column.Width = Unit.Percentage(16);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "GEBDAT";
+            column.Caption = "Geb.Datum";
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "d";
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            column.Width = Unit.Percentage(10);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "ALTER";
+            column.Caption = "Alter";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            column.Width = Unit.Percentage(7);
+        });
+    });
+}
+@grid.Bind(Model).GetHtml()

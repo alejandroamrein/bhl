@@ -1,0 +1,31 @@
+﻿@using System.Web.UI.WebControls
+@Html.DevExpress().PageControl(settings =>
+{
+    settings.Name = "pcDetails_" + ViewData["TbAFGAufgabe_id"];
+    //settings.ActivateTabPageAction = options.ActivateTabPageAction;
+    //settings.EnableHotTrack = options.EnableHotTrack;
+    //settings.SaveStateToCookies = options.SaveStateToCookies;
+    settings.Width = Unit.Percentage(100);
+    settings.TabAlign = TabAlign.Left;
+    settings.TabPosition = TabPosition.Top;
+    settings.TabPages.Add("Verantwortlichkeiten").SetContent(() =>
+    {
+        Html.RenderAction("MyTasksDetailsVerantwortlichkeitenPartial", new { TbAFGAufgabe_id = (int)ViewData["TbAFGAufgabe_id"] });
+    });
+    settings.TabPages.Add("Bemerkungen").SetContent(() =>
+    {
+        Html.RenderAction("MyTasksDetailsBemerkungenPartial", new { TbAFGAufgabe_id = (int)ViewData["TbAFGAufgabe_id"] });
+    });
+    settings.TabPages.Add("Mutationen").SetContent(() =>
+    {
+        Html.RenderAction("MyTasksDetailsMutationenPartial", new { TbAFGAufgabe_id = (int)ViewData["TbAFGAufgabe_id"] });
+    });
+    settings.TabPages.Add("Beilagen").SetContent(() =>
+    {
+        Html.RenderAction("MyTasksDetailsBeilagenPartial", new { TbAFGAufgabe_id = (int)ViewData["TbAFGAufgabe_id"] });
+    });
+}).GetHtml()
+
+
+    
+

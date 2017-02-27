@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models.VerzeichnisTreeItem>
+@using System.Web.UI.WebControls
+@Html.DevExpress().TreeList(
+    settings =>
+{
+    settings.Name = "tvVerzeichnis";
+    settings.CallbackRouteValues = new { Controller = "Verzeichnis", Action = "VerzeichnisTreePartial" };
+    settings.Width = Unit.Percentage(100);
+
+    settings.SettingsBehavior.AllowFocusedNode = true;
+    //settings.Styles.FocusedNode.BackColor = System.Drawing.Color.FromArgb(92, 92, 92);
+    //settings.Styles.SelectionCell.BackColor = System.Drawing.Color.FromArgb(92, 92, 92);
+    //settings.Styles.SelectedNode.BackColor = System.Drawing.Color.FromArgb(92, 92, 92);
+    settings.SettingsBehavior.FocusNodeOnLoad = false;
+    settings.HtmlRowPrepared = (s, e) =>
+    {
+        //e.Row.Attributes.Add("onmouseover", "this.setAttribute('bgColor', this.style.backgroundColor); this.style.backgroundColor = '#FF0000'; //'#00AAC6';");
+        //e.Row.Attributes.Add("onmouseout", "this.style.backgroundColor = this.getAttribute('bgColor');");
+    };
+    settings.Settings.ShowColumnHeaders = false;
+
+    settings.AutoGenerateColumns = false;
+    settings.KeyFieldName = "Id";
+    settings.ParentFieldName = "ParentId";
+    settings.RootValue = 0;
+
+    settings.Columns.Add("Bezeichnung", "Behördenverzeichnis");
+    //settings.Columns.Add("TbBHDGremium_id"); 
+    settings.SettingsBehavior.ExpandCollapseAction = TreeListExpandCollapseAction.NodeDblClick;
+    settings.ClientSideEvents.NodeExpanding = "OnTreeViewNodeExpanding";
+    settings.SettingsCookies.StoreExpandedNodes = false;
+
+    settings.ClientSideEvents.NodeClick = "OnTreeViewNodeClick";
+
+    //settings.ClientLayout = (s, e) =>
+    //{
+    //    if (e.LayoutMode == ClientLayoutMode.Loading)
+    //    {
+    //        if (Session["TreeListState"] != null)
+    //            e.LayoutData = (string)Session["TreeListState"];
+    //    }
+    //    else
+    //        Session["TreeListState"] = e.LayoutData;
+    //};
+
+    settings.PreRender = (s, e) =>
+    {
+        if (Session["TreeListState"] == null)
+            ((MVCxTreeList)s).ExpandToLevel(1);
+        //(s as MVCxTreeView).SelectedNode = node;
+    };
+}).Bind(Model).GetHtml()

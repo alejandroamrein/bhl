@@ -1,0 +1,83 @@
+﻿@using System.Web.UI.WebControls
+@using DevExpress.Data.Linq
+@using Dialog.Behoerdenloesung.Sitzungen.UI.Web.Helpers
+
+@using DevExpress.Web.Mvc
+@using DevExpress.Web.Mvc.UI
+
+@{
+    ViewBag.Title = "Behördenlösung - " + ViewBag.UserName;
+}
+
+@using (Html.BeginForm())
+{
+    <div class="row" style="margin-top:20px;">
+        <div class="col-xs-12">
+            <div class="titel">Zuzüge</div>
+            @{ Html.RenderAction("EwkZuzuegePartial", "Ewk"); }
+        </div>
+        <div class="col-xs-12">
+            <div class="titel">Wegzüge</div>
+            @{ Html.RenderAction("EwkWegzuegePartial", "Ewk"); }
+        </div>
+        <div class="col-xs-12">
+            <div class="titel">Jubilare</div>
+            @{ Html.RenderAction("EwkJubilarePartial", "Ewk"); }
+        </div>
+        <div class="col-xs-12">
+            <div class="titel">Geburten</div>
+            @{ Html.RenderAction("EwkGeburtenPartial", "Ewk"); }
+        </div>
+        <div class="col-xs-12">
+            <div class="titel">Todesfälle</div>
+            @{ Html.RenderAction("EwkTodesfaellePartial", "Ewk"); }
+        </div>
+        <div class="col-xs-12">
+            <div class="titel">Einwohner</div>
+            @{ Html.RenderAction("EwkTotalePartial", "Ewk"); }
+        </div>
+    </div>
+                }
+
+@section navbarex
+{
+    <ul class="nav navbar-nav">
+        @if (ViewBag.S)
+    {
+            <li>@Html.ActionLink("Sitzungen", "Home", "Sitzungen")</li>
+        }
+        @if (ViewBag.A)
+    {
+            <li>@Html.ActionLink("Aufgaben", "Home", "Tasks")</li>
+        }
+        @if (ViewBag.K)
+    {
+            <li>@Html.ActionLink("Kalender", "Home", "Calendar")</li>
+        }
+        @if (ViewBag.G)
+    {
+            <li>@Html.ActionLink("Geschäft", "Home", "Geschaeft")</li>
+        }
+        @if (ViewBag.V)
+    {
+            <li>@Html.ActionLink("Behördenverzeichnis", "Home", "Verzeichnis")</li>
+        }
+    </ul>
+}
+
+@section styles {
+    <style>
+        .titel {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            margin-top: 15px;
+        }
+    </style>
+}
+
+@section scripts {
+}
+
+
+

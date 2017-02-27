@@ -1,0 +1,62 @@
+﻿
+@using System.Web.UI.WebControls
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<style type="text/css">
+    #suisseIdLogin #button {
+        float: right;
+        font-style: normal;
+        border-style: none;
+    }
+</style>
+<div>
+    <div id="left" style="float:left; width:70%">
+        <h2>Index</h2>
+        
+        <p><b>Trusted CA Certs:</b> @(ViewBag.TrustedCACerts)</p>
+        <p><b>Extended Certs:</b> @(ViewBag.ExtendedCerts)</p>
+        <p><b>Signing Cert:</b> @(ViewBag.SigningCerts)</p>
+        <ul>
+            @foreach (var endpoint in ViewBag.Endpoints)
+            {
+                <li>@(endpoint.FriendlyName + " " + endpoint.RequestUrl)</li> 
+            }
+        </ul>
+
+        <h2>Willkommen</h2>        
+        @using (Html.BeginForm("Logon", "Home", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div id="aspnetLogin" style="float:left; width:50%">
+                <h2>IndexLoginTitle</h2>
+                <p>IndexLoginInfo</p>
+                <div id="label" style="float:left; width:130px">
+                    @Html.Label("IndexLoginUserLabel")<br />
+                    <br />
+                    @Html.Label("IndexLoginPasswordLabel")
+                </div>
+                <div id="textbox">
+                    @Html.EditorFor(c => c.UserName)<br />
+                    <br />
+                    @Html.PasswordFor(c => c.Password)
+                </div>
+                <br />
+                <input type="submit" value="IndexLoginButton" />
+                </div>
+                <div id="suisseIdLogin" style="float:right; text-align:right">
+                <h2>IndexLoginSuisseIDTitle</h2>
+                <br />
+                <br />
+                <a href="@Url.Action("LogonCertificate", "Home")">
+                    <img id="button" src="@Url.Content("~/Content/images/SuisseID-Login_Button.jpg")" />
+                </a>
+            </div>
+        }
+    </div>
+    <div id="right" style="float:right">
+        <img src="@Url.Content("~/Content/images/Fotolia_547955_S.jpg")" width="200px" />
+    </div>
+</div>

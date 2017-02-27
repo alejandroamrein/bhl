@@ -1,0 +1,102 @@
+﻿@model Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models.SitzungenViewModel
+
+@using Dialog.Behoerdenloesung.Sitzungen.UI.Web.Helpers
+
+@{
+    ViewBag.Title = "Sitzungen";
+    var _VD_ = System.Configuration.ConfigurationManager.AppSettings["vd"];
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-bordered" style="margin-top: 20px">
+            <div class="text-success titel">Aktive Sitzungen</div>
+            <table class="table table-striped sitzungen">
+                @foreach (var item in Model.AktiveSitzungen)
+                {
+                    <tr style="cursor:pointer" onclick="window.location.href = '@(_VD_)/Sitzungen/Sitzung/@item.TbGESSitzung_id'">
+                        <td>@Html.NullableDate(item.SitzungsDatum)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TbBHDGremium.Bezeichnung)</td>
+                        <td class="hidden-xs">@Html.NullableTime(item.ZeitVon)</td>
+                        <td class="hidden-xs">@Html.NullableTime(item.ZeitBis)</td>
+                        <td class="hidden-xs hidden-sm">@Html.DisplayFor(modelItem => item.Bezeichnung)</td>
+                        <td style="text-align:right">
+                            <a href="~/Sitzungen/Sitzung/@item.TbGESSitzung_id">Bearbeiten</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-bordered" style="margin-top: 20px">
+            <div class="text-danger titel">Abgeschlossene Sitzungen</div>
+            <table class="table table-striped sitzungen">
+                @foreach (var item in Model.AbgeschlosseneSitzungen)
+                {
+                    <tr style="cursor:pointer" onclick="window.location.href = '@(_VD_)/Sitzungen/Sitzung/@item.TbGESSitzung_id'">
+                        <td>@Html.NullableDate(item.SitzungsDatum)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TbBHDGremium.Bezeichnung)</td>
+                        <td class="hidden-xs">@Html.NullableTime(item.ZeitVon)</td>
+                        <td class="hidden-xs">@Html.NullableTime(item.ZeitBis)</td>
+                        <td class="hidden-xs hidden-sm">@Html.DisplayFor(modelItem => item.Bezeichnung)</td>
+                        <td style="text-align:right">
+                            <a href="~/Sitzungen/Sitzung/@item.TbGESSitzung_id">Anzeigen</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
+<div style="width:100%; margin-top: 20px">
+    <div style="width:200px;float:right; text-align: right"><a href="~/Home/Portal" class="btn btn-default">Zurück</a></div>
+</div>
+
+@section styles {
+    <style>
+        table.sitzungen {
+            text-align: left;
+        }
+        div.titel {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-left: 10px;
+            margin-top: 5px;
+            margin-bottom: 8px;
+        }
+    </style>
+}
+
+@section navbarex
+{
+    <ul class="nav navbar-nav">
+    @if (ViewBag.A)
+    {
+        <li>@Html.ActionLink("Aufgaben", "Home", "Tasks")</li>
+    }
+    @if (ViewBag.K)
+    {
+        <li>@Html.ActionLink("Kalender", "Home", "Calendar")</li>
+    }
+    @if (ViewBag.G)
+    {
+        <li>@Html.ActionLink("Geschäft", "Home", "Geschaeft")</li>
+    }
+    @if (ViewBag.V)
+    {
+        <li>@Html.ActionLink("Behördenverzeichnis", "Home", "Verzeichnis")</li>
+    }
+    @if (ViewBag.E)
+    {
+        <li>@Html.ActionLink("EWK Info", "Home", "EWK")</li>
+    }   
+    </ul>
+}
+
+
+

@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Form";
+}
+
+<h2>Form</h2>
+
+<h2>Horizontal form</h2>
+<form role="form">
+    <div class="row">
+        <div class="col-md-3">
+            <label class="control-label" for="datum">Datum:</label>
+            <input type="date" class="form-control" id="datum" placeholder="Enter Datum">
+            <label class="control-label" for="email">Status:</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter email">
+        </div>
+        <div class="col-md-9">
+            <label class="control-label" for="bem">Bemerkung:</label>
+            <textarea rows="5" class="form-control" id="bem" placeholder="Enter bemerkung"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10 col-md-offset-1 col-md-11">
+                <button type="submit" class="btn btn-default">Submit</button>
+            </div>
+        </div>
+    </div>
+</form>

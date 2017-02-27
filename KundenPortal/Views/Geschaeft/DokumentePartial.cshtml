@@ -1,0 +1,90 @@
+﻿@using System.Web.UI.WebControls
+
+@{ 
+    var _VD_ = System.Configuration.ConfigurationManager.AppSettings["vd"];
+}
+
+<script type="text/javascript">
+    function OnTreeViewNodeClick(id) {
+        $('#hidFolderId').val(id);
+        $('#divDateien').html("");
+        if (id == -1) {
+            $.ajax({
+                async: true,
+                cache: false,
+                url: '@(_VD_)/Geschaeft/DokumenteGridPartial/-1',
+                success: function (result) {
+                    $('#divDateien').html(result);
+                },
+                error: function () { alert('error'); }
+            });
+        }
+        else {
+            $('#divDateien').load('@(_VD_)/Geschaeft/DokumenteGridPartial/' + id);
+        }
+        btnUploadFile.SetEnabled(true);
+    }
+    function OnTreeViewNodeExpanding(s, e) {
+    }
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+{
+    settings.Name = "pcDokumente";
+    //settings.ActivateTabPageAction = options.ActivateTabPageAction;
+    //settings.EnableHotTrack = options.EnableHotTrack;
+    //settings.SaveStateToCookies = options.SaveStateToCookies;
+    settings.Width = Unit.Percentage(100);
+    settings.Height = Unit.Pixel(460);
+    settings.Orientation = Orientation.Horizontal;
+    settings.Panes.Add(lbp =>
+    {
+        lbp.Name = "Verzeichnis";
+        lbp.Size = Unit.Percentage(25);
+        lbp.ShowCollapseBackwardButton = DefaultBoolean.True;
+        lbp.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<div style='overflow: auto'>");
+            Html.RenderAction("DokumenteTreePartial");
+            ViewContext.Writer.Write("</div>");
+        });
+    });
+    settings.Panes.Add("Dokumente").SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div style='margin-bottom:5px'>");
+        ViewContext.Writer.Write("<input type='hidden' id ='hidFolderId' value='' />");
+        Html.DevExpress().Button(btnSettings =>
+        {
+            btnSettings.Name = "btnUploadFile";
+            btnSettings.Text = "Upload File";
+            btnSettings.ClientEnabled = false;
+            btnSettings.ClientSideEvents.Click = "function(s, e){ onUploadFile(); }";
+        }).Render();
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("<div id='divDateien'>Ordner auswählen...</div>");
+    });
+}).GetHtml()
+
+
+@*<div class="col-md-12">
+        <input id = 'uploadFiles' name='uploadFiles' type='file' multiple class='file-loading' />
+        @ *
+            @using(Ajax.BeginForm("UploadFile", "Geschaeft",
+            new AjaxOptions { UpdateTargetId = "uploadDiv", HttpMethod = "Post" },
+            new { enctype = "multipart/form-data" }))
+            {
+                <div class="text-success titel">Dokument hochladen</div>
+                <input id = "uploadFiles" name= "uploadFiles" type= "file" class="file-input" multiple />
+            }
+            <div id = "uploadDiv" ></ div >
+            < form action = "/Geschaeft/UploadFile" method="post" enctype="multipart/form-data">
+                <div class="text-success titel">Dokument hochladen</div>
+                <input id = "uploadFiles" name= "uploadFiles" type= "file" class="file-input" multiple />
+            </form>
+        * @
+    </div>*@
+
+
+
+
+

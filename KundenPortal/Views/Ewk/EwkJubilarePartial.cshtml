@@ -1,0 +1,22 @@
+﻿@using System.Web.UI.WebControls
+@{
+    var tab = Html.DevExpress().PageControl(settings =>
+    {
+        settings.Name = "pcJubilare";
+        //settings.ActivateTabPageAction = options.ActivateTabPageAction;
+        //settings.EnableHotTrack = options.EnableHotTrack;
+        //settings.SaveStateToCookies = options.SaveStateToCookies;
+        settings.Width = Unit.Percentage(100);
+        settings.TabAlign = TabAlign.Left;
+        settings.TabPosition = TabPosition.Top;
+        settings.TabPages.Add("Aktuelles Jahr").SetContent(() =>
+        {
+            Html.RenderAction("EwkJubilare1Partial");
+        });
+        settings.TabPages.Add("Folgejahr").SetContent(() =>
+        {
+            Html.RenderAction("EwkJubilare2Partial");
+        });
+    });
+}
+@tab.GetHtml()

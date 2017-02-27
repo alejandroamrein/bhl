@@ -1,0 +1,1588 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MusterwilModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TBADRPERSON">
+          <Key>
+            <PropertyRef Name="TBADRPERSON_ID" />
+          </Key>
+          <Property Name="TBADRPERSON_ID" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="KURZBEZ" Type="varchar" MaxLength="120" />
+          <Property Name="ANREDE" Type="varchar" MaxLength="50" />
+          <Property Name="ANREDE_CD" Type="varchar" MaxLength="4" />
+          <Property Name="VORNAME" Type="varchar" MaxLength="50" />
+          <Property Name="NAME" Type="varchar" MaxLength="120" />
+          <Property Name="ZusatzName" Type="varchar" MaxLength="50" />
+          <Property Name="TITEL" Type="varchar" MaxLength="50" />
+          <Property Name="AHV" Type="varchar" MaxLength="16" />
+          <Property Name="SPRACHE_CD" Type="varchar" MaxLength="4" />
+          <Property Name="BRIEFANREDE" Type="varchar" MaxLength="50" />
+          <Property Name="BriefAnredeName" Type="varchar" MaxLength="50" />
+          <Property Name="BEM" Type="text" />
+          <Property Name="INAKTIV" Type="bit" Nullable="false" />
+          <Property Name="HERKUNFT" Type="varchar" MaxLength="4" />
+          <Property Name="SEX_CD" Type="varchar" MaxLength="1" />
+          <Property Name="GEBDAT" Type="datetime" />
+          <Property Name="AUSLAENDER" Type="bit" Nullable="false" />
+          <Property Name="ZUGRIFFSBERECHTIGUNG" Type="varchar" MaxLength="50" />
+          <Property Name="ERFDATUM" Type="datetime" />
+          <Property Name="MUTDATUM" Type="datetime" />
+          <Property Name="VISUM" Type="varchar" MaxLength="6" />
+          <Property Name="Hundehalter" Type="bit" Nullable="false" />
+          <Property Name="OrginalID" Type="numeric" Precision="15" Scale="0" />
+          <Property Name="PersNr" Type="numeric" Precision="15" Scale="0" Nullable="false" />
+          <Property Name="ErfVisum" Type="varchar" MaxLength="6" />
+          <Property Name="AHVN13" Type="varchar" MaxLength="20" />
+          <Property Name="FremdID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="UID" Type="varchar" MaxLength="50" />
+          <Property Name="EBillAccountID" Type="varchar" MaxLength="18" />
+        </EntityType>
+        <EntityType Name="TbAFGAufgabe">
+          <Key>
+            <PropertyRef Name="TbAFGAufgabe_id" />
+          </Key>
+          <Property Name="TbAFGAufgabe_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ErfDatum" Type="datetime" />
+          <Property Name="MutDatum" Type="datetime" />
+          <Property Name="Visum" Type="varchar" MaxLength="6" />
+          <Property Name="Betreff" Type="varchar" MaxLength="512" />
+          <Property Name="Beginn" Type="datetime" />
+          <Property Name="Faellig" Type="datetime" />
+          <Property Name="AufgabeStatus_ID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AufgabePrioritaet_ID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Erledigt" Type="int" />
+          <Property Name="Erinnerung" Type="datetime" />
+          <Property Name="Beschreibung" Type="ntext" />
+          <Property Name="BeschreibungRTF" Type="ntext" />
+          <Property Name="TbGESGeschaeft_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AufgabeEigner_Gremiumid" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AufgabeEigner_Personid" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AuftragGeber_Gremiumid" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AuftragGeber_Personid" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="FRMName" Type="varchar" MaxLength="255" />
+          <Property Name="Investitionen" Type="numeric" Precision="11" Scale="2" />
+          <Property Name="Voranschlag" Type="numeric" Precision="11" Scale="2" />
+          <Property Name="TbAFGAufgabeGruppe_ID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="TbAFGRecurrence_ID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ErfVisum" Type="varchar" MaxLength="6" />
+        </EntityType>
+        <EntityType Name="TbAFGAufgabeInternBeschreibung">
+          <Key>
+            <PropertyRef Name="TbAFGAufgabeInternBeschreibung_id" />
+          </Key>
+          <Property Name="TbAFGAufgabeInternBeschreibung_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TbAFGAufgabe_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ErfDatum" Type="datetime" />
+          <Property Name="MutDatum" Type="datetime" />
+          <Property Name="Visum" Type="varchar" MaxLength="6" />
+          <Property Name="InternBeschreibung" Type="ntext" />
+          <Property Name="InternBeschreibungRTF" Type="ntext" />
+          <Property Name="Datum" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TbAFGAufgabeMutationen">
+          <Key>
+            <PropertyRef Name="TbAFGAufgabeMutationen_id" />
+          </Key>
+          <Property Name="TbAFGAufgabeMutationen_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TbAFGAufgabe_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ErfDatum" Type="datetime" />
+          <Property Name="MutDatum" Type="datetime" />
+          <Property Name="Visum" Type="varchar" MaxLength="6" />
+          <Property Name="Verschiebungsgrund " Type="varchar" MaxLength="255" />
+          <Property Name="Feld" Type="varchar" MaxLength="50" />
+          <Property Name="AlteWert" Type="varchar" MaxLength="255" />
+          <Property Name="NeueWert" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="TbBHDGremium">
+          <Key>
+            <PropertyRef Name="TbBHDGremium_id" />
+          </Key>
+          <Property Name="TbBHDGremium_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ErfDatum" Type="datetime" />
+          <Property Name="MutDatum" Type="datetime" />
+          <Property Name="Visum" Type="varchar" MaxLength="6" />
+          <Property Name="Institution_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Abteilung_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="KurzBezeichnung" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="Bezeichnung" Type="varchar" MaxLength="100" />
+          <Property Name="Bemerkungen" Type="varchar" MaxLength="255" />
+          <Property Name="Sortierung" Type="varchar" MaxLength="4" />
+          <Property Name="AktivAbDatum" Type="datetime" />
+          <Property Name="AktivBisDatum" Type="datetime" />
+          <Property Name="GruendungDatum" Type="datetime" />
+          <Property Name="AbschlussDatum" Type="datetime" />
+          <Property Name="FRMname" Type="varchar" MaxLength="255" />
+          <Property Name="BemerkungenRTF" Type="ntext" />
+          <Property Name="Kommission" Type="varchar" MaxLength="1" />
+          <Property Name="amtsdauer" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="amtsperioden" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="DruckTitel" Type="varchar" MaxLength="255" />
+          <Property Name="Regplan" Type="varchar" MaxLength="1" />
+          <Property Name="Gremiumart" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="TbBHDMitglied">
+          <Key>
+            <PropertyRef Name="TbBHDMitglied_id" />
+          </Key>
+          <Property Name="TbBHDMitglied_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ErfDatum" Type="datetime" />
+          <Property Name="MutDatum" Type="datetime" />
+          <Property Name="Visum" Type="varchar" MaxLength="6" />
+          <Property Name="TbBHDFunktion_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Person_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Wahlvoraussetzung_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Partei_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Wahldatum" Type="datetime" />
+          <Property Name="Vereidigungsdatum" Type="datetime" />
+          <Property Name="EntrittDatum" Type="datetime" />
+          <Property Name="AustrittDatum" Type="datetime" />
+          <Property Name="AmtBeginnDatum" Type="datetime" />
+          <Property Name="AmtEndeDatum" Type="datetime" />
+          <Property Name="bemerkungen" Type="varchar" MaxLength="2000" />
+          <Property Name="FRMname" Type="varchar" MaxLength="255" />
+          <Property Name="bemerkungenRTF" Type="ntext" />
+          <Property Name="Protokollfuehrung" Type="varchar" MaxLength="1" />
+          <Property Name="Sitzungsleitung" Type="varchar" MaxLength="1" />
+          <Property Name="KontoAngaben" Type="varchar" MaxLength="100" />
+          <Property Name="FunktionBezeichnung" Type="varchar" MaxLength="100" />
+          <Property Name="Sitzanspruch" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="RessortBezeichnung" Type="varchar" MaxLength="100" />
+          <Property Name="Protokollfuehrung2" Type="varchar" MaxLength="1" />
+          <Property Name="HomePageBild" Type="varchar" MaxLength="255" />
+          <Property Name="TbSYSUsr_ID" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="TbGESDatenSatzBerechtigungSetup">
+          <Key>
+            <PropertyRef Name="TbGESDatenSatzBerechtigungSetup_id" />
+          </Key>
+          <Property Name="TbGESDatenSatzBerechtigungSetup_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TbBHDGremium_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="User_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="TbGMXCode_Security_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ErfDatum" Type="datetime" />
+          <Property Name="MutDatum" Type="datetime" />
+          <Property Name="Visum" Type="varchar" MaxLength="6" />
+        </EntityType>
+        <EntityType Name="TbGESGeschaeft">
+          <Key>
+            <PropertyRef Name="TbGESGeschaeft_id" />
+          </Key>
+          <Property Name="TbGESGeschaeft_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TbRegGruppe_Id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ErfDatum" Type="datetime" />
+          <Property Name="MutDatum" Type="datetime" />
+          <Property Name="Visum" Type="varchar" MaxLength="6" />
+          <Property Name="GesStatus_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Titel" Type="ntext" Nullable="false" />
+          <Property Name="TitelRTF" Type="ntext" Nullable="false" />
+          <Property Name="BeginnDatum" Type="datetime" />
+          <Property Name="EndeDatum" Type="datetime" />
+          <Property Name="Eigner_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="EignerSachbearbeiterID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AuftragGeber_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AuftragGeberSachbearbeiterID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="TbGMXStichWorte_Id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="FaelligkeitDatum" Type="datetime" />
+          <Property Name="Bemerkungen" Type="ntext" />
+          <Property Name="BemerkungenRTF" Type="ntext" />
+          <Property Name="FRMname" Type="varchar" MaxLength="255" />
+          <Property Name="Aufbewahr_Id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="GeschaeftsTyp" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Offentlich" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="BemerkungenIntern" Type="ntext" />
+          <Property Name="BemerkungenInternRTF" Type="ntext" />
+          <Property Name="ErfVisum" Type="varchar" MaxLength="6" />
+          <Property Name="TbADRPerson_ID" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="TbGESSitzung">
+          <Key>
+            <PropertyRef Name="TbGESSitzung_id" />
+          </Key>
+          <Property Name="TbGESSitzung_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ErfDatum" Type="datetime" />
+          <Property Name="MutDatum" Type="datetime" />
+          <Property Name="Visum" Type="varchar" MaxLength="6" />
+          <Property Name="Status_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Bezeichnung" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="KurzBezeichnung" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="SitzungsArt_ID" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="SitzungsOrt_ID" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ZeitVon" Type="datetime" />
+          <Property Name="ZeitBis" Type="datetime" />
+          <Property Name="Gremium_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="SitzungsDatum" Type="datetime" />
+          <Property Name="Jahr" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="SitzungsNr" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Bemerkungen" Type="ntext" />
+          <Property Name="BemerkungenRTF" Type="ntext" />
+          <Property Name="FRMname" Type="varchar" MaxLength="255" />
+          <Property Name="ZusatzFeld1" Type="varchar" MaxLength="1500" />
+          <Property Name="ZusatzFeld2" Type="varchar" MaxLength="1500" />
+          <Property Name="ZusatzFeld3" Type="varchar" MaxLength="1500" />
+          <Property Name="ZusatzFeld4" Type="varchar" MaxLength="1500" />
+          <Property Name="ZusatzFeld5" Type="varchar" MaxLength="1500" />
+          <Property Name="ZusatzFeld6" Type="varchar" MaxLength="1500" />
+          <Property Name="ZusatzFeld7" Type="varchar" MaxLength="1500" />
+          <Property Name="ZusatzFeld8" Type="varchar" MaxLength="1500" />
+          <Property Name="ZusatzFeld9" Type="varchar" MaxLength="1500" />
+          <Property Name="ZusatzFeld10" Type="varchar" MaxLength="1500" />
+          <Property Name="ProtokollErsteSeiteNr" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ErfVisum" Type="varchar" MaxLength="6" />
+          <Property Name="WebFreigabe" Type="varchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="TbGESSitzungTeilnehmer">
+          <Key>
+            <PropertyRef Name="TbGESSitzungTeilnehmer_id" />
+          </Key>
+          <Property Name="TbGESSitzungTeilnehmer_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TbGESSitzung_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ErfDatum" Type="datetime" />
+          <Property Name="MutDatum" Type="datetime" />
+          <Property Name="Visum" Type="varchar" MaxLength="6" />
+          <Property Name="TbBHDMitglied_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Protokollfuehrung" Type="varchar" MaxLength="1" />
+          <Property Name="Sitzungsleitung" Type="varchar" MaxLength="1" />
+          <Property Name="FRMname" Type="varchar" MaxLength="255" />
+          <Property Name="Anwesend" Type="varchar" MaxLength="1" />
+          <Property Name="Abwesenheit" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Zeitvon" Type="datetime" />
+          <Property Name="Zeitbis" Type="datetime" />
+          <Property Name="Menge" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="Tarif_ID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Pauschal" Type="varchar" MaxLength="1" />
+          <Property Name="Ansatz" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="Betrag" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="Spesen" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="Abrechnung" Type="datetime" />
+          <Property Name="KM" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="KMBetrag" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="Bemerkungen" Type="varchar" MaxLength="255" />
+          <Property Name="FunktionBezeichnung" Type="varchar" MaxLength="100" />
+          <Property Name="TBADRPerson_ID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Protokollfuehrung2" Type="varchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="TbGESTraktanden">
+          <Key>
+            <PropertyRef Name="TbGESTraktanden_id" />
+          </Key>
+          <Property Name="TbGESTraktanden_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TbGESSitzung_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ErfDatum" Type="datetime" />
+          <Property Name="MutDatum" Type="datetime" />
+          <Property Name="Visum" Type="varchar" MaxLength="6" />
+          <Property Name="Traktanden_NR" Type="int" />
+          <Property Name="TraktandenTyp_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="TbGESGeschaeft_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="PressMitteilung" Type="ntext" />
+          <Property Name="PressMitteilungRTF" Type="ntext" />
+          <Property Name="Titel" Type="ntext" />
+          <Property Name="TitelRTF" Type="ntext" />
+          <Property Name="Beschluss_NR" Type="int" />
+          <Property Name="FRMname" Type="varchar" MaxLength="255" />
+          <Property Name="Traktandum" Type="ntext" />
+          <Property Name="TraktandumRTF" Type="ntext" />
+          <Property Name="Offentlich" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Vermerk" Type="varchar" MaxLength="50" />
+          <Property Name="TbGMXCodeSachbearbeiter_ID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="BeschlussDatum" Type="datetime" />
+          <Property Name="TbGMXCodeKompetenz_ID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Betrag" Type="numeric" Precision="11" Scale="2" />
+          <Property Name="ErfVisum" Type="varchar" MaxLength="6" />
+        </EntityType>
+        <EntityType Name="TbGESTraktandenBeilagen">
+          <Key>
+            <PropertyRef Name="TbGESTraktandenBeilagen_ID" />
+          </Key>
+          <Property Name="TbGESTraktandenBeilagen_ID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TbGESTraktanden_ID" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="TbGMXDatei_ID" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ErfDatum" Type="datetime" />
+          <Property Name="MutDatum" Type="datetime" />
+          <Property Name="Visum" Type="varchar" MaxLength="6" />
+        </EntityType>
+        <EntityType Name="TbGESTraktandenKommmentar">
+          <Key>
+            <PropertyRef Name="TbGESTraktandenKommmentar_ID" />
+          </Key>
+          <Property Name="TbGESTraktandenKommmentar_ID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TbGESTraktanden_ID" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="User_ID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="StellungnahmeDatum" Type="datetime" />
+          <Property Name="TbGMXCodeStatus_ID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Bemerkungen" Type="varchar" MaxLength="2000" />
+          <Property Name="ErfDatum" Type="datetime" />
+          <Property Name="MutDatum" Type="datetime" />
+          <Property Name="Visum" Type="varchar" MaxLength="6" />
+          <Property Name="Vertraulich" Type="bit" />
+        </EntityType>
+        <EntityType Name="TBGMXCODE">
+          <Key>
+            <PropertyRef Name="TBGMXCODE_ID" />
+          </Key>
+          <Property Name="TBGMXCODE_ID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CODEKEY" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="BEZ" Type="varchar" MaxLength="50" />
+          <Property Name="VIS" Type="varchar" MaxLength="4" />
+          <Property Name="DEFAULTWERT" Type="bit" Nullable="false" />
+          <Property Name="SORT" Type="varchar" MaxLength="4" />
+          <Property Name="SYSTEMCODE" Type="bit" Nullable="false" />
+          <Property Name="AKTIVCODE" Type="bit" Nullable="false" />
+          <Property Name="FFTXT1" Type="varchar" MaxLength="50" />
+          <Property Name="FFTXT2" Type="varchar" MaxLength="50" />
+          <Property Name="FFTXT3" Type="varchar" MaxLength="50" />
+          <Property Name="FFTXT4" Type="varchar" MaxLength="50" />
+          <Property Name="FFNUM1" Type="real" />
+          <Property Name="FFNUM2" Type="real" />
+          <Property Name="FFNUM3" Type="real" />
+          <Property Name="FFNUM4" Type="real" />
+          <Property Name="ERFDATUM" Type="datetime" />
+          <Property Name="MUTDATUM" Type="datetime" />
+          <Property Name="VISUM" Type="varchar" MaxLength="6" />
+          <Property Name="CODEART" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="KURZ_BEZ" Type="varchar" MaxLength="15" />
+          <Property Name="GUELTIGAB" Type="datetime" />
+          <Property Name="GUELTIGBIS" Type="datetime" />
+          <Property Name="Sprach_CD" Type="varchar" MaxLength="4" />
+          <Property Name="CODEBEM" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="TBGMXCODEARTEN">
+          <Key>
+            <PropertyRef Name="CODEART" />
+          </Key>
+          <Property Name="CODEART" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="TBGMXCODEARTEN_ID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BEZ_FFTXT1" Type="varchar" MaxLength="30" />
+          <Property Name="BEZ_FFTXT2" Type="varchar" MaxLength="30" />
+          <Property Name="BEZ_FFTXT3" Type="varchar" MaxLength="30" />
+          <Property Name="BEZ_FFTXT4" Type="varchar" MaxLength="30" />
+          <Property Name="BEZ_FFNUM1" Type="varchar" MaxLength="30" />
+          <Property Name="BEZ_FFNUM2" Type="varchar" MaxLength="30" />
+          <Property Name="BEZ_FFNUM3" Type="varchar" MaxLength="30" />
+          <Property Name="BEZ_FFNUM4" Type="varchar" MaxLength="30" />
+          <Property Name="ERFDATUM" Type="datetime" />
+          <Property Name="MUTDATUM" Type="datetime" />
+          <Property Name="VISUM" Type="varchar" MaxLength="6" />
+          <Property Name="BEZEICHNUNG" Type="varchar" MaxLength="50" />
+          <Property Name="MODULS" Type="varchar" MaxLength="64" />
+          <Property Name="SCHUTZLEVEL" Type="int" />
+          <Property Name="DEFAULTFORM" Type="varchar" MaxLength="10" />
+          <Property Name="TbFeld" Type="varchar" MaxLength="200" />
+          <Property Name="Mehrsprachig" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TbGMXDatei">
+          <Key>
+            <PropertyRef Name="TbGMXDatei_id" />
+          </Key>
+          <Property Name="TbGMXDatei_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ErfDatum" Type="datetime" />
+          <Property Name="MutDatum" Type="datetime" />
+          <Property Name="Visum" Type="varchar" MaxLength="6" />
+          <Property Name="ReferenzID" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ReferenzModul" Type="varchar" MaxLength="3" />
+          <Property Name="ReferenzMaske" Type="varchar" MaxLength="255" />
+          <Property Name="ReferenzSection" Type="varchar" MaxLength="255" />
+          <Property Name="DateiName" Type="varchar" MaxLength="500" />
+          <Property Name="Datei" Type="image" />
+          <Property Name="DateiTyp" Type="varchar" MaxLength="10" />
+          <Property Name="Kategorie" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Titel" Type="varchar" MaxLength="100" />
+          <Property Name="Version" Type="int" />
+          <Property Name="Beschreibung" Type="varchar" MaxLength="500" />
+          <Property Name="CheckOut" Type="varchar" MaxLength="1" />
+          <Property Name="Deleted" Type="varchar" MaxLength="1" />
+          <Property Name="SortOrder" Type="int" />
+          <Property Name="ART" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ErstelltDatum" Type="datetime" />
+          <Property Name="EingangDatum" Type="datetime" />
+          <Property Name="AusgangDatum" Type="datetime" />
+          <Property Name="TbRegGruppe_Id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="TbGMXDateiFolder_Id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="EigenschaftenVisum_ID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="TbADRPerson_ID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AufbewahrungsFrist" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AufbewahrungBis" Type="datetime" />
+          <Property Name="PhysischeAblage" Type="varchar" MaxLength="1" />
+          <Property Name="DateiGroesse" Type="bigint" />
+          <Property Name="PhysischeAblageBezeichnung" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TbSysUSR">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InsUser" Type="varchar" MaxLength="20" />
+          <Property Name="InsTime" Type="datetime" />
+          <Property Name="ModUser" Type="varchar" MaxLength="20" />
+          <Property Name="ModTime" Type="datetime" />
+          <Property Name="Shortname" Type="varchar" MaxLength="6" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Active" Type="smallint" />
+          <Property Name="Admin" Type="smallint" />
+          <Property Name="CLT_ID" Type="int" />
+          <Property Name="Loginname" Type="varchar" MaxLength="20" />
+          <Property Name="PhoneDirect" Type="varchar" MaxLength="30" />
+          <Property Name="PhoneGeneral" Type="varchar" MaxLength="30" />
+          <Property Name="Fax" Type="varchar" MaxLength="30" />
+          <Property Name="EMail" Type="varchar" MaxLength="100" />
+          <Property Name="Abteilung_ID" Type="int" />
+          <Property Name="Abteilung" Type="varchar" MaxLength="50" />
+          <Property Name="Stelle" Type="varchar" MaxLength="50" />
+          <Property Name="Bereich" Type="varchar" MaxLength="50" />
+          <Property Name="Bemerkung" Type="text" />
+        </EntityType>
+        <Association Name="FK_TbBHDMitglied_TBADRPERSON">
+          <End Role="TBADRPERSON" Type="Self.TBADRPERSON" Multiplicity="0..1" />
+          <End Role="TbBHDMitglied" Type="Self.TbBHDMitglied" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBADRPERSON">
+              <PropertyRef Name="TBADRPERSON_ID" />
+            </Principal>
+            <Dependent Role="TbBHDMitglied">
+              <PropertyRef Name="Person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TbGESGeschaeft_TbBHDGremium_Eigner_id">
+          <End Role="TbBHDGremium" Type="Self.TbBHDGremium" Multiplicity="0..1" />
+          <End Role="TbGESGeschaeft" Type="Self.TbGESGeschaeft" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbBHDGremium">
+              <PropertyRef Name="TbBHDGremium_id" />
+            </Principal>
+            <Dependent Role="TbGESGeschaeft">
+              <PropertyRef Name="Eigner_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TbGESSitzung_TbBHDGremium">
+          <End Role="TbBHDGremium" Type="Self.TbBHDGremium" Multiplicity="0..1" />
+          <End Role="TbGESSitzung" Type="Self.TbGESSitzung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbBHDGremium">
+              <PropertyRef Name="TbBHDGremium_id" />
+            </Principal>
+            <Dependent Role="TbGESSitzung">
+              <PropertyRef Name="Gremium_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TbGESSitzungTeilnehmer_TbGESSitzung">
+          <End Role="TbGESSitzung" Type="Self.TbGESSitzung" Multiplicity="1" />
+          <End Role="TbGESSitzungTeilnehmer" Type="Self.TbGESSitzungTeilnehmer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbGESSitzung">
+              <PropertyRef Name="TbGESSitzung_id" />
+            </Principal>
+            <Dependent Role="TbGESSitzungTeilnehmer">
+              <PropertyRef Name="TbGESSitzung_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TbGESTraktanden_TbGESSitzung">
+          <End Role="TbGESSitzung" Type="Self.TbGESSitzung" Multiplicity="1" />
+          <End Role="TbGESTraktanden" Type="Self.TbGESTraktanden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbGESSitzung">
+              <PropertyRef Name="TbGESSitzung_id" />
+            </Principal>
+            <Dependent Role="TbGESTraktanden">
+              <PropertyRef Name="TbGESSitzung_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBGMXCOD_RE_24087_TBGMXCOD">
+          <End Role="TBGMXCODEARTEN" Type="Self.TBGMXCODEARTEN" Multiplicity="1" />
+          <End Role="TBGMXCODE" Type="Self.TBGMXCODE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBGMXCODEARTEN">
+              <PropertyRef Name="CODEART" />
+            </Principal>
+            <Dependent Role="TBGMXCODE">
+              <PropertyRef Name="CODEART" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MusterwilModelStoreContainer">
+          <EntitySet Name="TBADRPERSON" EntityType="Self.TBADRPERSON" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TbAFGAufgabe" EntityType="Self.TbAFGAufgabe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TbAFGAufgabeInternBeschreibung" EntityType="Self.TbAFGAufgabeInternBeschreibung" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TbAFGAufgabeMutationen" EntityType="Self.TbAFGAufgabeMutationen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TbBHDGremium" EntityType="Self.TbBHDGremium" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TbBHDMitglied" EntityType="Self.TbBHDMitglied" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TbGESDatenSatzBerechtigungSetup" EntityType="Self.TbGESDatenSatzBerechtigungSetup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TbGESGeschaeft" EntityType="Self.TbGESGeschaeft" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TbGESSitzung" EntityType="Self.TbGESSitzung" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TbGESSitzungTeilnehmer" EntityType="Self.TbGESSitzungTeilnehmer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TbGESTraktanden" EntityType="Self.TbGESTraktanden" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TbGESTraktandenBeilagen" EntityType="Self.TbGESTraktandenBeilagen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TbGESTraktandenKommmentar" EntityType="Self.TbGESTraktandenKommmentar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBGMXCODE" EntityType="Self.TBGMXCODE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBGMXCODEARTEN" EntityType="Self.TBGMXCODEARTEN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TbGMXDatei" EntityType="Self.TbGMXDatei" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TbSysUSR" EntityType="Self.TbSysUSR" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TbBHDMitglied_TBADRPERSON" Association="Self.FK_TbBHDMitglied_TBADRPERSON">
+            <End Role="TBADRPERSON" EntitySet="TBADRPERSON" />
+            <End Role="TbBHDMitglied" EntitySet="TbBHDMitglied" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TbGESGeschaeft_TbBHDGremium_Eigner_id" Association="Self.FK_TbGESGeschaeft_TbBHDGremium_Eigner_id">
+            <End Role="TbBHDGremium" EntitySet="TbBHDGremium" />
+            <End Role="TbGESGeschaeft" EntitySet="TbGESGeschaeft" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TbGESSitzung_TbBHDGremium" Association="Self.FK_TbGESSitzung_TbBHDGremium">
+            <End Role="TbBHDGremium" EntitySet="TbBHDGremium" />
+            <End Role="TbGESSitzung" EntitySet="TbGESSitzung" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TbGESSitzungTeilnehmer_TbGESSitzung" Association="Self.FK_TbGESSitzungTeilnehmer_TbGESSitzung">
+            <End Role="TbGESSitzung" EntitySet="TbGESSitzung" />
+            <End Role="TbGESSitzungTeilnehmer" EntitySet="TbGESSitzungTeilnehmer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TbGESTraktanden_TbGESSitzung" Association="Self.FK_TbGESTraktanden_TbGESSitzung">
+            <End Role="TbGESSitzung" EntitySet="TbGESSitzung" />
+            <End Role="TbGESTraktanden" EntitySet="TbGESTraktanden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBGMXCOD_RE_24087_TBGMXCOD" Association="Self.FK_TBGMXCOD_RE_24087_TBGMXCOD">
+            <End Role="TBGMXCODEARTEN" EntitySet="TBGMXCODEARTEN" />
+            <End Role="TBGMXCODE" EntitySet="TBGMXCODE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MusterwilModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TBADRPERSON">
+          <Key>
+            <PropertyRef Name="TBADRPERSON_ID" />
+          </Key>
+          <Property Name="TBADRPERSON_ID" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="KURZBEZ" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="ANREDE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ANREDE_CD" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="VORNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NAME" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="ZusatzName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TITEL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AHV" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="SPRACHE_CD" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="BRIEFANREDE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BriefAnredeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BEM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="INAKTIV" Type="Boolean" Nullable="false" />
+          <Property Name="HERKUNFT" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="SEX_CD" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="GEBDAT" Type="DateTime" Precision="3" />
+          <Property Name="AUSLAENDER" Type="Boolean" Nullable="false" />
+          <Property Name="ZUGRIFFSBERECHTIGUNG" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ERFDATUM" Type="DateTime" Precision="3" />
+          <Property Name="MUTDATUM" Type="DateTime" Precision="3" />
+          <Property Name="VISUM" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="Hundehalter" Type="Boolean" Nullable="false" />
+          <Property Name="OrginalID" Type="Decimal" Precision="15" Scale="0" />
+          <Property Name="PersNr" Type="Decimal" Precision="15" Scale="0" Nullable="false" />
+          <Property Name="ErfVisum" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="AHVN13" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FremdID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="UID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EBillAccountID" Type="String" MaxLength="18" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TbBHDMitglieds" Relationship="Self.FK_TbBHDMitglied_TBADRPERSON" FromRole="TBADRPERSON" ToRole="TbBHDMitglied" />
+        </EntityType>
+        <EntityType Name="TbAFGAufgabe">
+          <Key>
+            <PropertyRef Name="TbAFGAufgabe_id" />
+          </Key>
+          <Property Name="TbAFGAufgabe_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ErfDatum" Type="DateTime" Precision="3" />
+          <Property Name="MutDatum" Type="DateTime" Precision="3" />
+          <Property Name="Visum" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="Betreff" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
+          <Property Name="Beginn" Type="DateTime" Precision="3" />
+          <Property Name="Faellig" Type="DateTime" Precision="3" />
+          <Property Name="AufgabeStatus_ID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AufgabePrioritaet_ID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Erledigt" Type="Int32" />
+          <Property Name="Erinnerung" Type="DateTime" Precision="3" />
+          <Property Name="Beschreibung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BeschreibungRTF" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TbGESGeschaeft_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AufgabeEigner_Gremiumid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AufgabeEigner_Personid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AuftragGeber_Gremiumid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AuftragGeber_Personid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="FRMName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Investitionen" Type="Decimal" Precision="11" Scale="2" />
+          <Property Name="Voranschlag" Type="Decimal" Precision="11" Scale="2" />
+          <Property Name="TbAFGAufgabeGruppe_ID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="TbAFGRecurrence_ID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ErfVisum" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TbAFGAufgabeInternBeschreibung">
+          <Key>
+            <PropertyRef Name="TbAFGAufgabeInternBeschreibung_id" />
+          </Key>
+          <Property Name="TbAFGAufgabeInternBeschreibung_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TbAFGAufgabe_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ErfDatum" Type="DateTime" Precision="3" />
+          <Property Name="MutDatum" Type="DateTime" Precision="3" />
+          <Property Name="Visum" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="InternBeschreibung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="InternBeschreibungRTF" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Datum" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="TbAFGAufgabeMutationen">
+          <Key>
+            <PropertyRef Name="TbAFGAufgabeMutationen_id" />
+          </Key>
+          <Property Name="TbAFGAufgabeMutationen_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TbAFGAufgabe_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ErfDatum" Type="DateTime" Precision="3" />
+          <Property Name="MutDatum" Type="DateTime" Precision="3" />
+          <Property Name="Visum" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="Verschiebungsgrund_" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Feld" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AlteWert" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NeueWert" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TbBHDGremium">
+          <Key>
+            <PropertyRef Name="TbBHDGremium_id" />
+          </Key>
+          <Property Name="TbBHDGremium_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ErfDatum" Type="DateTime" Precision="3" />
+          <Property Name="MutDatum" Type="DateTime" Precision="3" />
+          <Property Name="Visum" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="Institution_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Abteilung_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="KurzBezeichnung" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Bezeichnung" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Bemerkungen" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Sortierung" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="AktivAbDatum" Type="DateTime" Precision="3" />
+          <Property Name="AktivBisDatum" Type="DateTime" Precision="3" />
+          <Property Name="GruendungDatum" Type="DateTime" Precision="3" />
+          <Property Name="AbschlussDatum" Type="DateTime" Precision="3" />
+          <Property Name="FRMname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="BemerkungenRTF" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Kommission" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="amtsdauer" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="amtsperioden" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="DruckTitel" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Regplan" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Gremiumart" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="TbGESGeschaefts" Relationship="Self.FK_TbGESGeschaeft_TbBHDGremium_Eigner_id" FromRole="TbBHDGremium" ToRole="TbGESGeschaeft" />
+          <NavigationProperty Name="TbGESSitzungs" Relationship="Self.FK_TbGESSitzung_TbBHDGremium" FromRole="TbBHDGremium" ToRole="TbGESSitzung" />
+        </EntityType>
+        <EntityType Name="TbBHDMitglied">
+          <Key>
+            <PropertyRef Name="TbBHDMitglied_id" />
+          </Key>
+          <Property Name="TbBHDMitglied_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ErfDatum" Type="DateTime" Precision="3" />
+          <Property Name="MutDatum" Type="DateTime" Precision="3" />
+          <Property Name="Visum" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="TbBHDFunktion_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Person_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Wahlvoraussetzung_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Partei_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Wahldatum" Type="DateTime" Precision="3" />
+          <Property Name="Vereidigungsdatum" Type="DateTime" Precision="3" />
+          <Property Name="EntrittDatum" Type="DateTime" Precision="3" />
+          <Property Name="AustrittDatum" Type="DateTime" Precision="3" />
+          <Property Name="AmtBeginnDatum" Type="DateTime" Precision="3" />
+          <Property Name="AmtEndeDatum" Type="DateTime" Precision="3" />
+          <Property Name="bemerkungen" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="FRMname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="bemerkungenRTF" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Protokollfuehrung" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Sitzungsleitung" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="KontoAngaben" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FunktionBezeichnung" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Sitzanspruch" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="RessortBezeichnung" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Protokollfuehrung2" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="HomePageBild" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TbSYSUsr_ID" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="TBADRPERSON" Relationship="Self.FK_TbBHDMitglied_TBADRPERSON" FromRole="TbBHDMitglied" ToRole="TBADRPERSON" />
+        </EntityType>
+        <EntityType Name="TbGESDatenSatzBerechtigungSetup">
+          <Key>
+            <PropertyRef Name="TbGESDatenSatzBerechtigungSetup_id" />
+          </Key>
+          <Property Name="TbGESDatenSatzBerechtigungSetup_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TbBHDGremium_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="User_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="TbGMXCode_Security_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ErfDatum" Type="DateTime" Precision="3" />
+          <Property Name="MutDatum" Type="DateTime" Precision="3" />
+          <Property Name="Visum" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TbGESGeschaeft">
+          <Key>
+            <PropertyRef Name="TbGESGeschaeft_id" />
+          </Key>
+          <Property Name="TbGESGeschaeft_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TbRegGruppe_Id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ErfDatum" Type="DateTime" Precision="3" />
+          <Property Name="MutDatum" Type="DateTime" Precision="3" />
+          <Property Name="Visum" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="GesStatus_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Titel" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TitelRTF" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BeginnDatum" Type="DateTime" Precision="3" />
+          <Property Name="EndeDatum" Type="DateTime" Precision="3" />
+          <Property Name="Eigner_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="EignerSachbearbeiterID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AuftragGeber_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AuftragGeberSachbearbeiterID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="TbGMXStichWorte_Id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="FaelligkeitDatum" Type="DateTime" Precision="3" />
+          <Property Name="Bemerkungen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BemerkungenRTF" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FRMname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Aufbewahr_Id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="GeschaeftsTyp" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Offentlich" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="BemerkungenIntern" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BemerkungenInternRTF" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ErfVisum" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="TbADRPerson_ID" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="TbBHDGremium" Relationship="Self.FK_TbGESGeschaeft_TbBHDGremium_Eigner_id" FromRole="TbGESGeschaeft" ToRole="TbBHDGremium" />
+        </EntityType>
+        <EntityType Name="TbGESSitzung">
+          <Key>
+            <PropertyRef Name="TbGESSitzung_id" />
+          </Key>
+          <Property Name="TbGESSitzung_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ErfDatum" Type="DateTime" Precision="3" />
+          <Property Name="MutDatum" Type="DateTime" Precision="3" />
+          <Property Name="Visum" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="Status_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Bezeichnung" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="KurzBezeichnung" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SitzungsArt_ID" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="SitzungsOrt_ID" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ZeitVon" Type="DateTime" Precision="3" />
+          <Property Name="ZeitBis" Type="DateTime" Precision="3" />
+          <Property Name="Gremium_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SitzungsDatum" Type="DateTime" Precision="3" />
+          <Property Name="Jahr" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SitzungsNr" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Bemerkungen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BemerkungenRTF" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FRMname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ZusatzFeld1" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="ZusatzFeld2" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="ZusatzFeld3" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="ZusatzFeld4" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="ZusatzFeld5" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="ZusatzFeld6" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="ZusatzFeld7" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="ZusatzFeld8" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="ZusatzFeld9" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="ZusatzFeld10" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="ProtokollErsteSeiteNr" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ErfVisum" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="WebFreigabe" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TbBHDGremium" Relationship="Self.FK_TbGESSitzung_TbBHDGremium" FromRole="TbGESSitzung" ToRole="TbBHDGremium" />
+          <NavigationProperty Name="TbGESSitzungTeilnehmers" Relationship="Self.FK_TbGESSitzungTeilnehmer_TbGESSitzung" FromRole="TbGESSitzung" ToRole="TbGESSitzungTeilnehmer" />
+          <NavigationProperty Name="TbGESTraktandens" Relationship="Self.FK_TbGESTraktanden_TbGESSitzung" FromRole="TbGESSitzung" ToRole="TbGESTraktanden" />
+        </EntityType>
+        <EntityType Name="TbGESSitzungTeilnehmer">
+          <Key>
+            <PropertyRef Name="TbGESSitzungTeilnehmer_id" />
+          </Key>
+          <Property Name="TbGESSitzungTeilnehmer_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TbGESSitzung_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ErfDatum" Type="DateTime" Precision="3" />
+          <Property Name="MutDatum" Type="DateTime" Precision="3" />
+          <Property Name="Visum" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="TbBHDMitglied_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Protokollfuehrung" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Sitzungsleitung" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="FRMname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Anwesend" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Abwesenheit" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Zeitvon" Type="DateTime" Precision="3" />
+          <Property Name="Zeitbis" Type="DateTime" Precision="3" />
+          <Property Name="Menge" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Tarif_ID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Pauschal" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Ansatz" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Betrag" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Spesen" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Abrechnung" Type="DateTime" Precision="3" />
+          <Property Name="KM" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="KMBetrag" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Bemerkungen" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FunktionBezeichnung" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TBADRPerson_ID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Protokollfuehrung2" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TbGESSitzung" Relationship="Self.FK_TbGESSitzungTeilnehmer_TbGESSitzung" FromRole="TbGESSitzungTeilnehmer" ToRole="TbGESSitzung" />
+        </EntityType>
+        <EntityType Name="TbGESTraktanden">
+          <Key>
+            <PropertyRef Name="TbGESTraktanden_id" />
+          </Key>
+          <Property Name="TbGESTraktanden_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TbGESSitzung_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ErfDatum" Type="DateTime" Precision="3" />
+          <Property Name="MutDatum" Type="DateTime" Precision="3" />
+          <Property Name="Visum" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="Traktanden_NR" Type="Int32" />
+          <Property Name="TraktandenTyp_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="TbGESGeschaeft_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PressMitteilung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PressMitteilungRTF" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Titel" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TitelRTF" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Beschluss_NR" Type="Int32" />
+          <Property Name="FRMname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Traktandum" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TraktandumRTF" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Offentlich" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Vermerk" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TbGMXCodeSachbearbeiter_ID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="BeschlussDatum" Type="DateTime" Precision="3" />
+          <Property Name="TbGMXCodeKompetenz_ID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Betrag" Type="Decimal" Precision="11" Scale="2" />
+          <Property Name="ErfVisum" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TbGESSitzung" Relationship="Self.FK_TbGESTraktanden_TbGESSitzung" FromRole="TbGESTraktanden" ToRole="TbGESSitzung" />
+        </EntityType>
+        <EntityType Name="TbGESTraktandenBeilagen">
+          <Key>
+            <PropertyRef Name="TbGESTraktandenBeilagen_ID" />
+          </Key>
+          <Property Name="TbGESTraktandenBeilagen_ID" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TbGESTraktanden_ID" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="TbGMXDatei_ID" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ErfDatum" Type="DateTime" Precision="3" />
+          <Property Name="MutDatum" Type="DateTime" Precision="3" />
+          <Property Name="Visum" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TbGESTraktandenKommmentar">
+          <Key>
+            <PropertyRef Name="TbGESTraktandenKommmentar_ID" />
+          </Key>
+          <Property Name="TbGESTraktandenKommmentar_ID" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TbGESTraktanden_ID" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="User_ID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="StellungnahmeDatum" Type="DateTime" Precision="3" />
+          <Property Name="TbGMXCodeStatus_ID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Bemerkungen" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="ErfDatum" Type="DateTime" Precision="3" />
+          <Property Name="MutDatum" Type="DateTime" Precision="3" />
+          <Property Name="Visum" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="Vertraulich" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="TBGMXCODE">
+          <Key>
+            <PropertyRef Name="TBGMXCODE_ID" />
+          </Key>
+          <Property Name="TBGMXCODE_ID" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODEKEY" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BEZ" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VIS" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="DEFAULTWERT" Type="Boolean" Nullable="false" />
+          <Property Name="SORT" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="SYSTEMCODE" Type="Boolean" Nullable="false" />
+          <Property Name="AKTIVCODE" Type="Boolean" Nullable="false" />
+          <Property Name="FFTXT1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FFTXT2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FFTXT3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FFTXT4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FFNUM1" Type="Single" />
+          <Property Name="FFNUM2" Type="Single" />
+          <Property Name="FFNUM3" Type="Single" />
+          <Property Name="FFNUM4" Type="Single" />
+          <Property Name="ERFDATUM" Type="DateTime" Precision="3" />
+          <Property Name="MUTDATUM" Type="DateTime" Precision="3" />
+          <Property Name="VISUM" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="CODEART" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="KURZ_BEZ" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="GUELTIGAB" Type="DateTime" Precision="3" />
+          <Property Name="GUELTIGBIS" Type="DateTime" Precision="3" />
+          <Property Name="Sprach_CD" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="CODEBEM" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBGMXCODEARTEN" Relationship="Self.FK_TBGMXCOD_RE_24087_TBGMXCOD" FromRole="TBGMXCODE" ToRole="TBGMXCODEARTEN" />
+        </EntityType>
+        <EntityType Name="TBGMXCODEARTEN">
+          <Key>
+            <PropertyRef Name="CODEART" />
+          </Key>
+          <Property Name="CODEART" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TBGMXCODEARTEN_ID" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BEZ_FFTXT1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="BEZ_FFTXT2" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="BEZ_FFTXT3" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="BEZ_FFTXT4" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="BEZ_FFNUM1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="BEZ_FFNUM2" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="BEZ_FFNUM3" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="BEZ_FFNUM4" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ERFDATUM" Type="DateTime" Precision="3" />
+          <Property Name="MUTDATUM" Type="DateTime" Precision="3" />
+          <Property Name="VISUM" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="BEZEICHNUNG" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MODULS" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="SCHUTZLEVEL" Type="Int32" />
+          <Property Name="DEFAULTFORM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TbFeld" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Mehrsprachig" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TBGMXCODEs" Relationship="Self.FK_TBGMXCOD_RE_24087_TBGMXCOD" FromRole="TBGMXCODEARTEN" ToRole="TBGMXCODE" />
+        </EntityType>
+        <EntityType Name="TbGMXDatei">
+          <Key>
+            <PropertyRef Name="TbGMXDatei_id" />
+          </Key>
+          <Property Name="TbGMXDatei_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ErfDatum" Type="DateTime" Precision="3" />
+          <Property Name="MutDatum" Type="DateTime" Precision="3" />
+          <Property Name="Visum" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="ReferenzID" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ReferenzModul" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="ReferenzMaske" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ReferenzSection" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DateiName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Datei" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="DateiTyp" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Kategorie" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Titel" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Version" Type="Int32" />
+          <Property Name="Beschreibung" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CheckOut" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Deleted" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="SortOrder" Type="Int32" />
+          <Property Name="ART" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ErstelltDatum" Type="DateTime" Precision="3" />
+          <Property Name="EingangDatum" Type="DateTime" Precision="3" />
+          <Property Name="AusgangDatum" Type="DateTime" Precision="3" />
+          <Property Name="TbRegGruppe_Id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="TbGMXDateiFolder_Id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="EigenschaftenVisum_ID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="TbADRPerson_ID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AufbewahrungsFrist" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AufbewahrungBis" Type="DateTime" Precision="3" />
+          <Property Name="PhysischeAblage" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="DateiGroesse" Type="Int64" />
+          <Property Name="PhysischeAblageBezeichnung" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TbSysUSR">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InsUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="InsTime" Type="DateTime" Precision="3" />
+          <Property Name="ModUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModTime" Type="DateTime" Precision="3" />
+          <Property Name="Shortname" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Int16" />
+          <Property Name="Admin" Type="Int16" />
+          <Property Name="CLT_ID" Type="Int32" />
+          <Property Name="Loginname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneDirect" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneGeneral" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Fax" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="EMail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Abteilung_ID" Type="Int32" />
+          <Property Name="Abteilung" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Stelle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Bereich" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Bemerkung" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_TbBHDMitglied_TBADRPERSON">
+          <End Role="TBADRPERSON" Type="Self.TBADRPERSON" Multiplicity="0..1" />
+          <End Role="TbBHDMitglied" Type="Self.TbBHDMitglied" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBADRPERSON">
+              <PropertyRef Name="TBADRPERSON_ID" />
+            </Principal>
+            <Dependent Role="TbBHDMitglied">
+              <PropertyRef Name="Person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TbGESGeschaeft_TbBHDGremium_Eigner_id">
+          <End Role="TbBHDGremium" Type="Self.TbBHDGremium" Multiplicity="0..1" />
+          <End Role="TbGESGeschaeft" Type="Self.TbGESGeschaeft" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbBHDGremium">
+              <PropertyRef Name="TbBHDGremium_id" />
+            </Principal>
+            <Dependent Role="TbGESGeschaeft">
+              <PropertyRef Name="Eigner_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TbGESSitzung_TbBHDGremium">
+          <End Role="TbBHDGremium" Type="Self.TbBHDGremium" Multiplicity="0..1" />
+          <End Role="TbGESSitzung" Type="Self.TbGESSitzung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbBHDGremium">
+              <PropertyRef Name="TbBHDGremium_id" />
+            </Principal>
+            <Dependent Role="TbGESSitzung">
+              <PropertyRef Name="Gremium_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TbGESSitzungTeilnehmer_TbGESSitzung">
+          <End Role="TbGESSitzung" Type="Self.TbGESSitzung" Multiplicity="1" />
+          <End Role="TbGESSitzungTeilnehmer" Type="Self.TbGESSitzungTeilnehmer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbGESSitzung">
+              <PropertyRef Name="TbGESSitzung_id" />
+            </Principal>
+            <Dependent Role="TbGESSitzungTeilnehmer">
+              <PropertyRef Name="TbGESSitzung_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TbGESTraktanden_TbGESSitzung">
+          <End Role="TbGESSitzung" Type="Self.TbGESSitzung" Multiplicity="1" />
+          <End Role="TbGESTraktanden" Type="Self.TbGESTraktanden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbGESSitzung">
+              <PropertyRef Name="TbGESSitzung_id" />
+            </Principal>
+            <Dependent Role="TbGESTraktanden">
+              <PropertyRef Name="TbGESSitzung_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBGMXCOD_RE_24087_TBGMXCOD">
+          <End Role="TBGMXCODEARTEN" Type="Self.TBGMXCODEARTEN" Multiplicity="1" />
+          <End Role="TBGMXCODE" Type="Self.TBGMXCODE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBGMXCODEARTEN">
+              <PropertyRef Name="CODEART" />
+            </Principal>
+            <Dependent Role="TBGMXCODE">
+              <PropertyRef Name="CODEART" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BehoerdenloesungEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TBADRPERSONs" EntityType="Self.TBADRPERSON" />
+          <EntitySet Name="TbAFGAufgabes" EntityType="Self.TbAFGAufgabe" />
+          <EntitySet Name="TbAFGAufgabeInternBeschreibungs" EntityType="Self.TbAFGAufgabeInternBeschreibung" />
+          <EntitySet Name="TbAFGAufgabeMutationens" EntityType="Self.TbAFGAufgabeMutationen" />
+          <EntitySet Name="TbBHDGremiums" EntityType="Self.TbBHDGremium" />
+          <EntitySet Name="TbBHDMitglieds" EntityType="Self.TbBHDMitglied" />
+          <EntitySet Name="TbGESDatenSatzBerechtigungSetups" EntityType="Self.TbGESDatenSatzBerechtigungSetup" />
+          <EntitySet Name="TbGESGeschaefts" EntityType="Self.TbGESGeschaeft" />
+          <EntitySet Name="TbGESSitzungs" EntityType="Self.TbGESSitzung" />
+          <EntitySet Name="TbGESSitzungTeilnehmers" EntityType="Self.TbGESSitzungTeilnehmer" />
+          <EntitySet Name="TbGESTraktandens" EntityType="Self.TbGESTraktanden" />
+          <EntitySet Name="TbGESTraktandenBeilagens" EntityType="Self.TbGESTraktandenBeilagen" />
+          <EntitySet Name="TbGESTraktandenKommmentars" EntityType="Self.TbGESTraktandenKommmentar" />
+          <EntitySet Name="TBGMXCODEs" EntityType="Self.TBGMXCODE" />
+          <EntitySet Name="TBGMXCODEARTENs" EntityType="Self.TBGMXCODEARTEN" />
+          <EntitySet Name="TbGMXDateis" EntityType="Self.TbGMXDatei" />
+          <EntitySet Name="TbSysUSRs" EntityType="Self.TbSysUSR" />
+          <AssociationSet Name="FK_TbBHDMitglied_TBADRPERSON" Association="Self.FK_TbBHDMitglied_TBADRPERSON">
+            <End Role="TBADRPERSON" EntitySet="TBADRPERSONs" />
+            <End Role="TbBHDMitglied" EntitySet="TbBHDMitglieds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TbGESGeschaeft_TbBHDGremium_Eigner_id" Association="Self.FK_TbGESGeschaeft_TbBHDGremium_Eigner_id">
+            <End Role="TbBHDGremium" EntitySet="TbBHDGremiums" />
+            <End Role="TbGESGeschaeft" EntitySet="TbGESGeschaefts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TbGESSitzung_TbBHDGremium" Association="Self.FK_TbGESSitzung_TbBHDGremium">
+            <End Role="TbBHDGremium" EntitySet="TbBHDGremiums" />
+            <End Role="TbGESSitzung" EntitySet="TbGESSitzungs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TbGESSitzungTeilnehmer_TbGESSitzung" Association="Self.FK_TbGESSitzungTeilnehmer_TbGESSitzung">
+            <End Role="TbGESSitzung" EntitySet="TbGESSitzungs" />
+            <End Role="TbGESSitzungTeilnehmer" EntitySet="TbGESSitzungTeilnehmers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TbGESTraktanden_TbGESSitzung" Association="Self.FK_TbGESTraktanden_TbGESSitzung">
+            <End Role="TbGESSitzung" EntitySet="TbGESSitzungs" />
+            <End Role="TbGESTraktanden" EntitySet="TbGESTraktandens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBGMXCOD_RE_24087_TBGMXCOD" Association="Self.FK_TBGMXCOD_RE_24087_TBGMXCOD">
+            <End Role="TBGMXCODEARTEN" EntitySet="TBGMXCODEARTENs" />
+            <End Role="TBGMXCODE" EntitySet="TBGMXCODEs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MusterwilModelStoreContainer" CdmEntityContainer="BehoerdenloesungEntities">
+          <EntitySetMapping Name="TBADRPERSONs">
+            <EntityTypeMapping TypeName="MusterwilModel.TBADRPERSON">
+              <MappingFragment StoreEntitySet="TBADRPERSON">
+                <ScalarProperty Name="TBADRPERSON_ID" ColumnName="TBADRPERSON_ID" />
+                <ScalarProperty Name="KURZBEZ" ColumnName="KURZBEZ" />
+                <ScalarProperty Name="ANREDE" ColumnName="ANREDE" />
+                <ScalarProperty Name="ANREDE_CD" ColumnName="ANREDE_CD" />
+                <ScalarProperty Name="VORNAME" ColumnName="VORNAME" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ZusatzName" ColumnName="ZusatzName" />
+                <ScalarProperty Name="TITEL" ColumnName="TITEL" />
+                <ScalarProperty Name="AHV" ColumnName="AHV" />
+                <ScalarProperty Name="SPRACHE_CD" ColumnName="SPRACHE_CD" />
+                <ScalarProperty Name="BRIEFANREDE" ColumnName="BRIEFANREDE" />
+                <ScalarProperty Name="BriefAnredeName" ColumnName="BriefAnredeName" />
+                <ScalarProperty Name="BEM" ColumnName="BEM" />
+                <ScalarProperty Name="INAKTIV" ColumnName="INAKTIV" />
+                <ScalarProperty Name="HERKUNFT" ColumnName="HERKUNFT" />
+                <ScalarProperty Name="SEX_CD" ColumnName="SEX_CD" />
+                <ScalarProperty Name="GEBDAT" ColumnName="GEBDAT" />
+                <ScalarProperty Name="AUSLAENDER" ColumnName="AUSLAENDER" />
+                <ScalarProperty Name="ZUGRIFFSBERECHTIGUNG" ColumnName="ZUGRIFFSBERECHTIGUNG" />
+                <ScalarProperty Name="ERFDATUM" ColumnName="ERFDATUM" />
+                <ScalarProperty Name="MUTDATUM" ColumnName="MUTDATUM" />
+                <ScalarProperty Name="VISUM" ColumnName="VISUM" />
+                <ScalarProperty Name="Hundehalter" ColumnName="Hundehalter" />
+                <ScalarProperty Name="OrginalID" ColumnName="OrginalID" />
+                <ScalarProperty Name="PersNr" ColumnName="PersNr" />
+                <ScalarProperty Name="ErfVisum" ColumnName="ErfVisum" />
+                <ScalarProperty Name="AHVN13" ColumnName="AHVN13" />
+                <ScalarProperty Name="FremdID" ColumnName="FremdID" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="EBillAccountID" ColumnName="EBillAccountID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TbAFGAufgabes">
+            <EntityTypeMapping TypeName="MusterwilModel.TbAFGAufgabe">
+              <MappingFragment StoreEntitySet="TbAFGAufgabe">
+                <ScalarProperty Name="TbAFGAufgabe_id" ColumnName="TbAFGAufgabe_id" />
+                <ScalarProperty Name="ErfDatum" ColumnName="ErfDatum" />
+                <ScalarProperty Name="MutDatum" ColumnName="MutDatum" />
+                <ScalarProperty Name="Visum" ColumnName="Visum" />
+                <ScalarProperty Name="Betreff" ColumnName="Betreff" />
+                <ScalarProperty Name="Beginn" ColumnName="Beginn" />
+                <ScalarProperty Name="Faellig" ColumnName="Faellig" />
+                <ScalarProperty Name="AufgabeStatus_ID" ColumnName="AufgabeStatus_ID" />
+                <ScalarProperty Name="AufgabePrioritaet_ID" ColumnName="AufgabePrioritaet_ID" />
+                <ScalarProperty Name="Erledigt" ColumnName="Erledigt" />
+                <ScalarProperty Name="Erinnerung" ColumnName="Erinnerung" />
+                <ScalarProperty Name="Beschreibung" ColumnName="Beschreibung" />
+                <ScalarProperty Name="BeschreibungRTF" ColumnName="BeschreibungRTF" />
+                <ScalarProperty Name="TbGESGeschaeft_id" ColumnName="TbGESGeschaeft_id" />
+                <ScalarProperty Name="AufgabeEigner_Gremiumid" ColumnName="AufgabeEigner_Gremiumid" />
+                <ScalarProperty Name="AufgabeEigner_Personid" ColumnName="AufgabeEigner_Personid" />
+                <ScalarProperty Name="AuftragGeber_Gremiumid" ColumnName="AuftragGeber_Gremiumid" />
+                <ScalarProperty Name="AuftragGeber_Personid" ColumnName="AuftragGeber_Personid" />
+                <ScalarProperty Name="FRMName" ColumnName="FRMName" />
+                <ScalarProperty Name="Investitionen" ColumnName="Investitionen" />
+                <ScalarProperty Name="Voranschlag" ColumnName="Voranschlag" />
+                <ScalarProperty Name="TbAFGAufgabeGruppe_ID" ColumnName="TbAFGAufgabeGruppe_ID" />
+                <ScalarProperty Name="TbAFGRecurrence_ID" ColumnName="TbAFGRecurrence_ID" />
+                <ScalarProperty Name="ErfVisum" ColumnName="ErfVisum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TbAFGAufgabeInternBeschreibungs">
+            <EntityTypeMapping TypeName="MusterwilModel.TbAFGAufgabeInternBeschreibung">
+              <MappingFragment StoreEntitySet="TbAFGAufgabeInternBeschreibung">
+                <ScalarProperty Name="TbAFGAufgabeInternBeschreibung_id" ColumnName="TbAFGAufgabeInternBeschreibung_id" />
+                <ScalarProperty Name="TbAFGAufgabe_id" ColumnName="TbAFGAufgabe_id" />
+                <ScalarProperty Name="ErfDatum" ColumnName="ErfDatum" />
+                <ScalarProperty Name="MutDatum" ColumnName="MutDatum" />
+                <ScalarProperty Name="Visum" ColumnName="Visum" />
+                <ScalarProperty Name="InternBeschreibung" ColumnName="InternBeschreibung" />
+                <ScalarProperty Name="InternBeschreibungRTF" ColumnName="InternBeschreibungRTF" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TbAFGAufgabeMutationens">
+            <EntityTypeMapping TypeName="MusterwilModel.TbAFGAufgabeMutationen">
+              <MappingFragment StoreEntitySet="TbAFGAufgabeMutationen">
+                <ScalarProperty Name="TbAFGAufgabeMutationen_id" ColumnName="TbAFGAufgabeMutationen_id" />
+                <ScalarProperty Name="TbAFGAufgabe_id" ColumnName="TbAFGAufgabe_id" />
+                <ScalarProperty Name="ErfDatum" ColumnName="ErfDatum" />
+                <ScalarProperty Name="MutDatum" ColumnName="MutDatum" />
+                <ScalarProperty Name="Visum" ColumnName="Visum" />
+                <ScalarProperty Name="Verschiebungsgrund_" ColumnName="Verschiebungsgrund " />
+                <ScalarProperty Name="Feld" ColumnName="Feld" />
+                <ScalarProperty Name="AlteWert" ColumnName="AlteWert" />
+                <ScalarProperty Name="NeueWert" ColumnName="NeueWert" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TbBHDGremiums">
+            <EntityTypeMapping TypeName="MusterwilModel.TbBHDGremium">
+              <MappingFragment StoreEntitySet="TbBHDGremium">
+                <ScalarProperty Name="TbBHDGremium_id" ColumnName="TbBHDGremium_id" />
+                <ScalarProperty Name="ErfDatum" ColumnName="ErfDatum" />
+                <ScalarProperty Name="MutDatum" ColumnName="MutDatum" />
+                <ScalarProperty Name="Visum" ColumnName="Visum" />
+                <ScalarProperty Name="Institution_id" ColumnName="Institution_id" />
+                <ScalarProperty Name="Abteilung_id" ColumnName="Abteilung_id" />
+                <ScalarProperty Name="KurzBezeichnung" ColumnName="KurzBezeichnung" />
+                <ScalarProperty Name="Bezeichnung" ColumnName="Bezeichnung" />
+                <ScalarProperty Name="Bemerkungen" ColumnName="Bemerkungen" />
+                <ScalarProperty Name="Sortierung" ColumnName="Sortierung" />
+                <ScalarProperty Name="AktivAbDatum" ColumnName="AktivAbDatum" />
+                <ScalarProperty Name="AktivBisDatum" ColumnName="AktivBisDatum" />
+                <ScalarProperty Name="GruendungDatum" ColumnName="GruendungDatum" />
+                <ScalarProperty Name="AbschlussDatum" ColumnName="AbschlussDatum" />
+                <ScalarProperty Name="FRMname" ColumnName="FRMname" />
+                <ScalarProperty Name="BemerkungenRTF" ColumnName="BemerkungenRTF" />
+                <ScalarProperty Name="Kommission" ColumnName="Kommission" />
+                <ScalarProperty Name="amtsdauer" ColumnName="amtsdauer" />
+                <ScalarProperty Name="amtsperioden" ColumnName="amtsperioden" />
+                <ScalarProperty Name="DruckTitel" ColumnName="DruckTitel" />
+                <ScalarProperty Name="Regplan" ColumnName="Regplan" />
+                <ScalarProperty Name="Gremiumart" ColumnName="Gremiumart" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TbBHDMitglieds">
+            <EntityTypeMapping TypeName="MusterwilModel.TbBHDMitglied">
+              <MappingFragment StoreEntitySet="TbBHDMitglied">
+                <ScalarProperty Name="TbBHDMitglied_id" ColumnName="TbBHDMitglied_id" />
+                <ScalarProperty Name="ErfDatum" ColumnName="ErfDatum" />
+                <ScalarProperty Name="MutDatum" ColumnName="MutDatum" />
+                <ScalarProperty Name="Visum" ColumnName="Visum" />
+                <ScalarProperty Name="TbBHDFunktion_id" ColumnName="TbBHDFunktion_id" />
+                <ScalarProperty Name="Person_id" ColumnName="Person_id" />
+                <ScalarProperty Name="Wahlvoraussetzung_id" ColumnName="Wahlvoraussetzung_id" />
+                <ScalarProperty Name="Partei_id" ColumnName="Partei_id" />
+                <ScalarProperty Name="Wahldatum" ColumnName="Wahldatum" />
+                <ScalarProperty Name="Vereidigungsdatum" ColumnName="Vereidigungsdatum" />
+                <ScalarProperty Name="EntrittDatum" ColumnName="EntrittDatum" />
+                <ScalarProperty Name="AustrittDatum" ColumnName="AustrittDatum" />
+                <ScalarProperty Name="AmtBeginnDatum" ColumnName="AmtBeginnDatum" />
+                <ScalarProperty Name="AmtEndeDatum" ColumnName="AmtEndeDatum" />
+                <ScalarProperty Name="bemerkungen" ColumnName="bemerkungen" />
+                <ScalarProperty Name="FRMname" ColumnName="FRMname" />
+                <ScalarProperty Name="bemerkungenRTF" ColumnName="bemerkungenRTF" />
+                <ScalarProperty Name="Protokollfuehrung" ColumnName="Protokollfuehrung" />
+                <ScalarProperty Name="Sitzungsleitung" ColumnName="Sitzungsleitung" />
+                <ScalarProperty Name="KontoAngaben" ColumnName="KontoAngaben" />
+                <ScalarProperty Name="FunktionBezeichnung" ColumnName="FunktionBezeichnung" />
+                <ScalarProperty Name="Sitzanspruch" ColumnName="Sitzanspruch" />
+                <ScalarProperty Name="RessortBezeichnung" ColumnName="RessortBezeichnung" />
+                <ScalarProperty Name="Protokollfuehrung2" ColumnName="Protokollfuehrung2" />
+                <ScalarProperty Name="HomePageBild" ColumnName="HomePageBild" />
+                <ScalarProperty Name="TbSYSUsr_ID" ColumnName="TbSYSUsr_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TbGESDatenSatzBerechtigungSetups">
+            <EntityTypeMapping TypeName="MusterwilModel.TbGESDatenSatzBerechtigungSetup">
+              <MappingFragment StoreEntitySet="TbGESDatenSatzBerechtigungSetup">
+                <ScalarProperty Name="TbGESDatenSatzBerechtigungSetup_id" ColumnName="TbGESDatenSatzBerechtigungSetup_id" />
+                <ScalarProperty Name="TbBHDGremium_id" ColumnName="TbBHDGremium_id" />
+                <ScalarProperty Name="User_id" ColumnName="User_id" />
+                <ScalarProperty Name="TbGMXCode_Security_id" ColumnName="TbGMXCode_Security_id" />
+                <ScalarProperty Name="ErfDatum" ColumnName="ErfDatum" />
+                <ScalarProperty Name="MutDatum" ColumnName="MutDatum" />
+                <ScalarProperty Name="Visum" ColumnName="Visum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TbGESGeschaefts">
+            <EntityTypeMapping TypeName="MusterwilModel.TbGESGeschaeft">
+              <MappingFragment StoreEntitySet="TbGESGeschaeft">
+                <ScalarProperty Name="TbGESGeschaeft_id" ColumnName="TbGESGeschaeft_id" />
+                <ScalarProperty Name="TbRegGruppe_Id" ColumnName="TbRegGruppe_Id" />
+                <ScalarProperty Name="ErfDatum" ColumnName="ErfDatum" />
+                <ScalarProperty Name="MutDatum" ColumnName="MutDatum" />
+                <ScalarProperty Name="Visum" ColumnName="Visum" />
+                <ScalarProperty Name="GesStatus_id" ColumnName="GesStatus_id" />
+                <ScalarProperty Name="Titel" ColumnName="Titel" />
+                <ScalarProperty Name="TitelRTF" ColumnName="TitelRTF" />
+                <ScalarProperty Name="BeginnDatum" ColumnName="BeginnDatum" />
+                <ScalarProperty Name="EndeDatum" ColumnName="EndeDatum" />
+                <ScalarProperty Name="Eigner_id" ColumnName="Eigner_id" />
+                <ScalarProperty Name="EignerSachbearbeiterID" ColumnName="EignerSachbearbeiterID" />
+                <ScalarProperty Name="AuftragGeber_id" ColumnName="AuftragGeber_id" />
+                <ScalarProperty Name="AuftragGeberSachbearbeiterID" ColumnName="AuftragGeberSachbearbeiterID" />
+                <ScalarProperty Name="TbGMXStichWorte_Id" ColumnName="TbGMXStichWorte_Id" />
+                <ScalarProperty Name="FaelligkeitDatum" ColumnName="FaelligkeitDatum" />
+                <ScalarProperty Name="Bemerkungen" ColumnName="Bemerkungen" />
+                <ScalarProperty Name="BemerkungenRTF" ColumnName="BemerkungenRTF" />
+                <ScalarProperty Name="FRMname" ColumnName="FRMname" />
+                <ScalarProperty Name="Aufbewahr_Id" ColumnName="Aufbewahr_Id" />
+                <ScalarProperty Name="GeschaeftsTyp" ColumnName="GeschaeftsTyp" />
+                <ScalarProperty Name="Offentlich" ColumnName="Offentlich" />
+                <ScalarProperty Name="BemerkungenIntern" ColumnName="BemerkungenIntern" />
+                <ScalarProperty Name="BemerkungenInternRTF" ColumnName="BemerkungenInternRTF" />
+                <ScalarProperty Name="ErfVisum" ColumnName="ErfVisum" />
+                <ScalarProperty Name="TbADRPerson_ID" ColumnName="TbADRPerson_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TbGESSitzungs">
+            <EntityTypeMapping TypeName="MusterwilModel.TbGESSitzung">
+              <MappingFragment StoreEntitySet="TbGESSitzung">
+                <ScalarProperty Name="TbGESSitzung_id" ColumnName="TbGESSitzung_id" />
+                <ScalarProperty Name="ErfDatum" ColumnName="ErfDatum" />
+                <ScalarProperty Name="MutDatum" ColumnName="MutDatum" />
+                <ScalarProperty Name="Visum" ColumnName="Visum" />
+                <ScalarProperty Name="Status_id" ColumnName="Status_id" />
+                <ScalarProperty Name="Bezeichnung" ColumnName="Bezeichnung" />
+                <ScalarProperty Name="KurzBezeichnung" ColumnName="KurzBezeichnung" />
+                <ScalarProperty Name="SitzungsArt_ID" ColumnName="SitzungsArt_ID" />
+                <ScalarProperty Name="SitzungsOrt_ID" ColumnName="SitzungsOrt_ID" />
+                <ScalarProperty Name="ZeitVon" ColumnName="ZeitVon" />
+                <ScalarProperty Name="ZeitBis" ColumnName="ZeitBis" />
+                <ScalarProperty Name="Gremium_id" ColumnName="Gremium_id" />
+                <ScalarProperty Name="SitzungsDatum" ColumnName="SitzungsDatum" />
+                <ScalarProperty Name="Jahr" ColumnName="Jahr" />
+                <ScalarProperty Name="SitzungsNr" ColumnName="SitzungsNr" />
+                <ScalarProperty Name="Bemerkungen" ColumnName="Bemerkungen" />
+                <ScalarProperty Name="BemerkungenRTF" ColumnName="BemerkungenRTF" />
+                <ScalarProperty Name="FRMname" ColumnName="FRMname" />
+                <ScalarProperty Name="ZusatzFeld1" ColumnName="ZusatzFeld1" />
+                <ScalarProperty Name="ZusatzFeld2" ColumnName="ZusatzFeld2" />
+                <ScalarProperty Name="ZusatzFeld3" ColumnName="ZusatzFeld3" />
+                <ScalarProperty Name="ZusatzFeld4" ColumnName="ZusatzFeld4" />
+                <ScalarProperty Name="ZusatzFeld5" ColumnName="ZusatzFeld5" />
+                <ScalarProperty Name="ZusatzFeld6" ColumnName="ZusatzFeld6" />
+                <ScalarProperty Name="ZusatzFeld7" ColumnName="ZusatzFeld7" />
+                <ScalarProperty Name="ZusatzFeld8" ColumnName="ZusatzFeld8" />
+                <ScalarProperty Name="ZusatzFeld9" ColumnName="ZusatzFeld9" />
+                <ScalarProperty Name="ZusatzFeld10" ColumnName="ZusatzFeld10" />
+                <ScalarProperty Name="ProtokollErsteSeiteNr" ColumnName="ProtokollErsteSeiteNr" />
+                <ScalarProperty Name="ErfVisum" ColumnName="ErfVisum" />
+                <ScalarProperty Name="WebFreigabe" ColumnName="WebFreigabe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TbGESSitzungTeilnehmers">
+            <EntityTypeMapping TypeName="MusterwilModel.TbGESSitzungTeilnehmer">
+              <MappingFragment StoreEntitySet="TbGESSitzungTeilnehmer">
+                <ScalarProperty Name="TbGESSitzungTeilnehmer_id" ColumnName="TbGESSitzungTeilnehmer_id" />
+                <ScalarProperty Name="TbGESSitzung_id" ColumnName="TbGESSitzung_id" />
+                <ScalarProperty Name="ErfDatum" ColumnName="ErfDatum" />
+                <ScalarProperty Name="MutDatum" ColumnName="MutDatum" />
+                <ScalarProperty Name="Visum" ColumnName="Visum" />
+                <ScalarProperty Name="TbBHDMitglied_id" ColumnName="TbBHDMitglied_id" />
+                <ScalarProperty Name="Protokollfuehrung" ColumnName="Protokollfuehrung" />
+                <ScalarProperty Name="Sitzungsleitung" ColumnName="Sitzungsleitung" />
+                <ScalarProperty Name="FRMname" ColumnName="FRMname" />
+                <ScalarProperty Name="Anwesend" ColumnName="Anwesend" />
+                <ScalarProperty Name="Abwesenheit" ColumnName="Abwesenheit" />
+                <ScalarProperty Name="Zeitvon" ColumnName="Zeitvon" />
+                <ScalarProperty Name="Zeitbis" ColumnName="Zeitbis" />
+                <ScalarProperty Name="Menge" ColumnName="Menge" />
+                <ScalarProperty Name="Tarif_ID" ColumnName="Tarif_ID" />
+                <ScalarProperty Name="Pauschal" ColumnName="Pauschal" />
+                <ScalarProperty Name="Ansatz" ColumnName="Ansatz" />
+                <ScalarProperty Name="Betrag" ColumnName="Betrag" />
+                <ScalarProperty Name="Spesen" ColumnName="Spesen" />
+                <ScalarProperty Name="Abrechnung" ColumnName="Abrechnung" />
+                <ScalarProperty Name="KM" ColumnName="KM" />
+                <ScalarProperty Name="KMBetrag" ColumnName="KMBetrag" />
+                <ScalarProperty Name="Bemerkungen" ColumnName="Bemerkungen" />
+                <ScalarProperty Name="FunktionBezeichnung" ColumnName="FunktionBezeichnung" />
+                <ScalarProperty Name="TBADRPerson_ID" ColumnName="TBADRPerson_ID" />
+                <ScalarProperty Name="Protokollfuehrung2" ColumnName="Protokollfuehrung2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TbGESTraktandens">
+            <EntityTypeMapping TypeName="MusterwilModel.TbGESTraktanden">
+              <MappingFragment StoreEntitySet="TbGESTraktanden">
+                <ScalarProperty Name="TbGESTraktanden_id" ColumnName="TbGESTraktanden_id" />
+                <ScalarProperty Name="TbGESSitzung_id" ColumnName="TbGESSitzung_id" />
+                <ScalarProperty Name="ErfDatum" ColumnName="ErfDatum" />
+                <ScalarProperty Name="MutDatum" ColumnName="MutDatum" />
+                <ScalarProperty Name="Visum" ColumnName="Visum" />
+                <ScalarProperty Name="Traktanden_NR" ColumnName="Traktanden_NR" />
+                <ScalarProperty Name="TraktandenTyp_id" ColumnName="TraktandenTyp_id" />
+                <ScalarProperty Name="TbGESGeschaeft_id" ColumnName="TbGESGeschaeft_id" />
+                <ScalarProperty Name="PressMitteilung" ColumnName="PressMitteilung" />
+                <ScalarProperty Name="PressMitteilungRTF" ColumnName="PressMitteilungRTF" />
+                <ScalarProperty Name="Titel" ColumnName="Titel" />
+                <ScalarProperty Name="TitelRTF" ColumnName="TitelRTF" />
+                <ScalarProperty Name="Beschluss_NR" ColumnName="Beschluss_NR" />
+                <ScalarProperty Name="FRMname" ColumnName="FRMname" />
+                <ScalarProperty Name="Traktandum" ColumnName="Traktandum" />
+                <ScalarProperty Name="TraktandumRTF" ColumnName="TraktandumRTF" />
+                <ScalarProperty Name="Offentlich" ColumnName="Offentlich" />
+                <ScalarProperty Name="Vermerk" ColumnName="Vermerk" />
+                <ScalarProperty Name="TbGMXCodeSachbearbeiter_ID" ColumnName="TbGMXCodeSachbearbeiter_ID" />
+                <ScalarProperty Name="BeschlussDatum" ColumnName="BeschlussDatum" />
+                <ScalarProperty Name="TbGMXCodeKompetenz_ID" ColumnName="TbGMXCodeKompetenz_ID" />
+                <ScalarProperty Name="Betrag" ColumnName="Betrag" />
+                <ScalarProperty Name="ErfVisum" ColumnName="ErfVisum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TbGESTraktandenBeilagens">
+            <EntityTypeMapping TypeName="MusterwilModel.TbGESTraktandenBeilagen">
+              <MappingFragment StoreEntitySet="TbGESTraktandenBeilagen">
+                <ScalarProperty Name="TbGESTraktandenBeilagen_ID" ColumnName="TbGESTraktandenBeilagen_ID" />
+                <ScalarProperty Name="TbGESTraktanden_ID" ColumnName="TbGESTraktanden_ID" />
+                <ScalarProperty Name="TbGMXDatei_ID" ColumnName="TbGMXDatei_ID" />
+                <ScalarProperty Name="ErfDatum" ColumnName="ErfDatum" />
+                <ScalarProperty Name="MutDatum" ColumnName="MutDatum" />
+                <ScalarProperty Name="Visum" ColumnName="Visum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TbGESTraktandenKommmentars">
+            <EntityTypeMapping TypeName="MusterwilModel.TbGESTraktandenKommmentar">
+              <MappingFragment StoreEntitySet="TbGESTraktandenKommmentar">
+                <ScalarProperty Name="TbGESTraktandenKommmentar_ID" ColumnName="TbGESTraktandenKommmentar_ID" />
+                <ScalarProperty Name="TbGESTraktanden_ID" ColumnName="TbGESTraktanden_ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="StellungnahmeDatum" ColumnName="StellungnahmeDatum" />
+                <ScalarProperty Name="TbGMXCodeStatus_ID" ColumnName="TbGMXCodeStatus_ID" />
+                <ScalarProperty Name="Bemerkungen" ColumnName="Bemerkungen" />
+                <ScalarProperty Name="ErfDatum" ColumnName="ErfDatum" />
+                <ScalarProperty Name="MutDatum" ColumnName="MutDatum" />
+                <ScalarProperty Name="Visum" ColumnName="Visum" />
+                <ScalarProperty Name="Vertraulich" ColumnName="Vertraulich" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBGMXCODEs">
+            <EntityTypeMapping TypeName="MusterwilModel.TBGMXCODE">
+              <MappingFragment StoreEntitySet="TBGMXCODE">
+                <ScalarProperty Name="TBGMXCODE_ID" ColumnName="TBGMXCODE_ID" />
+                <ScalarProperty Name="CODEKEY" ColumnName="CODEKEY" />
+                <ScalarProperty Name="BEZ" ColumnName="BEZ" />
+                <ScalarProperty Name="VIS" ColumnName="VIS" />
+                <ScalarProperty Name="DEFAULTWERT" ColumnName="DEFAULTWERT" />
+                <ScalarProperty Name="SORT" ColumnName="SORT" />
+                <ScalarProperty Name="SYSTEMCODE" ColumnName="SYSTEMCODE" />
+                <ScalarProperty Name="AKTIVCODE" ColumnName="AKTIVCODE" />
+                <ScalarProperty Name="FFTXT1" ColumnName="FFTXT1" />
+                <ScalarProperty Name="FFTXT2" ColumnName="FFTXT2" />
+                <ScalarProperty Name="FFTXT3" ColumnName="FFTXT3" />
+                <ScalarProperty Name="FFTXT4" ColumnName="FFTXT4" />
+                <ScalarProperty Name="FFNUM1" ColumnName="FFNUM1" />
+                <ScalarProperty Name="FFNUM2" ColumnName="FFNUM2" />
+                <ScalarProperty Name="FFNUM3" ColumnName="FFNUM3" />
+                <ScalarProperty Name="FFNUM4" ColumnName="FFNUM4" />
+                <ScalarProperty Name="ERFDATUM" ColumnName="ERFDATUM" />
+                <ScalarProperty Name="MUTDATUM" ColumnName="MUTDATUM" />
+                <ScalarProperty Name="VISUM" ColumnName="VISUM" />
+                <ScalarProperty Name="CODEART" ColumnName="CODEART" />
+                <ScalarProperty Name="KURZ_BEZ" ColumnName="KURZ_BEZ" />
+                <ScalarProperty Name="GUELTIGAB" ColumnName="GUELTIGAB" />
+                <ScalarProperty Name="GUELTIGBIS" ColumnName="GUELTIGBIS" />
+                <ScalarProperty Name="Sprach_CD" ColumnName="Sprach_CD" />
+                <ScalarProperty Name="CODEBEM" ColumnName="CODEBEM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBGMXCODEARTENs">
+            <EntityTypeMapping TypeName="MusterwilModel.TBGMXCODEARTEN">
+              <MappingFragment StoreEntitySet="TBGMXCODEARTEN">
+                <ScalarProperty Name="CODEART" ColumnName="CODEART" />
+                <ScalarProperty Name="TBGMXCODEARTEN_ID" ColumnName="TBGMXCODEARTEN_ID" />
+                <ScalarProperty Name="BEZ_FFTXT1" ColumnName="BEZ_FFTXT1" />
+                <ScalarProperty Name="BEZ_FFTXT2" ColumnName="BEZ_FFTXT2" />
+                <ScalarProperty Name="BEZ_FFTXT3" ColumnName="BEZ_FFTXT3" />
+                <ScalarProperty Name="BEZ_FFTXT4" ColumnName="BEZ_FFTXT4" />
+                <ScalarProperty Name="BEZ_FFNUM1" ColumnName="BEZ_FFNUM1" />
+                <ScalarProperty Name="BEZ_FFNUM2" ColumnName="BEZ_FFNUM2" />
+                <ScalarProperty Name="BEZ_FFNUM3" ColumnName="BEZ_FFNUM3" />
+                <ScalarProperty Name="BEZ_FFNUM4" ColumnName="BEZ_FFNUM4" />
+                <ScalarProperty Name="ERFDATUM" ColumnName="ERFDATUM" />
+                <ScalarProperty Name="MUTDATUM" ColumnName="MUTDATUM" />
+                <ScalarProperty Name="VISUM" ColumnName="VISUM" />
+                <ScalarProperty Name="BEZEICHNUNG" ColumnName="BEZEICHNUNG" />
+                <ScalarProperty Name="MODULS" ColumnName="MODULS" />
+                <ScalarProperty Name="SCHUTZLEVEL" ColumnName="SCHUTZLEVEL" />
+                <ScalarProperty Name="DEFAULTFORM" ColumnName="DEFAULTFORM" />
+                <ScalarProperty Name="TbFeld" ColumnName="TbFeld" />
+                <ScalarProperty Name="Mehrsprachig" ColumnName="Mehrsprachig" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TbGMXDateis">
+            <EntityTypeMapping TypeName="MusterwilModel.TbGMXDatei">
+              <MappingFragment StoreEntitySet="TbGMXDatei">
+                <ScalarProperty Name="TbGMXDatei_id" ColumnName="TbGMXDatei_id" />
+                <ScalarProperty Name="ErfDatum" ColumnName="ErfDatum" />
+                <ScalarProperty Name="MutDatum" ColumnName="MutDatum" />
+                <ScalarProperty Name="Visum" ColumnName="Visum" />
+                <ScalarProperty Name="ReferenzID" ColumnName="ReferenzID" />
+                <ScalarProperty Name="ReferenzModul" ColumnName="ReferenzModul" />
+                <ScalarProperty Name="ReferenzMaske" ColumnName="ReferenzMaske" />
+                <ScalarProperty Name="ReferenzSection" ColumnName="ReferenzSection" />
+                <ScalarProperty Name="DateiName" ColumnName="DateiName" />
+                <ScalarProperty Name="Datei" ColumnName="Datei" />
+                <ScalarProperty Name="DateiTyp" ColumnName="DateiTyp" />
+                <ScalarProperty Name="Kategorie" ColumnName="Kategorie" />
+                <ScalarProperty Name="Titel" ColumnName="Titel" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Beschreibung" ColumnName="Beschreibung" />
+                <ScalarProperty Name="CheckOut" ColumnName="CheckOut" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="ART" ColumnName="ART" />
+                <ScalarProperty Name="ErstelltDatum" ColumnName="ErstelltDatum" />
+                <ScalarProperty Name="EingangDatum" ColumnName="EingangDatum" />
+                <ScalarProperty Name="AusgangDatum" ColumnName="AusgangDatum" />
+                <ScalarProperty Name="TbRegGruppe_Id" ColumnName="TbRegGruppe_Id" />
+                <ScalarProperty Name="TbGMXDateiFolder_Id" ColumnName="TbGMXDateiFolder_Id" />
+                <ScalarProperty Name="EigenschaftenVisum_ID" ColumnName="EigenschaftenVisum_ID" />
+                <ScalarProperty Name="TbADRPerson_ID" ColumnName="TbADRPerson_ID" />
+                <ScalarProperty Name="AufbewahrungsFrist" ColumnName="AufbewahrungsFrist" />
+                <ScalarProperty Name="AufbewahrungBis" ColumnName="AufbewahrungBis" />
+                <ScalarProperty Name="PhysischeAblage" ColumnName="PhysischeAblage" />
+                <ScalarProperty Name="DateiGroesse" ColumnName="DateiGroesse" />
+                <ScalarProperty Name="PhysischeAblageBezeichnung" ColumnName="PhysischeAblageBezeichnung" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TbSysUSRs">
+            <EntityTypeMapping TypeName="MusterwilModel.TbSysUSR">
+              <MappingFragment StoreEntitySet="TbSysUSR">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="InsUser" ColumnName="InsUser" />
+                <ScalarProperty Name="InsTime" ColumnName="InsTime" />
+                <ScalarProperty Name="ModUser" ColumnName="ModUser" />
+                <ScalarProperty Name="ModTime" ColumnName="ModTime" />
+                <ScalarProperty Name="Shortname" ColumnName="Shortname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Admin" ColumnName="Admin" />
+                <ScalarProperty Name="CLT_ID" ColumnName="CLT_ID" />
+                <ScalarProperty Name="Loginname" ColumnName="Loginname" />
+                <ScalarProperty Name="PhoneDirect" ColumnName="PhoneDirect" />
+                <ScalarProperty Name="PhoneGeneral" ColumnName="PhoneGeneral" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="EMail" ColumnName="EMail" />
+                <ScalarProperty Name="Abteilung_ID" ColumnName="Abteilung_ID" />
+                <ScalarProperty Name="Abteilung" ColumnName="Abteilung" />
+                <ScalarProperty Name="Stelle" ColumnName="Stelle" />
+                <ScalarProperty Name="Bereich" ColumnName="Bereich" />
+                <ScalarProperty Name="Bemerkung" ColumnName="Bemerkung" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

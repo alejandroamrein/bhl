@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ace5250c48614395ac94e81694a6457e" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TbBHDGremium" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TbGESGeschaeft" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TbGESSitzung" Width="1.5" PointX="3" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TbGESSitzungTeilnehmer" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TbGESTraktanden" Width="1.5" PointX="5.25" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TbGESTraktandenBeilagen" Width="2.375" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TBGMXCODE" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TbGMXDatei" Width="1.5" PointX="10.375" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="BehoerdenloesungModel.FK_TbGESGeschaeft_TbBHDGremium_Eigner_id" ManuallyRouted="false" />
+        <AssociationConnector Association="BehoerdenloesungModel.FK_TbGESSitzung_TbBHDGremium" ManuallyRouted="false" />
+        <AssociationConnector Association="BehoerdenloesungModel.FK_TbGESSitzungTeilnehmer_TbGESSitzung" ManuallyRouted="false" />
+        <AssociationConnector Association="BehoerdenloesungModel.FK_TbGESTraktanden_TbGESSitzung" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TbGesTraktandenRegistratur" Width="1.5" PointX="12.375" PointY="0.75" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TbREGgruppe" Width="1.5" PointX="10.375" PointY="9.125" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TbSysUSR" Width="1.5" PointX="12.375" PointY="3.75" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.vwGMXDateiMaxVersion" Width="1.5" PointX="12.375" PointY="9.75" />
+        <AssociationConnector Association="BehoerdenloesungModel.FK_TbGESGeschaeft_TbRegGruppe" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TBADRPERSON" Width="1.5" PointX="12.375" PointY="12.75" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TbGESDatenSatzBerechtigungSetup" Width="2.625" PointX="5" PointY="0.75" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TbGMXKalender" Width="1.5" PointX="7.375" PointY="14.75" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TbGMXTermin" Width="1.5" PointX="14.375" PointY="8.75" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TbAFGAufgabe" Width="1.5" PointX="9.375" PointY="15.75" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TbAFGAufgabeInternBeschreibung" Width="1.5" PointX="16.375" PointY="0.75" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TbAFGAufgabeMutationen" Width="1.5" PointX="16.375" PointY="4.75" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TbBHDMitglied" Width="1.5" PointX="14.625" PointY="13.25" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TbGESVerantwortlichkeit" Width="1.5" PointX="16.375" PointY="8.75" />
+        <AssociationConnector Association="BehoerdenloesungModel.FK_TbBHDMitglied_TBADRPERSON" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.VwEWKUndADRPersonTodayStrVerz_IF" Width="1.5" PointX="19.375" PointY="0.75" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TbBHDInstitution" Width="1.5" PointX="6" PointY="3.875" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TbBHDMandant" Width="1.5" PointX="0.75" PointY="0.75" />
+        <AssociationConnector Association="BehoerdenloesungModel.FK_TbBHDGremium_TbBHDInstitution" />
+        <AssociationConnector Association="BehoerdenloesungModel.FK_TbBHDInstitution_TbBHDMandant" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TbGESTraktandenKommmentar" Width="3.375" PointX="16.75" PointY="13" />
+        <AssociationConnector Association="BehoerdenloesungModel.FK_TbGESTraktandenKommmentar_TbGESTraktanden" />
+        <AssociationConnector Association="BehoerdenloesungModel.FK_TbGESTraktandenKommmentar_TbSysUsr" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TbGESGeschaeftBemerkung" Width="1.5" PointX="17.375" PointY="17.75" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TbGmxUserIni" Width="1.5" PointX="18.375" PointY="0.75" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TbBHDFunktion" Width="1.5" PointX="3" PointY="20.5" />
+        <AssociationConnector Association="BehoerdenloesungModel.FK_TbBHDFunktion_TbBHDGremium" />
+        <AssociationConnector Association="BehoerdenloesungModel.FK_TbBHDMitglied_TbBHDOrganFunktion" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TbAFGAufgabenBeilagen" Width="1.5" PointX="18.375" PointY="4.75" />
+        <EntityTypeShape EntityType="BehoerdenloesungModel.TbGMXGlobal" Width="1.5" PointX="19.625" PointY="8.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

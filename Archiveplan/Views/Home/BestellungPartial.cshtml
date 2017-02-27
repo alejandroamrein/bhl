@@ -1,0 +1,125 @@
+﻿@using Dialog.Archivplan.UI.Web
+
+@Html.DevExpress().PopupControl(
+    settings =>
+{
+    settings.Name = "pcModalMode";
+    settings.Width = 400;
+    settings.AllowDragging = true;
+    settings.CloseAction = CloseAction.CloseButton;
+    //settings.CloseOnEscape = true;
+    settings.PopupAnimationType = AnimationType.None;
+    settings.HeaderText = Resource1.Bestellung;
+    settings.Modal = true;
+    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SetContent(() =>
+    {
+        using (Html.BeginForm("ModalMode", "PopupControl", FormMethod.Post,
+            new { id = "popupForm", @class = "edit_form", @style = "width: 400px" }))
+        {
+            ViewContext.Writer.Write(Resource1.BestellungHeader);
+
+            // Registraturplan
+            ViewContext.Writer.Write("<div class='line'>");
+            ViewContext.Writer.Write(Resource1.Registraturplan);
+            Html.DevExpress().ComboBox(dropDownSettings =>
+            {
+                dropDownSettings.Name = "Registraturplan";
+                dropDownSettings.Width = 180;
+                dropDownSettings.SelectedIndex = @ViewBag.Lang == "DE" ? 0 : 1;
+                dropDownSettings.Properties.ValueType = typeof(string);
+                dropDownSettings.Properties.Items.Add(Resource1.Deutsch, "DE");
+                dropDownSettings.Properties.Items.Add(Resource1.Französisch, "FR");
+            }).Render();
+            ViewContext.Writer.Write("</div>");
+
+            // Anrede
+            ViewContext.Writer.Write("<div class='line'>");
+            ViewContext.Writer.Write(Resource1.Anrede);
+            Html.DevExpress().ComboBox(dropDownSettings =>
+            {
+                dropDownSettings.Name = "Anrede";
+                dropDownSettings.Width = 180;
+                dropDownSettings.SelectedIndex = 0;
+                dropDownSettings.Properties.ValueType = typeof(string);
+                dropDownSettings.Properties.Items.Add(Resource1.Herr, "Herr");
+                dropDownSettings.Properties.Items.Add(Resource1.Frau, "Frau");
+            }).Render();
+            ViewContext.Writer.Write("</div>");
+
+            // Name
+            ViewContext.Writer.Write("<div class='line'>");
+            ViewContext.Writer.Write(Resource1.Name);
+            Html.DevExpress().TextBox(textBoxSettings =>
+            {
+                textBoxSettings.Width = 180;
+                textBoxSettings.Name = "Name";
+                textBoxSettings.ControlStyle.CssClass = "editor";
+            }).Render();
+            ViewContext.Writer.Write("</div>");
+
+            // Vorname
+            ViewContext.Writer.Write("<div class='line'>");
+            ViewContext.Writer.Write(Resource1.Vorname);
+            Html.DevExpress().TextBox(textBoxSettings =>
+            {
+                textBoxSettings.Width = 180;
+                textBoxSettings.Name = "Vorname";
+                textBoxSettings.ControlStyle.CssClass = "editor";
+            }).Render();
+            ViewContext.Writer.Write("</div>");
+
+            // Verwaltungsname
+            ViewContext.Writer.Write("<div class=\"line\">");
+            ViewContext.Writer.Write(Resource1.Verwaltungsname);
+            Html.DevExpress().TextBox(textBoxSettings =>
+            {
+                textBoxSettings.Width = 180;
+                textBoxSettings.Name = "Verwaltungsname";
+                textBoxSettings.ControlStyle.CssClass = "editor";
+            }).Render();
+            ViewContext.Writer.Write("</div>");
+
+            // EMail
+            ViewContext.Writer.Write("<div class='line'>");
+            ViewContext.Writer.Write(Resource1.EMail);
+            Html.DevExpress().TextBox(textBoxSettings =>
+            {
+                textBoxSettings.Width = 240;
+                textBoxSettings.Name = "EMail";
+                textBoxSettings.ControlStyle.CssClass = "editor";
+            }).Render();
+            ViewContext.Writer.Write("</div>");
+
+            // Buttons
+            ViewContext.Writer.Write("<div class='line' style='margin-top:10px'>");
+            Html.DevExpress().Button(buttonSettings =>
+            {
+                buttonSettings.Name = "btnBestellen";
+                buttonSettings.ControlStyle.CssClass = "button";
+                buttonSettings.Width = 80;
+                buttonSettings.Text = Resource1.Bestellen;
+                buttonSettings.ClientSideEvents.Click = "function(s, e) { bestellen(); }";
+            }).Render();
+            ViewContext.Writer.Write("&nbsp;");
+            Html.DevExpress().Button(buttonSettings =>
+            {
+                buttonSettings.Name = "btnCancel";
+                buttonSettings.ControlStyle.CssClass = "button";
+                buttonSettings.Width = 80;
+                buttonSettings.Text = Resource1.Abbrechen;
+                buttonSettings.ClientSideEvents.Click = "function(s, e){ pcModalMode.Hide(); }";
+            }).Render();
+            ViewContext.Writer.Write("</div>");
+
+            // Dialog
+            ViewContext.Writer.Write("<div class='line' style='margin-top:10px'>");
+            ViewContext.Writer.Write(Resource1.BestellenFooter);
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("<b class=\"Clear\"></b>");
+        }
+    });
+
+    settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true); }";
+}).GetHtml()

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ab394488c74e4207a429a4ee7d1ecbc8" Name="Diagram1">
+        <EntityTypeShape EntityType="DialogConfigBLModel.Datenbank" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DialogConfigBLModel.Mandant" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DialogConfigBLModel.UserMapping" Width="1.5" PointX="6" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="DialogConfigBLModel.FK_Datenbank_Mandant" ManuallyRouted="false" />
+        <AssociationConnector Association="DialogConfigBLModel.FK_UserMapping_Datenbank" />
+        <EntityTypeShape EntityType="DialogConfigBLModel.Antrag" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="DialogConfigBLModel.Log" Width="1.5" PointX="8.5" PointY="1.25" />
+        <EntityTypeShape EntityType="DialogConfigBLModel.MIDRequest" Width="2.125" PointX="3.125" PointY="3.375" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

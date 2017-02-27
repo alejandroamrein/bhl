@@ -1,0 +1,58 @@
+﻿@using System.Web.UI.WebControls
+@using Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models
+@model TraktandumViewModel
+@{
+    Layout = null; // "~/Views/Shared/_LayoutMin.cshtml";
+}
+@if (Model.HatProtokoll)
+{
+    @*<div class="text-primary">@Model.ProtokollTitle</div>*@
+    <div class="text-primary">Sitzung: @Model.SitzungKurzBezeichnung, Traktanden Nr:  @Model.Traktand.Traktanden_NR, Beschluss Nr: @Model.Traktand.Beschluss_NR </div>
+    <div class="form-group">
+        @*<iframe src='https://view.officeapps.live.com/op/embed.aspx?src=http://calibre-ebook.com/downloads/demos/demo.docx' style="width:100%;height:300px" frameborder='0'></iframe>
+        <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=@(Model.ProtokollUrl)' style="width:100%;height:300px" frameborder='0'></iframe>
+        <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=http://login.dialog.ch/docs/TMP114a5eb0-e129-4ff7-b48c-8ddc0ddfb602.docx' style="width:100%;height:300px" frameborder='0'></iframe>*@
+        @Html.DevExpress().HtmlEditor(settings =>
+            {
+                settings.Name = "myHtmlEditor";
+                settings.Width = new Unit(100, UnitType.Percentage);
+                settings.Height = new Unit(300, UnitType.Pixel);
+                settings.ToolbarMode = HtmlEditorToolbarMode.None;
+                settings.ActiveView = HtmlEditorView.Preview;
+                settings.Enabled = false;
+                settings.Html = Model.Html;
+                if (Model.CssFiles != null)
+                {
+                    settings.CssFiles.Clear();
+                    settings.CssFiles.AddRange(Model.CssFiles);
+                }
+                settings.ControlStyle.Paddings.PaddingTop = new Unit(0);
+                settings.ControlStyle.Paddings.PaddingLeft = new Unit(0);
+                settings.ControlStyle.Paddings.PaddingRight = new Unit(0);
+                settings.ControlStyle.Paddings.PaddingBottom = new Unit(0);
+                settings.Settings.AllowHtmlView = false;
+                settings.Settings.AllowDesignView = false;
+            }).GetHtml()
+    </div>
+    if (Model.MaybeOldDoc)
+    {
+        <div>@Model.MaybeOldDocText</div>
+    }
+    if (Model.Beilagen != null && Model.Beilagen.Count > 0)
+    {
+        <div class="text-primary">Beilagen</div>
+        <div class="form-group">
+            <table style="width:100%">
+                @foreach (Datei item in Model.Beilagen.OrderByDescending(b => b.ErfDatum))
+                {
+                    <tr data-id="@(item.Id)" style="margin-top:5px">
+                        <td>@(item.ErfDatum.HasValue ? item.ErfDatum.Value.ToShortDateString() : "")</td>
+                        <td>@item.Titel</td>
+                        <td style="text-align:right"><a class="downloadDatei" href="#">Herunterladen</a></td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
+}
+

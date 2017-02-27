@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-xs-6">
+        <h2 style="margin-top: 30px">Anmelden</h2>
+        <img src="~/Content/Images/mobile-id.jpg" border="0" alt="Mobile-ID" style="margin-top: 15px; margin-bottom: 15px" />
+    </div>
+    <div class="col-xs-6">
+        <div style="font-weight:bold;margin-top: 40px">Mobile ID kostenlos bestellen:</div>
+        <div><a href="https://www.swisscom.ch/de/privatkunden/mobile/zusatzdienste/mobileid.html?campID=shortcut-mobileid">Swisscom</a></div>
+        <div><a href="http://www.sunrise.ch/mobileid">Sunrise</a></div>
+        <div>Salt (in Arbeit)</div>
+    </div>
+</div>
+
+<form method="post" action="/Home/Transfer">
+    <input id="token" name="token" type="hidden" />
+    <input id="hash" name="hash" type="hidden" />
+    <input id="url" name="url" type="hidden" />
+    <input type="submit" id="postToUrl" />
+</form>
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post, new { role = "form" }))
+{
+    <div class="form-group">
+        <label class="control-label" for="handyNummer">Handynummer</label>
+        @Html.TextBox("handyNummer", "", new { @class="form-control", autofocus = "true", placeholder = "z.B.: 41791234567" })
+    </div>
+     <div class="form-group">
+         <label>z.B.: 41791234567</label>
+    </div>
+    <div class="form-group" id="datenbankDiv">
+        <label class="control-label" for="datenbank">Datenbank</label>
+        <select id="datenbank" name="datenbank" class="form-control">
+            <option value="0" selected></option>
+        </select>
+    </div>
+    <div class="form-group">
+        <input type="submit" id="anmelden" class="btn btn-default" value="Anmelden" />
+    </div>
+    <div style="margin-top: 30px" id="progress">
+        <div><img src="~/Content/Images/loading_bar_animated.gif" /></div>
+        <div>Bitte warten...</div>
+    </div>
+    <div class="form-group">
+        <div style="margin-top: 30px" id="responseMessage"></div>
+        <input style="margin-top: 30px" type="button" id="zurLoesung" class="btn btn-default" value="Zur Behördenlösung" />
+        <input style="margin-top: 30px" type="button" id="zurAdmin" class="btn btn-default" value="Zur Verwaltung" />
+    </div>
+    <div style="margin-top: 30px" id="progress2">
+        <div style="color:green; font-weight:bold">&gt;&gt; Bitte warten, die Verbindung wird hergestellt &lt;&lt;</div>
+    </div>
+}
+
+@section scripts
+{    
+    <script type="text/javascript">
+        var loginPollMs = @(ViewBag.LoginPollMs);
+        var animVelocity = @(ViewBag.AnimVelocity);
+    </script>
+    <script type="text/javascript" src="~/Scripts/App/Home/Index.js"></script>
+}

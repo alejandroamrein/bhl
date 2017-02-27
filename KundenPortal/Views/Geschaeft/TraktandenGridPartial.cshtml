@@ -1,0 +1,83 @@
+﻿@using System.Web.UI.WebControls
+@using DevExpress.Data
+@model  List<Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models.TraktandenItem>
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "gvGesVerzeichnisTraktanden";
+
+        settings.CallbackRouteValues = new { Controller = "Geschaeft", Action = "TraktandenGridPartial" };
+        settings.Width = Unit.Percentage(100);
+
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = false;
+        settings.KeyFieldName = "TbGESTraktanden_id";
+
+        settings.Columns.Add(column =>
+        {
+            column.Name = "Anzeigen";
+            column.SetDataItemTemplateContent(c =>
+            {
+                Html.DevExpress().Button(buttonSettings =>
+                {
+                    var id = DataBinder.Eval(c.DataItem, "TbGESTraktanden_id");
+                    buttonSettings.Name = "anzeigenButton_" + id.ToString();
+                    buttonSettings.ClientSideEvents.Click = "function(s,e){onAnzeigen(" + id + ");}";
+                    buttonSettings.ControlStyle.CssClass = "linkButton";
+                    buttonSettings.Text = "Anzeigen";
+                    //buttonSettings.
+                }).Render();
+            });
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TbGESSitzung_id";
+            column.Caption = "SitzungsNr.";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            //column.Width = Unit.Percentage(16);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "KurzBezeichnung";
+            column.Caption = "Kursbez.";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            //column.Width = Unit.Percentage(14);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Bezeichnung";
+            column.Caption = "Gremium";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            //column.Width = Unit.Percentage(14);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "SitzungsDatum";
+            column.Caption = "Datum";
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "d";
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            //column.Width = Unit.Percentage(10);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Titel";
+            column.Caption = "TraktandumTitel";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            //column.Width = Unit.Percentage(23);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Beschluss_NR";
+            column.Caption = "BeschlussNr";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            //column.Width = Unit.Percentage(7);
+        });
+    });
+}
+@grid.Bind(Model).GetHtml()

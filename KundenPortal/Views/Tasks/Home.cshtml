@@ -1,0 +1,188 @@
+﻿@using System.Web.UI.WebControls
+@using Dialog.Behoerdenloesung.Sitzungen.UI.Web.Helpers
+
+@using DevExpress.Web.Mvc
+@using DevExpress.Web.Mvc.UI
+
+@{
+    ViewBag.Title = "Behördenlösung - " + ViewBag.UserName;
+}
+
+@using (Html.BeginForm())
+{
+    if (ViewBag.CanSeeAllTasks)
+    {
+        <div class="row" style="margin-top: 20px;">
+            <div class="col-xs-4">
+                <div style="float:left">
+                    <table style="border:0px">
+                        <tr>
+                            <td><div class="titel">Filter:</div></td>
+                            <td style="padding-left:5px">
+                                @{
+                                    var cb = Html.DevExpress().ComboBox(comboBoxSettings =>
+                                    {
+                                        comboBoxSettings.Name = "filter";
+                                        comboBoxSettings.Width = Unit.Pixel(300);
+                                        comboBoxSettings.Properties.ValueField = "Value";
+                                        comboBoxSettings.Properties.TextField = "Text";
+                                        comboBoxSettings.Properties.ValueType = typeof(int);
+                                        comboBoxSettings.SelectedIndex = ViewBag.SelectedIndex;
+                                    });
+                                    cb.BindList(ViewData["filterList"]);
+                                    cb.Render();
+                                }
+                            </td>
+                            <td style="padding-left:5px">
+                                @Html.DevExpress().Button(buttonSettings =>
+                                {
+                                    buttonSettings.Name = "filterButton";
+                                    buttonSettings.Text = "Aktualisieren";
+                                    buttonSettings.ClientSideEvents.Click = "function(s,e){onAktualisieren();}";
+                                }).GetHtml()
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="row" style="margin-top:20px;">
+        <div class="col-xs-12">
+            @{ Html.RenderAction("MyTasksPartial", "Tasks"); }
+        </div>
+    </div>
+}
+
+<!-- ui-dialog -->
+@Html.DevExpress().PopupControl(settings =>
+{
+    settings.Name = "pcAfgNeueBemerkung";
+    //settings.Width = new Unit("Auto");
+    settings.AllowDragging = true;
+    settings.CloseAction = CloseAction.CloseButton;
+    //settings.CloseOnEscape = true;
+    settings.PopupAnimationType = AnimationType.Slide;
+    settings.HeaderText = "Neue Bemerkung";
+    settings.Modal = true;
+    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SetContent(() =>
+    {
+        using (Html.BeginForm("ModalMode", "PopupControl", FormMethod.Post,
+            new { id = "popupAfgForm", @class = "edit_form", @style = "width:auto" }))
+        {
+            ViewContext.Writer.Write("<input type='hidden' id='dialogAfgId' />");
+            ViewContext.Writer.Write("<table style='width:100%' border='0'>");
+            ViewContext.Writer.Write("<tr>");
+            ViewContext.Writer.Write("<td style='width:auto;padding:5px;font-weight:bold'>Datum:</td>");
+            ViewContext.Writer.Write("<td style='width:100%;padding:5px'>");
+            @Html.DevExpress().DateEdit(s =>
+            {
+                s.Name = "dialogAfgDatum";
+                s.Properties.DisplayFormatString = "d";
+                s.Width = Unit.Pixel(100);
+            }).Render();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("<td style='width:auto;padding:5px;font-weight:bold'>Art:</td>");
+            ViewContext.Writer.Write("<td style='width:100%;padding:5px'>");
+            @Html.DevExpress().ComboBox(s =>
+            {
+                s.Name = "dialogAfgArtId";
+                s.Properties.ValueField = "Value";
+                s.Properties.TextField = "Text";
+                s.Properties.ValueType = typeof(int);
+                s.Width = Unit.Pixel(100);
+            }).BindList(ViewData["artListAfg"]).Render();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("<td style='width:auto;padding:5px;font-weight:bold'>Sachbearbeiter:</td>");
+            ViewContext.Writer.Write("<td style='width:100%;padding:5px'>");
+            @Html.DevExpress().ComboBox(s =>
+            {
+                s.Name = "dialogAfgSachbearbeiterId";
+                s.Properties.ValueField = "Value";
+                s.Properties.TextField = "Text";
+                s.Properties.ValueType = typeof(int);
+                s.Width = Unit.Pixel(100);
+            }).BindList(ViewData["sachbearbeiterList"]).Render();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("</tr>");
+            ViewContext.Writer.Write("<tr>");
+            ViewContext.Writer.Write("<td style='padding:5px;vertical-align:top;font-weight:bold'>Bemerkung:</td>");
+            ViewContext.Writer.Write("<td style='padding:5px' colspan='5'><textarea id='dialogAfgText' name='dialogAfgText' rows='8' style='width:100%'' placeholder=''Bemerkung eingeben...'></textarea></td>");
+            ViewContext.Writer.Write("</tr>");
+            ViewContext.Writer.Write("</table>");
+            ViewContext.Writer.Write("<div style='text-align:right;margin-top:20px'>");
+            Html.DevExpress().Button(s =>
+            {
+                s.Name = "btnAfgNeueBemSpeichern";
+                s.ControlStyle.CssClass = "button";
+                s.Width = 80;
+                s.Text = "Speichern";
+                s.ClientSideEvents.Click = "function(s, e){ doAddAfgBemerkung(); }";
+            }).Render();
+            Html.DevExpress().Button(s =>
+            {
+                s.Name = "btnAfgNeueBemCancel";
+                s.ControlStyle.CssClass = "button";
+                s.Width = 80;
+                s.Text = "Abbrechen";
+                s.ClientSideEvents.Click = "function(s, e){ pcAfgNeueBemerkung.Hide(); }";
+            }).Render();
+            ViewContext.Writer.Write("</div>");
+        }
+    });
+}).GetHtml()
+
+<!-- ui-dialog -->
+@*<div id="dialog" title="Neue Bemerkung">
+    <table style="width:100%" border="0">
+        <tr><td style="width:auto;padding:5px;font-weight:bold">Datum:</td><td style="width:100%;padding:5px">@Html.DevExpress().DateEdit(settings =>
+            {
+                settings.Name = "dialog-datum";
+                settings.Properties.DisplayFormatString = "d";
+                settings.Width = Unit.Pixel(120);
+            }).GetHtml()</td></tr>
+        <tr><td style="padding:5px;vertical-align:top;font-weight:bold">Bemerkung:</td><td style="padding:5px"><textarea id="dialog-text" name="dialog-text" rows="8" style="width:100%" placeholder="Bemerkung eingeben..."></textarea></td></tr>
+    </table>
+</div>*@
+
+@section navbarex
+{
+<ul class="nav navbar-nav">
+    @if (ViewBag.S)
+    {
+        <li>@Html.ActionLink("Sitzungen", "Home", "Sitzungen")</li>
+    }
+    @if (ViewBag.K)
+    {
+        <li>@Html.ActionLink("Kalender", "Home", "Calendar")</li>
+    }
+    @if (ViewBag.G)
+    {
+        <li>@Html.ActionLink("Geschäft", "Home", "Geschaeft")</li>
+    }
+    @if (ViewBag.V)
+    {
+        <li>@Html.ActionLink("Behördenverzeichnis", "Home", "Verzeichnis")</li>
+    }
+    @if (ViewBag.E)
+    {
+        <li>@Html.ActionLink("EWK Info", "Home", "EWK")</li>
+    }
+</ul>
+}
+
+@section styles {
+    @*@Styles.Render("~/Content/ui")*@
+    <link href="~/Content/ui/jquery-ui.css" rel="stylesheet">
+    <link href="~/Content/Behoerdenloesung/Tasks/Home.css" rel="stylesheet">
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/ui")
+    <script type="text/javascript" src="~/Scripts/Behoerdenloesung/Tasks/Home.js"></script>
+}
+
+
+

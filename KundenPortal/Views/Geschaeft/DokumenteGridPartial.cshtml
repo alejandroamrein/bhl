@@ -1,0 +1,96 @@
+﻿@using System.Web.UI.WebControls
+@model  List<Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models.DokumenteGridItem>
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "gvDateien";
+
+        settings.CallbackRouteValues = new { Controller = "Geschaeft", Action = "DokumenteGridPartial" };
+        settings.Width = Unit.Percentage(100);
+        //settings.Height = Unit.Percentage(390);
+
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = false;
+        settings.KeyFieldName = "TbGMXDatei_id";
+
+        //settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+        settings.Settings.VerticalScrollBarMode = ScrollBarMode.Auto;
+        settings.Settings.VerticalScrollableHeight = 340;
+        settings.SettingsPager.PageSize = 10;
+
+        settings.Columns.Add(column =>
+        {
+            column.Name = "Herunterladen";
+            column.SetDataItemTemplateContent(c =>
+            {
+                Html.DevExpress().Button(buttonSettings =>
+                {
+                    var id = DataBinder.Eval(c.DataItem, "TbGMXDatei_id");
+                    buttonSettings.Name = "herunterladenButton_" + id.ToString();
+                    buttonSettings.ClientSideEvents.Click = "function(s,e){onHerunterladen(" + id + ");}";
+                    buttonSettings.ControlStyle.CssClass = "linkButton";
+                    buttonSettings.Text = "Herunterladen";
+                    //buttonSettings.
+                }).Render();
+            });
+            column.Width = Unit.Pixel(100);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Kategorie";
+            column.Caption = "Kategorie";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            column.Width = Unit.Percentage(12);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Titel";
+            column.Caption = "Titel";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            column.Width = Unit.Percentage(25);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Beschreibung";
+            column.Caption = "Beschreibung";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            column.Width = Unit.Percentage(25);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Version";
+            column.Caption = "Version";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            column.Width = Unit.Percentage(7);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Visum";
+            column.Caption = "Visum";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            column.Width = Unit.Percentage(10);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Status";
+            column.Caption = "Status";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            column.Width = Unit.Percentage(10);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Groesse";
+            column.Caption = "Grösse";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            column.Width = Unit.Percentage(10);
+        });
+    });
+}
+@grid.Bind(Model).GetHtml()

@@ -1,0 +1,168 @@
+﻿@model Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models.SitzungViewModel
+
+@using Dialog.Behoerdenloesung.Sitzungen.UI.Web.Helpers
+
+@{
+    ViewBag.Title = "Home Page";
+    var _VD_ = System.Configuration.ConfigurationManager.AppSettings["vd"];
+    var headerText1 = string.Format("<div style='margin-top:20px'>{0}, {1:dddd}, {1:d} von {2:t} Uhr bis {3:t} Uhr, {4}</div>",
+        Model.Sitzung.KurzBezeichnung,
+        Model.Sitzung.SitzungsDatum,
+        Model.Sitzung.ZeitVon, Model.Sitzung.ZeitBis,
+        Model.SitzungsOrt);
+    var headerText2 = string.Empty;
+    if (!string.IsNullOrEmpty(Model.Sitzung.Bemerkungen))
+    {
+        headerText2 = string.Format("<div style='margin-top:10px'>{0}</div>", Model.Sitzung.Bemerkungen);
+    }
+    var hasLimitations = Model.Traktandens.Count(t => t.SecurityLevel < 1) > 0;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <b>@Html.Raw(headerText1)</b>
+    </div>
+</div>
+
+@if (!string.IsNullOrEmpty(headerText2))
+{
+    <div class="row">
+        <div class="col-md-12">
+            @Html.Raw(headerText2)
+        </div>
+    </div>
+}
+
+@if (Model.Dokumente != null && Model.Dokumente.Count > 0 && !hasLimitations)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-bordered table-striped" style="margin-top: 20px">
+                <table class="table">
+                    <tr>
+                        <th>Dokumententitel</th>
+                        <th>Datum</th>
+                        <th></th>
+                    </tr>
+                    @foreach (var item in Model.Dokumente)
+                    {
+                        <tr data-id="@(item.Id)">
+                            <td>@item.Titel</td>
+                            <td>@Html.NullableDate(item.ErfDatum)</td>
+                            <td style="text-align:right">
+                                <a class="downloadDatei" href="#">Herunterladen</a>
+                            </td>
+                        </tr>
+                    }
+                    @if (ViewBag.CanDownloadAll)
+                    {
+                        <tr data-id="@(Model.Sitzung.TbGESSitzung_id)">
+                            <td colspan="3"><a id="downloadAll" href="#">Alle Dokumente als ZIP herunterladen</a></td>
+                        </tr>
+                    }
+                </table>
+            </div>
+
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-bordered table-striped" style="margin-top: 20px">
+            <div class="text-success titel">Traktandenliste</div>
+            <table class="table">
+                <tr>
+                    <th>Nr</th>
+                    <th>Typ</th>
+                    <th>Geschäftstitel</th>
+                    <th class="hidden-xs hidden-sm">Traktandentitel</th>
+                    <th class="hidden-xs">Signatur</th>
+                    <th class="hidden-xs">Öffentlich</th>
+                    <th class="hidden-xs hidden-sm">BeschNr</th>
+                    <th class="hidden-md hidden-lg"></th>
+                    <th class="hidden-xs hidden-sm"></th>
+                </tr>
+                @foreach (var item in Model.Traktandens)
+                {
+                    <tr class="@(item.Traktand.TbGESTraktandenKommmentars.Where(k => k.User_ID == Model.UserId).Any() ? "success" : "")"
+                        style="@(item.SecurityLevel == 0 ? "" : "cursor:pointer")"
+                        onclick="@(item.SecurityLevel == 0 ? "javascript:var n;" : "window.location.href = '" + _VD_ + "/Sitzungen/Traktandum/" + item.Traktand.TbGESTraktanden_id + "'")">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Traktand.Traktanden_NR)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Typ)
+                        </td>
+                        <td>
+                            @(item.SecurityLevel == 0 ? new MvcHtmlString("***KEINE BERECHTIGUNG***") : Html.DisplayFor(modelItem => item.GeschaeftsTitel))
+                        </td>
+                        <td class="hidden-xs hidden-sm">
+                            @(item.SecurityLevel == 0 ? new MvcHtmlString("***KEINE BERECHTIGUNG***") : Html.DisplayFor(modelItem => item.Traktand.Titel))
+                        </td>
+                        <td class="hidden-xs">
+                            @Html.DisplayFor(modelItem => item.Signatur)
+                        </td>
+                        <td class="hidden-xs">
+                            @(item.Traktand.Offentlich.HasValue && item.Traktand.Offentlich > 0 ? "Ja" : "Nein")
+                        </td>
+                        <td class="hidden-xs hidden-sm">
+                            @Html.DisplayFor(modelItem => item.Traktand.Beschluss_NR)
+                        </td>
+                        <td class="hidden-md hidden-lg">
+                            @if (item.SecurityLevel > 0)
+                            {
+                                <a href="~/Sitzungen/Traktandum/@(item.Traktand.TbGESTraktanden_id)"><div class="glyphicon glyphicon-edit"></div></a>
+                            }
+                        </td>
+                        <td class="hidden-xs hidden-sm">
+                            @if (item.SecurityLevel > 0)
+                            {
+                                <a href="~/Sitzungen/Traktandum/@(item.Traktand.TbGESTraktanden_id)">@(Model.Abgeschlossen ? "Anzeigen" : "Bearbeiten")</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div style="width:100%; margin-top: 20px">
+            <div style="width:200px;float:right; text-align: right"><a href="~/Sitzungen/Home" class="btn btn-default">Zurück</a></div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript" src="~/Scripts/Behoerdenloesung/Sitzungen/Sitzung.js"></script>
+    <script type="text/html" id="item-template">
+        <a href="#" data-id="" class="list-group-item dialog-item"
+            data-bind="text: Description, attr: { 'data-id': TraktandId }"></a>
+    </script>
+}
+
+@section navbarex
+{
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("Sitzungen", "Home", "Sitzungen")</li>
+    </ul>
+}
+
+@section styles {
+    <style>
+                /*table.sitzungen {
+            text-align: left;
+        }*/
+
+                div.titel {
+                    font-size: 1.2em;
+                    font-weight: bold;
+                    margin-left: 10px;
+                    margin-top: 5px;
+                    margin-bottom: 8px;
+                }
+    </style>
+}

@@ -1,0 +1,120 @@
+﻿@using System.Web.UI.WebControls
+@using DevExpress.Data
+@model  List<Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models.GeschaeftItem>
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "gvGeschaefte";
+
+        settings.CallbackRouteValues = new { Controller = "Geschaeft", Action = "GeschaefteGridPartial", suchText = ViewBag.SuchText };
+        settings.Width = Unit.Percentage(100);
+
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = true;
+        settings.KeyFieldName = "TbGESGeschaeft_id";
+        settings.SettingsPager.PageSize = 8;
+
+        settings.Columns.Add(column =>
+        {
+            column.Name = "Bearbeiten";
+            column.SetDataItemTemplateContent(c =>
+            {
+                Html.DevExpress().Button(buttonSettings =>
+                {
+                    var canEdit = (bool)DataBinder.Eval(c.DataItem, "CanEdit");
+                    var id = (int)DataBinder.Eval(c.DataItem, "TbGESGeschaeft_id");
+                    buttonSettings.Name = "anzeigenButton_" + id.ToString();
+                    var url = Url.Action("Geschaeft", "Geschaeft", new RouteValueDictionary(new { id = id }));
+                    buttonSettings.ClientSideEvents.Click = "function(s,e){window.location.href='" + url + "';}";
+                    buttonSettings.ControlStyle.CssClass = "linkButton";
+                    buttonSettings.Text = canEdit ? "Bearbeiten" : "Anzeigen";
+                    //buttonSettings.
+                }).Render();
+            });
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TbGESGeschaeft_id";
+            column.Caption = "GeschäftsNr";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            //column.Width = Unit.Percentage(16);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Titel";
+            column.Caption = "Titel";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            //column.Width = Unit.Percentage(14);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Status";
+            column.Caption = "Status";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            //column.Width = Unit.Percentage(23);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Typ";
+            column.Caption = "Typ";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            //column.Width = Unit.Percentage(7);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "ArchivplanNr";
+            column.Caption = "ArchivplanNr";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            //column.Width = Unit.Percentage(7);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "ArchivplanBez";
+            column.Caption = "ArchivplanBez";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            //column.Width = Unit.Percentage(7);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Verantwortlich";
+            column.Caption = "Verantwortlich";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            //column.Width = Unit.Percentage(16);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Beginn";
+            column.Caption = "Beginn";
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "d";
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            //column.Width = Unit.Percentage(10);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Ende";
+            column.Caption = "Ende";
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "d";
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            //column.Width = Unit.Percentage(10);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Faelligkeit";
+            column.Caption = "Fälligkeit";
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "d";
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            //column.Width = Unit.Percentage(10);
+        });
+    });
+}
+@grid.Bind(Model).GetHtml()

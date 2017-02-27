@@ -1,0 +1,302 @@
+﻿@model Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models.TraktandumViewModel
+@using System.Web.UI.WebControls
+@using Dialog.Behoerdenloesung.Sitzungen.UI.Web.Helpers 
+
+@using DevExpress.Web.Mvc
+@using DevExpress.Web.Mvc.UI
+@using DevExpress.Web.ASPxHtmlEditor
+@using Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models
+
+@{
+    ViewBag.Title = "Traktandum";
+}
+
+<div class="row" style="margin-top: 20px">
+    <div class="col-md-10">
+        <input type="hidden" id="traktandId" value="@(Model.Traktand.TbGESTraktanden_id)" />
+        <div>@Model.Typ</div>
+        <div>@Model.GeschaefstTitel</div>
+        <div>@Model.Traktand.Titel</div>
+        <div>Geschäft ID: @Model.GeschaeftId</div>
+    </div>
+    <div class="col-md-2" style="text-align:right">
+        @if (Model.PreviousId.HasValue)
+        {
+            <a href="~/Sitzungen/Traktandum/@(Model.PreviousId.Value)"><span style="font-size: 2em; margin-right: 20px" class="glyphicon glyphicon-circle-arrow-left"></span></a>
+        }
+        @if (Model.NextId.HasValue)
+        {
+            <a href="~/Sitzungen/Traktandum/@(Model.NextId.Value)"><span style="font-size: 2em" class="glyphicon glyphicon-circle-arrow-right"></span></a>
+        }
+    </div>
+</div>
+
+@*
+        <div class="row" style="margin-top: 20px">
+            <div class="col-lg-@(Model.Beilagen.Count > 0 ? 8 : 12) col-md-12">
+                <iframe style="width:100%;height:300px" src="https://docs.google.com/viewer?url=@(Model.ProtokollUrl)&embedded=true"></iframe>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 20px">
+            <div class="col-lg-@(Model.Beilagen.Count > 0 ? 8 : 12) col-md-12">
+                <iframe style="width:100%;height:300px" src="http://view.officeapps.live.com/op/view.aspx?src=@(Model.ProtokollUrl)"></iframe>
+            </div>
+        </div>
+
+    <div class="row" style="margin-top: 20px">
+        <div class="col-lg-@(Model.Beilagen.Count > 0 ? 8 : 12) col-md-12">
+            <iframe style="width:100%;height:300px" src="http://view.officeapps.live.com/op/view.aspx?src=http://calibre-ebook.com/downloads/demos/demo.docx&embedded=true"></iframe>
+        </div>
+    </div>
+
+<div class="row" style="margin-top: 20px">
+    <div class="col-lg-@(Model.Beilagen.Count > 0 ? 8 : 12) col-md-12">
+        <object id="frm" data="~/Sitzungen/GetTraktandumProtokoll/@(Model.Traktand.TbGESTraktanden_id)">You do not have Word installed on your machine</object>
+    </div>
+</div>
+
+<div class="row" style="margin-top: 20px">
+    <div class="col-lg-@(Model.Beilagen.Count > 0 ? 8 : 12) col-md-12">
+        <iframe style="width:100%;height:300px" src="~/Sitzungen/GetTraktandumProtokoll/@(Model.Traktand.TbGESTraktanden_id)"></iframe>
+    </div>
+</div>
+*@
+
+<div class="row" style="margin-top: 20px">
+    <div class="col-lg-12 col-md-12">
+        @if (Model.HatProtokoll)
+        {
+            @*<div class="text-primary">@Model.ProtokollTitle</div>*@
+            <div class="text-primary">Sitzung: @Model.SitzungKurzBezeichnung, Traktanden Nr:  @Model.Traktand.Traktanden_NR, Beschluss Nr: @Model.Traktand.Beschluss_NR </div>
+            <div class="form-group">
+                @*<iframe src='https://view.officeapps.live.com/op/embed.aspx?src=http://calibre-ebook.com/downloads/demos/demo.docx' style="width:100%;height:300px" frameborder='0'></iframe>
+                    <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=@(Model.ProtokollUrl)' style="width:100%;height:300px" frameborder='0'></iframe>
+                    <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=http://login.dialog.ch/docs/TMP114a5eb0-e129-4ff7-b48c-8ddc0ddfb602.docx' style="width:100%;height:300px" frameborder='0'></iframe>*@
+                @{
+                    var contentDirectory = System.Configuration.ConfigurationManager.AppSettings["DevExpressHtmlEditorContentFilesSubdir"];
+                }
+                @Html.DevExpress().HtmlEditor(settings =>
+                {
+                    settings.Name = "myHtmlEditor";
+                    settings.Width = new Unit(100, UnitType.Percentage);
+                    settings.Height = new Unit(300, UnitType.Pixel);
+                    settings.ToolbarMode = HtmlEditorToolbarMode.None;
+                    settings.ActiveView = HtmlEditorView.Preview;
+                    settings.Enabled = false;
+                    settings.Html = Model.Html;
+                    settings.Images.ImageFolder = contentDirectory;
+                    if (Model.CssFiles != null)
+                    {
+                        settings.CssFiles.Clear();
+                        settings.CssFiles.AddRange(Model.CssFiles);
+                    }
+                    settings.ControlStyle.Paddings.PaddingTop = new Unit(0);
+                    settings.ControlStyle.Paddings.PaddingLeft = new Unit(0);
+                    settings.ControlStyle.Paddings.PaddingRight = new Unit(0);
+                    settings.ControlStyle.Paddings.PaddingBottom = new Unit(0);
+                    settings.Settings.AllowHtmlView = false;
+                    settings.Settings.AllowDesignView = false;
+                }).GetHtml()
+            </div>
+            if (Model.MaybeOldDoc)
+            {
+                <div>@Model.MaybeOldDocText</div>
+                }
+            }
+    </div>
+
+    @if (Model.Beilagen != null && Model.Beilagen.Count > 0)
+    {
+        <div class="col-lg-12 col-md-12">
+            <div class="table-bordered table-striped">
+                <div class="text-info">Beilagen</div>
+                <table class="table">
+                    @foreach (Datei item in Model.Beilagen.OrderByDescending(b => b.ErfDatum))
+                    {
+                        <tr data-id="@(item.Id)">
+                            @* <td>@(item.DateiName.Length > 23 ? item.DateiName.Substring(0, 20) + "..." + Path.GetExtension(item.DateiName) : item.DateiName)</td>
+                                <td>@(item.Titel.Length > 23 ? item.Titel.Substring(0, 20) + "..."  : item.Titel)</td>*@
+                            <td>@(item.ErfDatum.HasValue ? item.ErfDatum.Value.ToShortDateString() : "")<br />
+                            <a class="downloadDatei" href="#">Herunterladen</a></td>
+                            <td>@item.Titel</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    }
+</div>
+
+<form role="form">
+    <div class="row@(Model.HatBemerkung ? " hat-bemerkung" : "")" style="margin-top:20px" id="bemerkungDiv">
+        <div class="col-xs-12">
+            @*<div id="speichern" class="text-danger">Speichern...</div>*@
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-3">
+            <label class="control-label" for="commentDatum">Datum:</label>
+            @if (Model.Abgeschlossen)
+            {
+                <div>@Model.StellungnahmeDatum.ToShortDateString()</div>
+            }
+            else
+            {
+                @Html.DevExpress().DateEdit(settings =>
+                {
+                    settings.Name = "commentDatum";
+                    settings.Properties.DisplayFormatString = "dd.MM.yyyy";
+                    settings.Properties.EditFormatString = "dd.MM.yyyy";
+                    settings.Date = Model.StellungnahmeDatum;
+                    settings.ReadOnly = Model.Abgeschlossen;
+                }).GetHtml()
+            }
+            <label style="margin-top:10px" class="control-label" for="commentStatus">Status:</label>
+            @if (Model.Abgeschlossen)
+            {
+                foreach (var item in Model.KommentarCdList)
+                {
+                    if (item.Selected)
+                    {
+                        <div>@item.Text</div>
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                @Html.DropDownList("commentStatus", Model.KommentarCdList, new { @class = "form-control" })
+            }
+        </div>
+        <div class="col-xs-12 col-sm-8 col-md-9">
+            <label class="control-label" for="commentText">Bemerkung</label>
+            @Html.DevExpress().PageControl(settings =>
+           {
+               settings.Name = "pcBemerkungen";
+               settings.Width = Unit.Percentage(100);
+               settings.TabAlign = TabAlign.Left;
+               settings.TabPosition = TabPosition.Top;
+               settings.TabPages.Add("Öffentliche Stellungnahme").SetContent(() =>
+               {
+                   ViewContext.Writer.Write("<textarea class=\"form-control\" rows=\"5\" id=\"commentText\" style=\"min-width:100% !important\"" + (Model.Abgeschlossen ? " readonly" : "") + ">" + Model.Bemerkung + "</textarea>");
+               });
+               settings.TabPages.Add("Vertrauliche Notiz").SetContent(() =>
+               {
+                   ViewContext.Writer.Write("<textarea class=\"form-control\" rows=\"5\" id=\"commentVertraulich\" style=\"min-width:100% !important\"" + (Model.Abgeschlossen ? " readonly" : "") + ">" + Model.BemerkungVertraulich + "</textarea>");
+               });
+           }).GetHtml()
+        </div>        
+    </div>
+
+@*kommentar block*@
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-bordered table-striped" style="margin-top: 20px">
+                <div id="kommentarHead" class="text-info titel" style="cursor:pointer">Kommentarliste</div>
+                <table id="kommentarTable" class="table">
+                    <tr>
+                        <th>Datum</th>
+                        <th>Benutzer</th>
+                        <th>Kommentar</th>
+                        <th>Status</th>                        
+                    </tr>
+
+                    @foreach (var item in Model.KommentarListe  )
+                    {
+                        <tr>
+                            <td>@Html.NullableDate(item.StellungNahmeDatum)</td>
+                            <td>@Html.DisplayFor(modelItem => item.StellungNahmeUser)</td>
+                            <td><pre>@Html.DisplayFor(modelItem => item.Kommentar)</pre></td>
+                            <td>@Html.DisplayFor(modelItem => item.Status)</td>                         
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+
+@* End of kommentat block *@
+
+    <div class="row">
+        <div class="col-xs-12" style="width:100%; margin-top: 20px;float:right; text-align: right">
+            @if (!Model.Abgeschlossen)
+            {
+                <div id="commentSave" class="btn btn-default">Speichern</div>
+            }
+            <a href="~/Sitzungen/Sitzung/@(Model.Traktand.TbGESSitzung_id)" class="btn btn-default">Zurück</a>
+        </div>
+    </div>
+</form>
+
+
+@*<form class="form-horizontal" role="form">
+    <div class="row" style="margin-top: 20px">
+        <div class="col-md-12 text-primary">Stellungnahme</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <table><tr><td>Datum&nbsp;</td>
+                <td>@Html.DevExpress().DateEdit(settings =>
+            {
+                settings.Name = "commentDatum";
+                settings.Properties.DisplayFormatString = "dd.MM.yyyy";
+                settings.Properties.EditFormatString = "dd.MM.yyyy";
+                settings.Date = Model.StellungnahmeDatum;
+            }).GetHtml()</td></tr></table>                       
+        </div>
+        <div class="col-md-6" style="text-align:right; white-space:nowrap">
+            Status&nbsp;
+            @Html.DropDownList("commentStatus", Model.KommentarCdList)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="col-md-12">
+                    <textarea class="form-control" rows="3" id="commentText"
+                              style="min-width:100% !important">@Model.Bemerkungen</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="width:100%; margin-top: 20px;float:right; text-align: right">
+        <div id="commentSave" class="btn btn-default">Speichern</div>
+        <a href="~/Home/Sitzung/@(Model.Traktand.TbGESSitzung_id)" class="btn btn-default">Zurück</a>
+    </div>
+</form>*@
+
+@section styles {
+    @Styles.Render("~/Content/toastr")
+    <style>
+    div.titel {
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-left: 10px;
+        margin-top: 5px;
+        margin-bottom: 8px;
+    }
+    div.hat-bemerkung {
+        background-color: #dff0d8;
+        border-color: #d6e9c6;
+        padding: 5px;
+    }
+    </style>
+}
+
+@section scripts {
+    <script type="text/javascript" src="~/Scripts/Behoerdenloesung/Sitzungen/Traktandum.js"></script>
+    <script type="text/javascript" src="~/Scripts/toastr.js"></script>
+    @*<script type="text/html" id="item-template">
+            <a href="#" data-id="" class="list-group-item dialog-item"
+               data-bind="text: Description, attr: { 'data-id': TraktandId }"></a>
+        </script>*@
+}
+
+
+@section navbarex
+{
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("Sitzungen", "Home", "Sitzungen")</li>
+        <li>@Html.ActionLink("Sitzung", "Sitzung", "Sitzungen", new { id = Model.Traktand.TbGESSitzung_id }, null)</li>
+    </ul>
+}

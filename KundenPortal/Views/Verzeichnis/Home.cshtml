@@ -1,0 +1,92 @@
+﻿@using System.Web.UI.WebControls
+@using Dialog.Behoerdenloesung.Sitzungen.UI.Web.Helpers
+
+@using DevExpress.Web.Mvc
+@using DevExpress.Web.Mvc.UI
+
+@{
+    ViewBag.Title = "Behördenlösung - " + ViewBag.UserName;
+    var idOffset = ViewBag.IdOffset;
+}
+
+@using (Html.BeginForm())
+{
+    <script type="text/javascript">
+        function OnTreeViewNodeClick(s, e) {
+            //alert(e.nodeKey); e.nodeKey ist TbBHDGremium_id + IdOffset
+            //debugger;
+            if (parseInt(e.nodeKey) < @idOffset) {
+                $('#divVerzeichnis').html('');
+
+            } else {
+                $('#divVerzeichnis').load('@Url.Content("~/Verzeichnis/VerzeichnisGridPartial/")' + e.nodeKey);
+            }
+            //$('#upDown').click();
+        }
+        function OnTreeViewNodeExpanding(s, e) {
+            //e.collapseAll();
+            //s.PerformCallback(e.nodeKey);
+            //e.cancel = true;
+        }
+    </script>
+
+    @*<div class="row" style="margin-top:20px;">
+        <div class="col-xs-12" style="width:100%;background-color:gainsboro;text-align:center">
+            <span id="upDown" class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+        </div>
+    </div>*@
+    <div id="topRow" class="row" style="margin-top:10px;">
+        <div class="col-xs-8 col-sm-7 col-md-6 col-lg-5">
+            @{ Html.RenderAction("VerzeichnisTreePartial", "Verzeichnis"); }
+        </div>
+    </div>
+    <div class="row" style="margin-top:10px;">
+        <div class="col-xs-12">
+            <div id="divVerzeichnis"></div>
+        </div>
+    </div>
+    }
+
+@section navbarex
+{
+<ul class="nav navbar-nav">
+    @if (ViewBag.S)
+    {
+        <li>@Html.ActionLink("Sitzungen", "Home", "Sitzungen")</li>
+    }
+    @if (ViewBag.A)
+    {
+        <li>@Html.ActionLink("Aufgaben", "Home", "Tasks")</li>
+    }
+    @if (ViewBag.K)
+    {
+        <li>@Html.ActionLink("Kalender", "Home", "Calendar")</li>
+    }
+    @if (ViewBag.G)
+    {
+        <li>@Html.ActionLink("Geschäft", "Home", "Geschaeft")</li>
+    }
+    @if (ViewBag.E)
+    {
+        <li>@Html.ActionLink("EWK Info", "Home", "Ewk")</li>
+    }
+</ul>
+}
+
+@section styles {
+    <style>
+        .titel {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            margin-top: 15px;
+        }
+    </style>
+}
+
+@section scripts {
+    <script type="text/javascript" src="~/Scripts/Behoerdenloesung/Verzeichnis/Home.js"></script>
+}
+
+
+

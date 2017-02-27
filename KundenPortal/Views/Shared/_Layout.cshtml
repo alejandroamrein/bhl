@@ -1,0 +1,94 @@
+﻿@using Dialog.Behoerdenloesung.Sitzungen.UI.Web.Controllers
+@using Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models
+@using Dialog.Behoerdenloesung.Sitzungen.UI.Web.Helpers
+@using Newtonsoft.Json
+@{
+    var apt = new Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models.CodeArten();
+    var v = apt.GetType().Assembly.GetName().Version;
+    var version = string.Format("Version {0}.{1}", v.Major, v.Minor);
+    var _VD_ = System.Configuration.ConfigurationManager.AppSettings["vd"];
+    var _TIMEOUT_ = System.Configuration.ConfigurationManager.AppSettings["Timeout"];
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("styles", required: false)
+    @Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.Editors },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.HtmlEditor },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.GridView },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.PivotGrid },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.Chart },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.Report },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.TreeList },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.Scheduler }
+    )
+    @Scripts.Render("~/bundles/jquery")
+    @Html.DevExpress().GetScripts(
+        new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+        new Script { ExtensionSuite = ExtensionSuite.HtmlEditor },
+        new Script { ExtensionSuite = ExtensionSuite.GridView },
+        new Script { ExtensionSuite = ExtensionSuite.PivotGrid },
+        new Script { ExtensionSuite = ExtensionSuite.Editors },
+        new Script { ExtensionSuite = ExtensionSuite.Chart },
+        new Script { ExtensionSuite = ExtensionSuite.Report },
+        new Script { ExtensionSuite = ExtensionSuite.TreeList },
+        new Script { ExtensionSuite = ExtensionSuite.Scheduler }
+    )
+    <script type="text/javascript">
+        var _VD_ = "@(_VD_)";
+        var _TIMEOUT_ = @(_TIMEOUT_) * 60 * 1000; // Minuten in Millisekunden
+    </script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Behördenlösung", "Portal", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                @RenderSection("navbarex", required: false)                
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>            
+            <p>&copy; <a href="http://www.dialog.ch/">@DateTime.Now.Year Dialog Verwaltungs-Data AG</a> - @Html.ActionLink(version, "Bitacora", "Home")</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/knockout")
+
+    @{ 
+        var ping = false;
+        var str = System.Configuration.ConfigurationManager.AppSettings["Ping"];
+        if (str != null && str == "1")
+        {
+            ping = true;
+        }
+    }
+    @if (ping)
+    {
+        <script src="~/Scripts/Behoerdenloesung/reconnect.js"></script>
+    }
+    <script src="~/Scripts/Behoerdenloesung/inactivityTracker.js"></script>
+
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

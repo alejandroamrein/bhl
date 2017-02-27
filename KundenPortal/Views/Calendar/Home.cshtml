@@ -1,0 +1,64 @@
+﻿@using System.Web.UI.WebControls
+@using Dialog.Behoerdenloesung.Sitzungen.UI.Web.Helpers
+
+@using DevExpress.Web.Mvc
+@using DevExpress.Web.Mvc.UI
+@using DevExpress.Web.ASPxHtmlEditor
+@using DevExpress.Web.ASPxScheduler
+
+@{
+    ViewBag.Title = "Behördenlösung - " + ViewBag.UserName;
+    var _VD_ = System.Configuration.ConfigurationManager.AppSettings["vd"];
+}
+
+@using (Html.BeginForm())
+{
+    <div class="row" style="margin-top:20px;">
+        <script type="text/javascript">
+            function OnAppointmentClick(s, e) {
+                var apt = s.GetAppointmentById(e.appointmentId);
+                if (apt.SitzungID > 0) {
+                    if (apt.CanOpen) {
+                        window.location.href = "@(_VD_)/Sitzungen/Sitzung/" + apt.SitzungID;
+                    } else {
+                        alert("Keine Berechtigung");
+                    }
+                }
+            }
+        </script>
+        <div class="col-xs-12">
+            @{ Html.RenderAction("SchedulerPartial", "Calendar"); }
+        </div>
+    </div>
+}
+
+@section navbarex
+{
+    <ul class="nav navbar-nav">
+    @if (ViewBag.S)
+    {
+        <li>@Html.ActionLink("Sitzungen", "Home", "Sitzungen")</li>
+    }
+    @if (ViewBag.A)
+    {
+        <li>@Html.ActionLink("Aufgaben", "Home", "Tasks")</li>
+    }
+    @if (ViewBag.G)
+    {
+        <li>@Html.ActionLink("Geschäft", "Home", "Geschaeft")</li>
+    }
+    @if (ViewBag.V)
+    {
+        <li>@Html.ActionLink("Behördenvezeichnis", "Home", "Verzeichnis")</li>    
+    }
+    @if (ViewBag.E)
+    {
+        <li>@Html.ActionLink("EWK Info", "Home", "EWK")</li>
+    }        
+    </ul>
+}
+
+
+
+
+

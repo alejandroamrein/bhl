@@ -1,0 +1,130 @@
+﻿@model Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models.SitzungViewModel
+
+@using Dialog.Behoerdenloesung.Sitzungen.UI.Web.Helpers
+
+@{
+    ViewBag.Title = "Home Page";
+    var headerText1 = string.Format("<div style='margin-top:20px'>{0:dddd}, {0:d} von {1:t} Uhr bis {2:t} Uhr, {3}</div>",
+        Model.Sitzung.SitzungsDatum,
+        Model.Sitzung.ZeitVon, Model.Sitzung.ZeitBis,
+        Model.Sitzung.SitzungsOrt_ID);
+    var headerText2 = string.Empty;
+    if (!string.IsNullOrEmpty(Model.Sitzung.ZusatzFeld1))
+    {
+        headerText2 = string.Format("<div style='margin-top:10px'>{0}</div>", Model.Sitzung.ZusatzFeld1);
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.Raw(headerText1)
+    </div>
+</div>
+
+@if (!string.IsNullOrEmpty(headerText2))
+{
+    <div class="row">
+        <div class="col-md-12">
+            @Html.Raw(headerText2)
+        </div>
+    </div>
+}
+
+@if (Model.Dokumente != null && Model.Dokumente.Count > 0)
+{ 
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-bordered table-striped" style="margin-top: 20px">
+                <table class="table">
+                    <tr>
+                        <th>Dokumententitel</th>
+                        <th>Datum</th>
+                        <th></th>
+                    </tr>
+                    @foreach (var item in Model.Dokumente)
+                    {
+                        <tr data-id="@(item.Id)">
+                            <td>@item.Titel</td>
+                            <td>@Html.NullableDate(item.ErfDatum)</td>
+                            <td>
+                                <a class="downloadDatei" href="#"><div class="glyphicon glyphicon-download-alt"></div></a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-bordered table-striped" style="margin-top: 20px">
+            <div class="text-success">Traktandenliste</div>
+            <table class="table">
+                <tr>
+                    <th>Nr</th>
+                    <th>Typ</th>
+                    <th>Geschäftstitel</th>
+                    <th class="hidden-xs hidden-sm">Traktandentitel</th>
+                    <th class="hidden-xs">Signatur</th>
+                    <th class="hidden-xs">Öffentlich</th>
+                    <th class="hidden-xs hidden-sm">BeschNr</th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.Traktandens)
+                {
+                    <tr class="@(item.Traktand.TbGESTraktandenKommmentars.Any() ? "success" : "")">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Traktand.Traktanden_NR)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Typ)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GeschaefstTitel)
+                        </td>
+                        <td class="hidden-xs hidden-sm">
+                            @Html.DisplayFor(modelItem => item.Traktand.Titel)
+                        </td>
+                        <td class="hidden-xs">
+                            @Html.DisplayFor(modelItem => item.Signatur)
+                        </td>
+                        <td class="hidden-xs">
+                            @(item.Traktand.Offentlich.HasValue && item.Traktand.Offentlich > 0 ? "Ja" : "Nein")
+                        </td>
+                        <td class="hidden-xs hidden-sm">
+                            @Html.DisplayFor(modelItem => item.Traktand.Beschluss_NR)
+                        </td>
+                        <td>
+                            <a href="~/Sitzungen/Traktandum/@item.Traktand.TbGESTraktanden_id"><div class="glyphicon glyphicon-edit"></div></a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
+<div style="width:100%; margin-top: 20px">
+    <div style="width:200px;float:right; text-align: right"><a href="~/Sitzungen/Sitzungen" class="btn btn-default">Zurück</a></div>
+</div>
+
+@section scripts {
+    <script type="text/javascript" src="/Scripts/Behoerdenloesung/Sitzung.js"></script>    
+    @*<script type="text/html" id="item-template">
+        <a href="#" data-id="" class="list-group-item dialog-item" 
+            data-bind="text: Description, attr: { 'data-id': TraktandId }"></a>
+    </script>*@
+}
+
+@section navbarex
+{
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("Sitzungen", "Sitzungen", "Sitzungen")</li>
+         @*<li>@Html.ActionLink("About", "About", "Home")</li>
+            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+    </ul>
+}

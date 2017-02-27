@@ -1,0 +1,84 @@
+﻿@model MVCSchedulerReadOnly.Models.SchedulerDataObject
+
+@using System.Drawing
+@using System.Web.UI.WebControls
+
+@*#region #SchedulerPartial*@
+@Html.DevExpress().Scheduler(
+    settings =>
+{
+    settings.Name = "scheduler";
+    settings.CallbackRouteValues = new { Controller = "Calendar", Action = "SchedulerPartial" };
+
+    //settings.ClientSideEvents.AppointmentsSelectionChanged = "OnAppointmentsSelectionChanged";
+    // CLIENT FIELDS
+    settings.ClientSideEvents.AppointmentClick = "OnAppointmentClick";
+    settings.InitClientAppointment = (sender, args) =>
+    {
+        args.Properties.Add("CanOpen", args.Appointment.CustomFields["CanOpen"]);
+        args.Properties.Add("SitzungID", args.Appointment.CustomFields["SitzungID"]);
+    };
+
+    settings.Storage.Appointments.Assign(MVCSchedulerReadOnly.Models.SchedulerStorageProvider.DefaultAppointmentStorage);
+    settings.Storage.Appointments.CustomFieldMappings.Add(new AppointmentCustomFieldMapping("SitzungID", "SitzungID"));
+    settings.Storage.Appointments.CustomFieldMappings.Add(new AppointmentCustomFieldMapping("CanOpen", "CanOpen"));
+
+    //var types = (from x in db.tblTask_type select x);
+    var meineSitzungLabel = new AppointmentLabel(Color.LightPink, "MeineSitzungen", "&1");
+    var schulFerienLabel = new AppointmentLabel(Color.LightGray, "Schulferien", "&2");
+    var feiertageLabel = new AppointmentLabel(Color.LightBlue, "Feiertage", "&3");
+    var treffenLabel = new AppointmentLabel(Color.LightSalmon, "Treffen", "&4");
+    var andereSitzungLabel = new AppointmentLabel(Color.Gainsboro, "Sitzungen", "&5");
+
+    settings.Storage.Appointments.Labels.Clear();
+    settings.Storage.Appointments.Labels.BeginUpdate();
+    //foreach (var t in types)
+    //{
+    //    string strTaskTypeColor = t.task_type_color;
+    //    int lngTaskTypeID = t.task_type_id;
+    //    string strTaskTypeName = t.task_type_name;
+    //    string[] strColorOf = strTaskTypeColor.Split(';');
+    //    System.Drawing.Color colorOfTask = System.Drawing.Color.FromArgb(int.Parse(strColorOf[0]), int.Parse(strColorOf[1]), int.Parse(strColorOf[2]));
+    //    settings.Storage.Appointments.Labels.Add(colorOfTask, strTaskTypeName, strTaskTypeName);
+    //}
+    settings.Storage.Appointments.Labels.Add(meineSitzungLabel);    // 0
+    settings.Storage.Appointments.Labels.Add(schulFerienLabel);     // 1
+    settings.Storage.Appointments.Labels.Add(feiertageLabel);       // 2
+    settings.Storage.Appointments.Labels.Add(treffenLabel);         // 3
+    settings.Storage.Appointments.Labels.Add(andereSitzungLabel);   // 4
+    settings.Storage.Appointments.Labels.EndUpdate();
+
+    //int n = settings.Storage.Appointments.Statuses.Count;
+
+    settings.Storage.Resources.Assign(MVCSchedulerReadOnly.Models.SchedulerStorageProvider.DefaultResourceStorage);
+
+    settings.Storage.EnableReminders = false;
+
+    settings.OptionsCustomization.AllowAppointmentCreate = DevExpress.XtraScheduler.UsedAppointmentType.None;
+    settings.OptionsCustomization.AllowAppointmentEdit = DevExpress.XtraScheduler.UsedAppointmentType.None;
+    settings.OptionsCustomization.AllowAppointmentDelete = DevExpress.XtraScheduler.UsedAppointmentType.None;
+
+    settings.Width = new Unit(100, UnitType.Percentage);
+    settings.Views.DayView.Styles.ScrollAreaHeight = 500;
+    settings.Views.DayView.DayCount = 1;
+    settings.Views.DayView.VisibleTime = new DevExpress.XtraScheduler.TimeOfDayInterval(new TimeSpan(8, 0, 0), new TimeSpan(21, 0, 0));
+    settings.Start = DateTime.Today;
+    settings.GroupType = SchedulerGroupType.None; // Resource;
+    settings.ActiveViewType = SchedulerViewType.Month;
+    //settings.OptionsToolTips.ShowAppointmentToolTip = true;
+
+}).Bind(Model.Appointments, Model.Resources).GetHtml()
+
+@*.Bind(
+    //Hide appointments containing "xxx" in their subject lines.
+    (e) =>
+{
+    if (((Appointment)e.Object).Subject.Contains("xxx")) e.Cancel = true;
+},
+    //Hide appointments assigned to resources containing "yyy" in their captions.
+    (e) =>
+{
+    if (((Resource)e.Object).Caption.Contains("yyy")) e.Cancel = true;
+}
+)*@
+@*#endregion #SchedulerPartial*@

@@ -1,0 +1,62 @@
+﻿@using System.Drawing
+@using System.Web.UI.WebControls
+@using Dialog.Archivplan.UI.Web
+@{
+    ViewBag.Title = Resource1.Archivplan;
+    var lang = ViewBag.Lang;
+}
+
+@using (Html.BeginForm())
+{
+    <div class="vertComponentContainer">
+        
+        <div style="margin-top:5px;">@Html.ActionLink(ViewBag.Lang == "DE" ? "FR" : "DE", "ChangeLanguage", "Home",
+                 new { lang = ViewBag.Lang == "DE" ? "FR" : "DE" }, new { @class = "btn btn-danger btn-xs" })</div>
+        
+        <div style="margin-top:5px;">
+            @Html.DevExpress().PageControl(
+            settings =>
+            {
+                settings.Name = "pcFeatures";
+                //settings.ActivateTabPageAction = options.ActivateTabPageAction;
+                //settings.EnableHotTrack = options.EnableHotTrack;
+                //settings.SaveStateToCookies = options.SaveStateToCookies;
+                //settings.TabAlign = options.TabAlign;
+                //settings.TabPosition = options.TabPosition;
+                settings.TabPages.Add(Resource1.Registratur).SetContent(() =>
+                {
+                    Html.RenderAction("RegistraturPartial");
+                });
+                settings.TabPages.Add(Resource1.Begriff).SetContent(() =>
+                {
+                    Html.RenderAction("BegriffPartial");
+                });
+            }).GetHtml()
+        </div>
+    </div>
+}
+
+@Html.Partial("BestellungPartial")
+
+@section navbarex
+{
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink(Resource1.Bestellung, "", null, new { href = "javascript:pcModalMode.Show();" })</li>
+        @*<li>@Html.ActionLink("About", "About", "Home")</li>
+            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+    </ul>
+}
+
+@section scripts
+{
+    @*<script type="text/javascript">
+        $(document).ready(function() {
+            $("#showServiceColumns").change(
+                function() {
+                    $("form").submit();
+                }
+            );
+        });
+    </script>*@
+    <script src="~/Scripts/Behoerdenloesung/Bestellung.js"></script>
+}

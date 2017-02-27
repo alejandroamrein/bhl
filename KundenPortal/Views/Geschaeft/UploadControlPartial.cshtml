@@ -1,0 +1,8 @@
+﻿@Html.DevExpress().UploadControl(settings =>
+{
+    settings.Name = "uc";
+    settings.CallbackRouteValues = new { Controller = "Geschaeft", Action = "UploadControlCallbackAction" };
+    settings.ClientSideEvents.FileUploadComplete = "OnFileUploadComplete";
+    settings.Width = System.Web.UI.WebControls.Unit.Pixel(300);
+    //settings.ValidationSettings.Assign(UploadControl.Controllers.UploadControlDemosHelper.ValidationSettings);
+}).GetHtml()

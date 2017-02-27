@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Dialog.Archivplan.UI.Web.Models.tbArchivplan>
+@using System.Web.UI.WebControls
+@using Dialog.Archivplan.UI.Web
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.HtmlDataCellPrepared = (sender, e) =>
+        {
+            if (e.DataColumn.FieldName == "HasHinweisDE")
+                if (e.CellValue != null && (bool) e.CellValue == true)
+                    e.Cell.ToolTip = e.GetValue("HinweisDE").ToString();
+            if (e.DataColumn.FieldName == "HasHinweisFR")
+                if (e.CellValue != null && (bool)e.CellValue == true)
+                    e.Cell.ToolTip = e.GetValue("HinweisFR").ToString();
+        };
+
+        settings.Name = "BegriffGridView";
+        settings.CallbackRouteValues = new {Controller = "Home", Action = "BegriffPartial"};
+        settings.Width = Unit.Percentage(100);
+        settings.KeyFieldName = "RegPlanId";
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+        settings.Settings.ShowHeaderFilterButton = true;
+        settings.SettingsPager.PageSize = 15;
+
+        settings.Columns.Add("Bezeichnung" + ViewBag.Lang, Resource1.Bezeichnung);
+        settings.Columns.Add("RegPlanNr", Resource1.Registratur);
+        settings.Columns.Add("Dossierbildung" + ViewBag.Lang, Resource1.Dossierbildung);
+        settings.Columns.Add("Aufbewahrungsfrist" + ViewBag.Lang, Resource1.Aufbewahrungsfrist);
+        settings.Columns.Add("Haupttitel" + ViewBag.Lang, Resource1.Haupttitel);
+        settings.Columns.Add("Untertitel" + ViewBag.Lang, Resource1.Untertitel);
+        settings.Columns.Add("HasHinweis" + ViewBag.Lang, Resource1.Hinweis, MVCxGridViewColumnType.CheckBox);
+        settings.Columns.Add("Hinweis" + ViewBag.Lang, "").Visible = false;
+    });
+}
+@grid.Bind(Model).GetHtml()

@@ -1,0 +1,65 @@
+﻿@model DialogPortal.Models.IndexViewModel
+
+@{
+    ViewBag.Title = "Anmeldung";
+}
+
+<h2 style="margin-top: 30px">Anmelden</h2>
+
+<img src="~/Content/Images/mobile-id.jpg" border="0" alt="Mobile-ID" style="margin-top: 15px; margin-bottom: 15px" />
+
+<form method="post" action="@Model.url">
+    <input id="token" name="token" type="hidden" value="@Model.token" />
+    <input id="hash" name="hash" type="hidden" value="@Model.hash" />
+    <input type="submit" id="postToUrl" />
+</form>
+
+@using (Html.BeginForm("MidTest", "Home", FormMethod.Post, new { role = "form", id="form1" }))
+{
+    <div class="form-group">
+        <label class="control-label" for="handyNummer">Handynummer</label>
+        @Html.TextBox("handyNummer", Model.handynummer, new { @class = "form-control", autofocus = "true", placeholder = "z.B.: 41791234567" })
+    </div>
+    <div class="form-group">
+        <label>z.B.: 41791234567</label>
+    </div>
+    <div class="form-group" id="datenbankDiv">
+        <label class="control-label" for="datenbankId">Datenbank</label>
+        <select id="datenbankId" name="datenbankId" class="form-control">
+        @if (Model.datenbanken != null && Model.datenbanken.Count > 0)
+        {
+            for (int i = 0; i < Model.datenbanken.Count; i++)
+            {
+                <option value="@Model.datenbanken[i].Key" @(Model.datenbankId == Model.datenbanken[i].Key ? "selected" : "")>@Model.datenbanken[i].Value</option>
+            }
+        }
+        else
+        {
+            <option value="0" selected></option>
+        }
+        </select>
+    </div>
+    if (!Model.erfolgreich)
+    {
+        <div class="form-group">
+            <input type="submit" id="anmelden" class="btn btn-default" value="Anmelden" />
+        </div>
+    }
+    <div style="margin-top: 30px" id="progress">
+        <div style="color:gray;font-style:italic">Bitte warten...</div>
+    </div>
+    <div class="form-group">
+        <div style="margin-top:30px;color:@(Model.erfolgreich ? "green" : "red")"
+             id="responseMessage">@Model.responseMessage</div>
+        @if (Model.erfolgreich)
+        {
+            <input style="margin-top: 30px" type="button" id="zurLoesung" class="btn btn-default" value="Zur Behördenlösung" />
+            <input style="margin-top: 30px" type="button" id="zurAdmin" class="btn btn-default" value="Zur Verwaltung" />
+        }
+    </div>
+}
+
+@section scripts
+{
+    <script type="text/javascript" src="~/Scripts/App/Home/MidTest.js"></script>
+}

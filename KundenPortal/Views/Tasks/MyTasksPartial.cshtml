@@ -1,0 +1,353 @@
+﻿@using System.Drawing.Imaging
+@using System.Web.UI.WebControls
+@using Dialog.Behoerdenloesung.Sitzungen.UI.Web.Helpers
+@using Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models
+@*@model  Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models.MyTasksViewModel*@
+@model  List<Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models.TbAFGAufgabe>
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "gvTasksGridView";
+
+        settings.HtmlDataCellPrepared = (sender, e) =>
+        {
+            if (e.DataColumn.FieldName == "Betreff")
+            {
+                var val = e.GetValue("Beschreibung");
+                e.Cell.ToolTip = (val == null ? "" : val.ToString());
+            }
+        };
+
+        settings.CallbackRouteValues = new { Controller = "Tasks", Action = "MyTasksPartial" };
+        settings.Width = Unit.Percentage(100);
+
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Tasks", Action = "MyTasksPartialUpdate" };
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        //settings.CommandColumn.Visible = true;
+        //settings.CommandColumn.ShowEditButton = true;
+        settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = false;
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = true;
+        settings.Settings.ShowFilterRowMenu = true;
+        settings.Settings.ShowHeaderFilterButton = true;
+        settings.SettingsPopup.HeaderFilter.Height = Unit.Pixel(200);
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+        settings.SettingsPager.PageSize = 15;
+
+        settings.KeyFieldName = "TbAFGAufgabe_id";
+
+        settings.Columns.Add(column =>
+        {
+            column.Name = "Bearbeiten";
+            column.SetDataItemTemplateContent(c =>
+            {
+                Html.DevExpress().Button(buttonSettings =>
+                {
+                    var id = DataBinder.Eval(c.DataItem, "TbAFGAufgabe_id");
+                    buttonSettings.Name = "editButton_" + id.ToString();
+                    buttonSettings.ClientSideEvents.Click = string.Format("function(s, e) {{ {0}.StartEditRow('{1}'); }}", settings.Name, c.VisibleIndex);
+                    //buttonSettings.ClientSideEvents.Click = "function(s,e){s.StartEditRow(e.visibleIndex);}";
+                    buttonSettings.ControlStyle.CssClass = "linkButton";
+                    buttonSettings.Text = "Bearbeiten";
+                }).Render();
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.PropertiesEdit.DisplayFormatString = "N0";
+            column.FieldName = "Erledigt";
+            column.Caption = "Erledigt";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            //column.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Betreff";
+            column.Caption = "Betreff";
+            //column.Width = System.Web.UI.WebControls.Unit.Percentage(50);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Beginn";
+            column.Caption = "Beginn";
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "d";
+            //column.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Faellig";
+            column.Caption = "Fällig";
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "d";
+            //column.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Beschreibung";
+            column.Caption = "";
+            column.Visible = false;
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AufgabeStatus_ID";
+            column.Caption = "Status";
+            //column.Width = Unit.Percentage(20);
+            column.ColumnType = MVCxGridViewColumnType.ComboBox;
+            //column.Settings.HeaderFilterMode = HeaderFilterMode.CheckedList;
+            column.Settings.HeaderFilterMode = HeaderFilterMode.List;
+            var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+            comboBoxProperties.ValueField = "Value";
+            comboBoxProperties.TextField = "Text";
+            comboBoxProperties.ValueType = typeof(int);
+            comboBoxProperties.DataSource = ViewData["statusList"];
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AufgabePrioritaet_ID";
+            column.Caption = "Priorität";
+            //column.Width = Unit.Percentage(20);
+            column.ColumnType = MVCxGridViewColumnType.ComboBox;
+            var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+            comboBoxProperties.ValueField = "Value";
+            comboBoxProperties.TextField = "Text";
+            comboBoxProperties.ValueType = typeof(int);
+            comboBoxProperties.DataSource = ViewData["prioritaetList"];
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Visum";
+            column.Caption = "Visum";
+            //column.Width = Unit.Percentage(15);
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        });
+        //foreach (GridViewDataColumn column in settings.Columns)
+        //{
+        //    if (column.FieldName == "AufgabeStatus_ID")
+        //    {
+        //        column.Settings.HeaderFilterMode = HeaderFilterMode.CheckedList;
+        //    }
+        //    if (column.FieldName == "Visum")
+        //    {
+        //        column.Settings.HeaderFilterMode = HeaderFilterMode.List;
+        //    }
+        //}
+        settings.HeaderFilterFillItems = (sender, e) =>
+        {
+            if (e.Column.FieldName == "AufgabeStatus_ID")
+            {
+                e.Values.Clear();
+                e.AddShowAll();
+                e.AddValue("Offene", "Offene", ViewBag.Offene);
+                e.AddValue("Abgeschlossene", "Abgeschlossene", ViewBag.Abgeschlossene);
+            }
+        };
+
+        // Set header filter value
+        //settings.AutoFilterCellEditorInitialize = (s, e) =>
+        //{
+        //    if (e.Column.FieldName.Equals("AufgabeStatus_ID"))
+        //    {
+        //        e.Editor.Value = "Offene";
+        //    }
+        //};
+        settings.PreRender = (sender, e) =>
+        {
+            ASPxGridView gridView = (ASPxGridView)sender;
+            gridView.FilterExpression = new DevExpress.Data.Filtering.InOperator("AufgabeStatus_ID", ViewBag.OffeneAsObjectArray).ToString();
+        };
+
+        settings.SetEditFormTemplateContent(c =>
+        {
+            var _id_ = DataBinder.Eval(c.DataItem, "TbAFGAufgabe_id");
+            var _beschreibung_ = DataBinder.Eval(c.DataItem, "Beschreibung");
+
+            Html.DevExpress().FormLayout(formLayoutSettings =>
+            {
+                formLayoutSettings.Name = "FormLayoutProducts";
+                formLayoutSettings.Width = Unit.Percentage(100);
+                formLayoutSettings.ColCount = 2;
+                //Html.DevExpress().Label(val => val.Text = "Afasdfsadfsadfsdafasfasdf").Render();
+                formLayoutSettings.Items.Add(itemSettings =>
+                {
+                    itemSettings.ColSpan = 2;
+                    itemSettings.FieldName = "Erledigt";
+                    itemSettings.Caption = "Erledigt (%)";
+                    itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+                    var spinEditSettings = (SpinEditSettings)itemSettings.NestedExtensionSettings;
+                    spinEditSettings.Properties.DisplayFormatString = "N0";
+                    spinEditSettings.Properties.MinValue = 0;
+                    spinEditSettings.Properties.MaxValue = 100;
+                    spinEditSettings.Properties.SpinButtons.ShowIncrementButtons = false;
+                    spinEditSettings.Properties.SpinButtons.ShowLargeIncrementButtons = true;
+                    spinEditSettings.Width = Unit.Pixel(120);
+                });
+                formLayoutSettings.Items.Add(itemSettings =>
+                {
+                    itemSettings.FieldName = "Beginn";
+                    itemSettings.Caption = "Beginn";
+                    itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.DateEdit;
+                    var dateEditSettings = (DateEditSettings)itemSettings.NestedExtensionSettings;
+                    dateEditSettings.Properties.DisplayFormatString = "d";
+                    dateEditSettings.Width = Unit.Pixel(120);
+                });
+                formLayoutSettings.Items.Add(itemSettings =>
+                {
+                    itemSettings.FieldName = "AufgabeStatus_ID";
+                    itemSettings.Caption = "Status";
+                    itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+                    var comboBoxSettings = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+                    comboBoxSettings.Properties.ValueField = "Value";
+                    comboBoxSettings.Properties.TextField = "Text";
+                    comboBoxSettings.Properties.ValueType = typeof(int);
+                    comboBoxSettings.Properties.DataSource = ViewData["statusList"];
+                    comboBoxSettings.Width = Unit.Pixel(120);
+                });
+                formLayoutSettings.Items.Add(itemSettings =>
+                {
+                    itemSettings.FieldName = "Faellig";
+                    itemSettings.Caption = "Fällig";
+                    itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.DateEdit;
+                    var dateEditSettings = (DateEditSettings)itemSettings.NestedExtensionSettings;
+                    dateEditSettings.Properties.DisplayFormatString = "d";
+                    dateEditSettings.Width = Unit.Pixel(120);
+                    dateEditSettings.Properties.ClientSideEvents.DateChanged =
+                        "function(s, e){ $('#Verschiebungsgrund_I').removeAttr('disabled').removeAttr('readonly').removeClass('dxeDisabled_Aqua'); }"; // prop('disabled', false); }";
+                });
+                formLayoutSettings.Items.Add(itemSettings =>
+                {
+                    itemSettings.FieldName = "AufgabePrioritaet_ID";
+                    itemSettings.Caption = "Priorität";
+                    itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+                    var comboBoxSettings = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+                    comboBoxSettings.Properties.ValueField = "Value";
+                    comboBoxSettings.Properties.TextField = "Text";
+                    comboBoxSettings.Properties.ValueType = typeof(int);
+                    comboBoxSettings.Properties.DataSource = ViewData["prioritaetList"];
+                    comboBoxSettings.Width = Unit.Pixel(120);
+                });
+                formLayoutSettings.Items.Add(itemSettings =>
+                {
+                    itemSettings.ColSpan = 2;
+                    itemSettings.Caption = "Verschiebungsgrund";
+                    itemSettings.Name = "Verschiebungsgrund";
+                    itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+                    var textBoxSettings = (TextBoxSettings)itemSettings.NestedExtensionSettings;
+                    textBoxSettings.Width = Unit.Percentage(100);
+                    textBoxSettings.Text = "";
+                    textBoxSettings.ReadOnly = true;
+                    textBoxSettings.Enabled = false;
+                });
+                formLayoutSettings.Items.Add(itemSettings =>
+                {
+                    itemSettings.ColSpan = 2;
+                    itemSettings.FieldName = "Betreff";
+                    itemSettings.Caption = "Betreff";
+                    itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+                    var textBoxSettings = (TextBoxSettings)itemSettings.NestedExtensionSettings;
+                    textBoxSettings.Width = Unit.Percentage(100);
+                });
+                formLayoutSettings.Items.Add(itemSettings =>
+                {
+                    itemSettings.ColSpan = 2;
+                    itemSettings.Caption = "Beschreibung";
+                    itemSettings.ShowCaption = DefaultBoolean.True;
+                }).SetNestedContent(() =>
+                {
+                    ViewContext.Writer.Write(Html.TextArea("Beschreibung",
+                        _beschreibung_.ToString(),
+                        new { rows = "4", style = "width: 100%" }));
+                });
+                formLayoutSettings.Items.AddEmptyItem();
+                formLayoutSettings.Items.Add(itemSettings =>
+                {
+                    itemSettings.ColSpan = 2;
+                    itemSettings.ShowCaption = DefaultBoolean.False;
+                }).SetNestedContent(() =>
+                {
+                    Html.DevExpress().PageControl(s =>
+                    {
+                        s.Name = "pcDetails_" + _id_;
+                        //settings.ActivateTabPageAction = options.ActivateTabPageAction;
+                        //settings.EnableHotTrack = options.EnableHotTrack;
+                        //settings.SaveStateToCookies = options.SaveStateToCookies;
+                        s.Width = Unit.Percentage(100);
+                        s.TabAlign = TabAlign.Left;
+                        s.TabPosition = TabPosition.Top;
+                        s.TabPages.Add("Verantwortlichkeiten").SetContent(() =>
+                        {
+                            Html.RenderAction("MyTasksDetailsVerantwortlichkeitenPartial", new {TbAFGAufgabe_id = _id_});
+                        });
+                        s.TabPages.Add("Bemerkungen").SetContent(() =>
+                        {
+                            Html.RenderAction("MyTasksDetailsBemerkungenPartial", new {TbAFGAufgabe_id = _id_});
+                            ViewContext.Writer.Write("<div style='float:right;margin-top:10px'>");
+                            Html.DevExpress().Button(btnSettings =>
+                            {
+                                btnSettings.Name = "btnBemerkung";
+                                btnSettings.Text = "Neue Bemerkung";
+                                btnSettings.ClientSideEvents.Click = "function(s, e){ onAddAfgBemerkung(" + _id_ + "); }";
+                            }).Render();
+                            ViewContext.Writer.Write("</div>");
+                        });
+                        s.TabPages.Add("Mutationen").SetContent(() =>
+                        {
+                            Html.RenderAction("MyTasksDetailsMutationenPartial", new { TbAFGAufgabe_id = _id_ });
+                        });
+                        s.TabPages.Add("Beilagen").SetContent(() =>
+                        {
+                            Html.RenderAction("MyTasksDetailsBeilagenPartial", new { TbAFGAufgabe_id = _id_ });
+                        });
+                    }).Render();
+                });
+                formLayoutSettings.Items.AddEmptyItem();
+                formLayoutSettings.Items.Add(itemSettings =>
+                {
+                    itemSettings.ShowCaption = DefaultBoolean.False;
+                }).SetNestedContent(() =>
+                {
+                    ViewContext.Writer.Write("<div style='float:right'>");
+                    Html.DevExpress().Button(
+                        btnSettings =>
+                        {
+                            btnSettings.Name = "btnTaskUpdate";
+                            btnSettings.Text = "Speichern";
+                            btnSettings.Style[HtmlTextWriterStyle.MarginLeft] = "5px";
+                            btnSettings.ClientSideEvents.Click = "function(s, e){ gvTasksGridView.UpdateEdit(); }";
+                        }).Render();
+                    Html.DevExpress().Button(
+                        btnSettings =>
+                        {
+                            btnSettings.Name = "btnTaskCancel";
+                            btnSettings.Text = "Schliessen";
+                            btnSettings.Style[HtmlTextWriterStyle.MarginLeft] = "5px";
+                            btnSettings.ClientSideEvents.Click = "function(s, e){ gvTasksGridView.CancelEdit(); }";
+                        }).Render();
+                    ViewContext.Writer.Write("</div>");
+                });
+            })
+            .Bind(c.DataItem)
+            .Render();
+        });
+
+        //settings.SettingsDetail.ShowDetailRow = true;
+
+        //settings.SetDetailRowTemplateContent(c =>
+        //{
+        //    ViewContext.Writer.Write(
+        //        "Aufgabe: <b>" + DataBinder.Eval(c.DataItem, "Beschreibung") + "</b><br /><br />"
+        //    );
+        //    Html.RenderAction("MyTasksDetailsPartial", new { TbAFGAufgabe_id = DataBinder.Eval(c.DataItem, "TbAFGAufgabe_id") });
+        //});
+    });
+
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string) ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

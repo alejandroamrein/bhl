@@ -1,0 +1,111 @@
+﻿@using System.Web.UI.WebControls
+@model  List<Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models.VerzeichnisGridItem>
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "gvVerzeichnis";
+
+        settings.CallbackRouteValues = new { Controller = "Verzeichnis", Action = "VerzeichnisGridPartial" };
+        settings.Width = Unit.Percentage(100);
+
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = false;
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "BEZ";
+            column.Caption = "Funktion";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            //column.Width = Unit.Percentage(16);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AmtBeginnDatum";
+            column.Caption = "Beginn Amt";
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "d";
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            //column.Width = Unit.Percentage(14);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AmtEndeDatum";
+            column.Caption = "Ende Amt";
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "d";
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            //column.Width = Unit.Percentage(14);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "EntrittDatum";
+            column.Caption = "Eintritt";
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "d";
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            //column.Width = Unit.Percentage(14);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AustrittDatum";
+            column.Caption = "Austritt";
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            column.PropertiesEdit.DisplayFormatString = "d";
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            //column.Width = Unit.Percentage(14);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Fullname";
+            column.Caption = "Name";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            //column.Width = Unit.Percentage(23);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Adresse";
+            column.Caption = "Adresse";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            //column.Width = Unit.Percentage(23);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TEL1";
+            column.Caption = "Telefon P.";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            column.CellStyle.Wrap = DefaultBoolean.False;
+            //column.Width = Unit.Percentage(7);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TEL2";
+            column.Caption = "Telefon G.";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            column.CellStyle.Wrap = DefaultBoolean.False;
+            //column.Width = Unit.Percentage(7);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TEL3";
+            column.Caption = "Telefon M.";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            column.CellStyle.Wrap = DefaultBoolean.False;
+            //column.Width = Unit.Percentage(7);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "EMail";
+            column.Caption = "EMail";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            //column.Width = Unit.Percentage(7);
+        });
+    });
+}
+@grid.Bind(Model).GetHtml()

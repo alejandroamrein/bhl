@@ -1,0 +1,162 @@
+﻿@using System.Web.UI.WebControls
+@using Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models
+@model  List<Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models.TbAFGAufgabeInternBeschreibung>
+@{
+    var canEdit = false;
+    if (ViewData["TbGESGeschaeft_edit"] != null)
+    {
+        canEdit = (bool)ViewData["TbGESGeschaeft_edit"];
+    }
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "gvBemerkungen_" + ViewData["TbAFGAufgabe_id"];
+
+        settings.SettingsDetail.MasterGridName = "grid";
+        settings.CallbackRouteValues = new { Controller = "Geschaeft", Action = "TaskBemerkungenGridPartial", TbAFGAufgabe_id = ViewData["TbAFGAufgabe_id"] };
+        settings.Width = Unit.Percentage(100);
+
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Geschaeft", Action = "TaskBemerkungenGridPartialUpdate" };
+        settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+        settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+        settings.CommandColumn.Visible = canEdit;
+        settings.CommandColumn.ShowEditButton = ((bool)ViewData["TbGESGeschaeft_edit"]);
+        settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = false;
+
+        settings.KeyFieldName = "TbAFGAufgabeInternBeschreibung_id";
+
+        //settings.Columns.Add("TbAFGAufgabe_id");
+        settings.Columns.Add("InternBeschreibung");
+        settings.Columns.Add("Datum").PropertiesEdit.DisplayFormatString = "d";
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TbGMXCodeInternArt_ID";
+            column.Caption = "Art";
+            //column.Width = Unit.Percentage(20);
+            column.ColumnType = MVCxGridViewColumnType.ComboBox;
+            //column.Settings.HeaderFilterMode = HeaderFilterMode.CheckedList;
+            column.Settings.HeaderFilterMode = HeaderFilterMode.List;
+            var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+            comboBoxProperties.ValueField = "Value";
+            comboBoxProperties.TextField = "Text";
+            comboBoxProperties.ValueType = typeof(int);
+            comboBoxProperties.DataSource = ViewData["artListAfg"];
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Sachbearbeiter_ID";
+            column.Caption = "Sachbearbeiter";
+            //column.Width = Unit.Percentage(20);
+            column.ColumnType = MVCxGridViewColumnType.ComboBox;
+            //column.Settings.HeaderFilterMode = HeaderFilterMode.CheckedList;
+            column.Settings.HeaderFilterMode = HeaderFilterMode.List;
+            var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+            comboBoxProperties.ValueField = "Value";
+            comboBoxProperties.TextField = "Text";
+            comboBoxProperties.ValueType = typeof(int);
+            comboBoxProperties.DataSource = ViewData["sachbearbeiterList"];
+        });
+        settings.Columns.Add("Visum");
+
+        settings.SetEditFormTemplateContent(c =>
+        {
+            var _id_ = DataBinder.Eval(c.DataItem, "TbAFGAufgabeInternBeschreibung_id");
+            var _afgid_ = DataBinder.Eval(c.DataItem, "TbAFGAufgabe_id");
+            var _datum_ = DataBinder.Eval(c.DataItem, "Datum");
+            var _beschreibung_ = DataBinder.Eval(c.DataItem, "InternBeschreibung");
+
+            Html.DevExpress().FormLayout(formLayoutSettings =>
+            {
+                formLayoutSettings.Name = "FormLayoutInternBeschreibung";
+                formLayoutSettings.Width = Unit.Pixel(460);
+                formLayoutSettings.ColCount = 3;
+                formLayoutSettings.Items.Add(itemSettings =>
+                {
+                    itemSettings.FieldName = "Datum";
+                    itemSettings.Caption = "Datum";
+                    itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.DateEdit;
+                    DateEditSettings dateEditSettings = (DateEditSettings)itemSettings.NestedExtensionSettings;
+                    dateEditSettings.Properties.DisplayFormatString = "d";
+                    dateEditSettings.Width = Unit.Pixel(120);
+                });
+                formLayoutSettings.Items.Add(itemSettings =>
+                {
+                    itemSettings.FieldName = "TbGMXCodeInternArt_ID";
+                    itemSettings.Caption = "Art";
+                    itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+                    var comboBoxSettings = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+                    comboBoxSettings.Properties.ValueField = "Value";
+                    comboBoxSettings.Properties.TextField = "Text";
+                    comboBoxSettings.Properties.ValueType = typeof(int);
+                    comboBoxSettings.Properties.DataSource = ViewData["artListAfg"];
+                    comboBoxSettings.Width = Unit.Pixel(120);
+                });
+                formLayoutSettings.Items.Add(itemSettings =>
+                {
+                    itemSettings.FieldName = "Sachbearbeiter_ID";
+                    itemSettings.Caption = "Sachbearbeiter";
+                    itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+                    var comboBoxSettings = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+                    comboBoxSettings.Properties.ValueField = "Value";
+                    comboBoxSettings.Properties.TextField = "Text";
+                    comboBoxSettings.Properties.ValueType = typeof(int);
+                    comboBoxSettings.Properties.DataSource = ViewData["sachbearbeiterList"];
+                    comboBoxSettings.Width = Unit.Pixel(120);
+                });
+                formLayoutSettings.Items.Add(itemSettings =>
+                {
+                    itemSettings.ColSpan = 3;
+                    itemSettings.Caption = "Bemerkung";
+                    itemSettings.ShowCaption = DefaultBoolean.True;
+                    itemSettings.Width = Unit.Pixel(500);
+                }).SetNestedContent(() =>
+                {
+                    ViewContext.Writer.Write(Html.TextArea("InternBeschreibung",
+                        _beschreibung_.ToString(),
+                        new { rows = "8", style = "width:500px" }));
+                });
+                formLayoutSettings.Items.AddEmptyItem();
+                formLayoutSettings.Items.Add(itemSettings =>
+                {
+                    itemSettings.ShowCaption = DefaultBoolean.False;
+                    itemSettings.ColSpan = 3;
+                }).SetNestedContent(() =>
+                {
+                    ViewContext.Writer.Write("<div style='float:right'>");
+                    ViewContext.Writer.Write("<input type='hidden' value='" + _afgid_ + "' name='TbAFGAufgabe_id' id='TbAFGAufgabe_id' />");
+                    if (canEdit)
+                    {
+                        Html.DevExpress().Button(
+                            btnSettings =>
+                        {
+                            btnSettings.Name = "btnUpdate_" + ViewData["TbAFGAufgabe_id"];
+                            btnSettings.Text = "Speichern";
+                            btnSettings.Style[HtmlTextWriterStyle.MarginLeft] = "5px";
+                            btnSettings.ClientSideEvents.Click = "function(s, e){ gvBemerkungen_" + ViewData["TbAFGAufgabe_id"] + ".UpdateEdit();  gvBemerkungen_" + ViewData["TbAFGAufgabe_id"] + ".CancelEdit(); }";
+                        }).Render();
+                    }
+                    Html.DevExpress().Button(
+                        btnSettings =>
+                    {
+                        btnSettings.Name = "btnCancel_" + ViewData["TbAFGAufgabe_id"];
+                        btnSettings.Text = "Schliessen";
+                        btnSettings.Style[HtmlTextWriterStyle.MarginLeft] = "5px";
+                        btnSettings.ClientSideEvents.Click = "function(s, e){ gvBemerkungen_" + ViewData["TbAFGAufgabe_id"] + ".CancelEdit(); }";
+                    }).Render();
+                    ViewContext.Writer.Write("</div>");
+                });
+            })
+            .Bind(c.DataItem)
+            .Render();
+        });
+    });
+
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()
+
+
+

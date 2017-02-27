@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Dialog.Archivplan.UI.Web.Models.tbArchivplan>
+
+@using System.Drawing
+@using System.Web.UI.WebControls
+
+@using DevExpress.Web.ASPxHtmlEditor
+@using Dialog.Archivplan.UI.Web
+
+@{
+    ViewBag.Title = Resource1.Archivplan;
+}
+
+@Html.DevExpress().TreeList(
+    settings =>
+{
+    settings.HtmlDataCellPrepared = (sender, e) =>
+    {
+        if (e.Column.FieldName == "HasHinweisDE")
+            if (e.CellValue != null && (bool)e.CellValue == true)
+                e.Cell.ToolTip = e.GetValue("HinweisDE").ToString();
+        if (e.Column.FieldName == "HasHinweisFR")
+            if (e.CellValue != null && (bool)e.CellValue == true)
+                e.Cell.ToolTip = e.GetValue("HinweisFR").ToString();
+    };
+
+    settings.Name = "RegistraturTreeList";
+    settings.CallbackRouteValues = new { Controller = "Home", Action = "RegistraturPartial" };
+    settings.Width = Unit.Percentage(100);
+
+    settings.AutoGenerateColumns = false;
+    settings.KeyFieldName = "RegPlanId";
+    settings.ParentFieldName = "ParentId";
+    settings.RootValue = 0;
+
+    settings.Columns.Add("RegPlanNr", Resource1.Registratur);
+    settings.Columns.Add("Bezeichnung" + ViewBag.Lang, Resource1.Bezeichnung).SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+    settings.Columns.Add("Dossierbildung" + ViewBag.Lang, Resource1.Dossierbildung);
+    settings.Columns.Add("Aufbewahrungsfrist" + ViewBag.Lang, Resource1.Aufbewahrungsfrist);
+    settings.Columns.Add("Haupttitel" + ViewBag.Lang, Resource1.Haupttitel);
+    settings.Columns.Add("Untertitel" + ViewBag.Lang, Resource1.Untertitel);
+    settings.Columns.Add("HasHinweis" + ViewBag.Lang, Resource1.Hinweis, MVCxTreeListColumnType.CheckBox);
+    settings.Columns.Add("Hinweis" + ViewBag.Lang, "").Visible = false;
+    settings.SettingsBehavior.ExpandCollapseAction = TreeListExpandCollapseAction.NodeDblClick;
+    settings.SettingsCookies.StoreExpandedNodes = true;
+
+    settings.ClientLayout = (s, e) =>
+    {
+        if (e.LayoutMode == ClientLayoutMode.Loading)
+        {
+            if (Session["TreeListState"] != null)
+                e.LayoutData = (string)Session["TreeListState"];
+        }
+        else
+            Session["TreeListState"] = e.LayoutData;
+    };
+
+    settings.PreRender = (sender, e) =>
+    {
+        if (Session["TreeListState"] == null)
+            ((MVCxTreeList)sender).ExpandToLevel(0);
+    };
+}
+).Bind(Model).GetHtml()

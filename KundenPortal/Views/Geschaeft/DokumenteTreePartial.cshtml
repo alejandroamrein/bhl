@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models.DokumenteTreeItem>
+@using System.Web.UI.WebControls
+@Html.DevExpress().TreeList(
+    settings =>
+    {
+        settings.Name = "tvFolders";
+        settings.CallbackRouteValues = new { Controller = "Geschaeft", Action = "DokumenteTreePartial" };
+        settings.Width = Unit.Percentage(100);
+        settings.Height = Unit.Percentage(100);
+
+        settings.SettingsBehavior.AllowFocusedNode = true;
+        //settings.Styles.FocusedNode.BackColor = System.Drawing.Color.FromArgb(92, 92, 92);
+        //settings.Styles.SelectionCell.BackColor = System.Drawing.Color.FromArgb(92, 92, 92);
+        //settings.Styles.SelectedNode.BackColor = System.Drawing.Color.FromArgb(92, 92, 92);
+        settings.SettingsBehavior.FocusNodeOnLoad = false;
+        settings.HtmlRowPrepared = (s, e) =>
+        {
+            //e.Row.Attributes.Add("onmouseover", "this.setAttribute('bgColor', this.style.backgroundColor); this.style.backgroundColor = '#FF0000'; //'#00AAC6';");
+            //e.Row.Attributes.Add("onmouseout", "this.style.backgroundColor = this.getAttribute('bgColor');");
+        };
+        settings.Settings.ShowColumnHeaders = false;
+        settings.Settings.VerticalScrollBarMode = ScrollBarMode.Auto;
+        settings.Settings.ScrollableHeight = 440;
+
+        settings.AutoGenerateColumns = false;
+        settings.KeyFieldName = "TbGMXDateiFolder_id";
+        settings.ParentFieldName = "ParentFolder_id";
+        settings.RootValue = 0;
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "FolderName";
+            column.Caption = "Ordner";
+        });
+
+        //settings.SetNodeTemplateContent(c =>
+        //{
+        //    if (c.Node.Nodes.Count > 0)
+        //    {
+        //        ViewContext.Writer.Write(
+        //            "<img alt=\"" + c.Node.Name + "\" class=\"img\" src=\"" + Url.Content(c.Node.Image.Url) + "\" />" +
+        //            "<div class=\"head\">" + c.Node.Text + "</div>"
+        //        );
+        //    }
+        //    else
+        //    {
+        //        ViewContext.Writer.Write(
+        //            "<img alt=\"" + c.Node.Name + "\" class=\"img\" src=\"" + Url.Content(c.Node.Image.Url) + "\" />" +
+        //            "<div class=\"body\">" +
+        //                "<a href=\"javascript:void(0)\" class=\"link\">" + c.Node.Text + "</a>" +
+        //                "<br />" +
+        //                "<span>" + c.Node.Name + "</span>" +
+        //                "</div>"
+        //            );
+        //    }
+        //});
+
+        //settings.Columns.Add("TbBHDGremium_id"); 
+        settings.SettingsBehavior.ExpandCollapseAction = TreeListExpandCollapseAction.NodeDblClick;
+        settings.ClientSideEvents.NodeExpanding = "OnTreeViewNodeExpanding";
+        settings.SettingsCookies.StoreExpandedNodes = false;
+
+        settings.ClientSideEvents.NodeClick = "function(s,e){OnTreeViewNodeClick(e.nodeKey);}";
+
+        //settings.ClientLayout = (s, e) =>
+        //{
+        //    if (e.LayoutMode == ClientLayoutMode.Loading)
+        //    {
+        //        if (Session["TreeListState"] != null)
+        //            e.LayoutData = (string)Session["TreeListState"];
+        //    }
+        //    else
+        //        Session["TreeListState"] = e.LayoutData;
+        //};
+
+        settings.PreRender = (s, e) =>
+        {
+            if (Session["TreeListState"] == null)
+            {
+                //((MVCxTreeList)s).ExpandToLevel(2);
+                ((MVCxTreeList)s).ExpandAll();
+            }
+            //(s as MVCxTreeView).SelectedNode = node;
+        };
+    }).Bind(Model).GetHtml()

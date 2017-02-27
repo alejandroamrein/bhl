@@ -1,0 +1,663 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FF0EAAB9-EA2E-448C-9C1E-D4CF4C098121}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Dialog.Behoerdenloesung.Sitzungen.UI.Web</RootNamespace>
+    <AssemblyName>KundenPortal</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Charts.Designer.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Charts.v14.1.Core, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Data.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Office.v14.1.Core, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.PivotGrid.v14.1.Core, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v14.1.Core, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v14.1.Core, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.SpellChecker.v14.1.Core, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxHtmlEditor.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxPivotGrid.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxScheduler.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxSpellChecker.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxThemes.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxTreeList.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.Mvc5.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v14.1.Extensions, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v14.1.UI, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v14.1.Web, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraPivotGrid.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v14.1.Web, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v14.1.Core, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\icsharpcode-SharpZipLib-e012155\icsharpcode-SharpZipLib-e012155\bin\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.0\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.0\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.1.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.1.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.1.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.2.1.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.2.1.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.2.1.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.2.1.0\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Controllers\AdministrationController.cs" />
+    <Compile Include="Controllers\CalendarController.cs" />
+    <Content Include="Content\Behoerdenloesung\Geschaeft\Home.css" />
+    <Content Include="Content\Behoerdenloesung\Geschaeft\Geschaeft.css" />
+    <Content Include="Content\Behoerdenloesung\Tasks\Home.css" />
+    <Content Include="Content\Images\loading.gif" />
+    <Content Include="favicon.ico" />
+    <Content Include="Content\fileinput.css" />
+    <Content Include="Content\fileinput.min.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\ui\jquery-ui.css" />
+    <Content Include="Content\ui\jquery-ui.min.css" />
+    <Content Include="Content\ui\jquery-ui.structure.css" />
+    <Content Include="Content\ui\jquery-ui.structure.min.css" />
+    <Content Include="Content\ui\jquery-ui.theme.css" />
+    <Content Include="Content\ui\jquery-ui.theme.min.css" />
+    <Compile Include="Controllers\GeschaeftController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\VerzeichnisController.cs" />
+    <Compile Include="Controllers\EwkController.cs" />
+    <Compile Include="Controllers\SitzungenController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TasksController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\Extensions.cs" />
+    <Compile Include="Helpers\GlobalHelper.cs" />
+    <Compile Include="Helpers\UserIniHelper.cs" />
+    <Compile Include="Helpers\UsersHelper.cs" />
+    <Compile Include="Helpers\ZipUtil.cs" />
+    <Compile Include="Models\BitacoraItem.cs" />
+    <Compile Include="Models\BitacoraViewModel.cs" />
+    <Compile Include="Helpers\DialogHtmlHelpers.cs" />
+    <Compile Include="Helpers\Logger.cs" />
+    <Compile Include="Helpers\SchedulerDataObject.cs" />
+    <Compile Include="Helpers\SchedulerFilterBase.cs" />
+    <Compile Include="Helpers\SchedulerStorageProvider.cs" />
+    <Compile Include="Helpers\SchedulerVisibleIntervalAttribute.cs" />
+    <Compile Include="Models\Appointment.cs" />
+    <Compile Include="Models\BehoerdenloesungModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BehoerdenloesungModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BehoerdenloesungModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BehoerdenloesungModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BehoerdenloesungModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ComboBoxItem.cs" />
+    <Compile Include="Models\Datei.cs" />
+    <Compile Include="Models\CodeArten.cs" />
+    <Compile Include="Models\DokumenteGridItem.cs" />
+    <Compile Include="Models\DokumenteTreeItem.cs" />
+    <Compile Include="Models\EFRepository.cs" />
+    <Compile Include="Models\ErrorViewModel.cs" />
+    <Compile Include="Models\EwkGeburt.cs" />
+    <Compile Include="Models\EwkJubilar.cs" />
+    <Compile Include="Models\EwkTodesfall.cs" />
+    <Compile Include="Models\EwkTotal.cs" />
+    <Compile Include="Models\EwkWegzug.cs" />
+    <Compile Include="Models\EwkZuzug.cs" />
+    <Compile Include="Models\GeschaeftItem.cs" />
+    <Compile Include="Models\GeschaeftUserSecurity.cs" />
+    <Compile Include="Models\HomeViewModel.cs" />
+    <Compile Include="Models\IRepository.cs" />
+    <Compile Include="Models\EwkViewModel.cs" />
+    <Compile Include="Models\MyTasksViewModel.cs" />
+    <Compile Include="Models\PreLogOffModel.cs" />
+    <Compile Include="Models\Resource.cs" />
+    <Compile Include="Models\SitzungenViewModel.cs" />
+    <Compile Include="Models\SitzungTraktandModel.cs" />
+    <Compile Include="Models\SitzungViewModel.cs" />
+    <Compile Include="Models\TBADRPERSON.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbAFGAufgabe.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbAFGAufgabeInternBeschreibung.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbAFGAufgabeMutationen.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbAFGAufgabenBeilagen.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbBHDFunktion.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbBHDGremium.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbBHDInstitution.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbBHDMandant.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbBHDMitglied.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbGESDatenSatzBerechtigungSetup.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbGESGeschaeft.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbGESGeschaeftBemerkung.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbGESSitzung.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbGESSitzungTeilnehmer.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbGESTraktanden.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbGESTraktandenBeilagen.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbGESTraktandenKommmentar.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbGesTraktandenRegistratur.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbGESVerantwortlichkeit.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbGESVerantwortlichkeit.Extended.cs" />
+    <Compile Include="Models\TBGMXCODE.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbGMXDatei.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbGMXGlobal.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbGMXKalender.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbGMXTermin.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbGmxUserIni.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbREGgruppe.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TbSysUSR.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Traktand.cs" />
+    <Compile Include="Models\TraktandenExtended.cs" />
+    <Compile Include="Models\TraktandenKommentar.cs" />
+    <Compile Include="Models\TraktandumViewModel.cs" />
+    <Compile Include="Models\VerzeichnisGridItem.cs" />
+    <Compile Include="Models\TraktandenItem.cs" />
+    <Compile Include="Models\VerzeichnisTreeItem.cs" />
+    <Compile Include="Models\VerzeichnisViewModel.cs" />
+    <Compile Include="Models\vwGMXDateiMaxVersion.cs">
+      <DependentUpon>BehoerdenloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\calendar_traditional.css" />
+    <Content Include="Certificates\Signing.cer" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\Behoerdenloesung\Geschaeft\Geschaeft.js" />
+    <Content Include="Scripts\Behoerdenloesung\Geschaeft\Home.js" />
+    <Content Include="Scripts\Behoerdenloesung\Home\Portal.js" />
+    <Content Include="Scripts\Behoerdenloesung\Geschaeft\Sitzung.js" />
+    <Content Include="Scripts\Behoerdenloesung\Geschaeft\Traktandum.js" />
+    <Content Include="Scripts\Behoerdenloesung\inactivityTracker.js" />
+    <Content Include="Scripts\Behoerdenloesung\reconnect.js" />
+    <Content Include="Scripts\Behoerdenloesung\Verzeichnis\Home.js" />
+    <Content Include="Scripts\Behoerdenloesung\Tasks\Home.js" />
+    <Content Include="Scripts\Behoerdenloesung\_Error.js" />
+    <Content Include="Scripts\Behoerdenloesung\Sitzungen\Traktandum.js" />
+    <Content Include="Scripts\Behoerdenloesung\Sitzungen\Sitzung.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\BehoerdenloesungModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BehoerdenloesungModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\BehoerdenloesungModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BehoerdenloesungModel.edmx</DependentUpon>
+      <LastGenOutput>BehoerdenloesungModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\BehoerdenloesungModel.edmx.diagram">
+      <DependentUpon>BehoerdenloesungModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\BehoerdenloesungModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BehoerdenloesungModel.edmx</DependentUpon>
+      <LastGenOutput>BehoerdenloesungModel.cs</LastGenOutput>
+    </Content>
+    <None Include="Properties\PublishProfiles\vd.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\daypilot-all.min.js" />
+    <Content Include="Scripts\fileinput.js" />
+    <Content Include="Scripts\fileinput.min.js" />
+    <Content Include="Scripts\fileinput_locale_cz.js" />
+    <Content Include="Scripts\fileinput_locale_de.js" />
+    <Content Include="Scripts\fileinput_locale_el.js" />
+    <Content Include="Scripts\fileinput_locale_es.js" />
+    <Content Include="Scripts\fileinput_locale_fr.js" />
+    <Content Include="Scripts\fileinput_locale_hu.js" />
+    <Content Include="Scripts\fileinput_locale_it.js" />
+    <Content Include="Scripts\fileinput_locale_LANG.js" />
+    <Content Include="Scripts\fileinput_locale_nl.js" />
+    <Content Include="Scripts\fileinput_locale_pl.js" />
+    <Content Include="Scripts\fileinput_locale_pt-BR.js" />
+    <Content Include="Scripts\fileinput_locale_pt.js" />
+    <Content Include="Scripts\fileinput_locale_ro.js" />
+    <Content Include="Scripts\fileinput_locale_ru.js" />
+    <Content Include="Scripts\fileinput_locale_sk.js" />
+    <Content Include="Scripts\fileinput_locale_sr.js" />
+    <Content Include="Scripts\fileinput_locale_th.js" />
+    <Content Include="Scripts\fileinput_locale_tr.js" />
+    <Content Include="Scripts\fileinput_locale_uk.js" />
+    <Content Include="Scripts\fileinput_locale_zh.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.11.3.js" />
+    <Content Include="Scripts\jquery-1.11.3.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.0.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.0.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-2.3.0.debug.js" />
+    <Content Include="Scripts\knockout-2.3.0.js" />
+    <Content Include="Scripts\knockout.validation.debug.js" />
+    <Content Include="Scripts\knockout.validation.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\ui\jquery-ui-dialog.js" />
+    <Content Include="Scripts\ui\jquery-ui-dialog.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Sitzungen\Traktandum.cshtml" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Sitzungen\Sitzung.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Home\Portal.cshtml" />
+    <Content Include="Views\Sitzungen\Home.cshtml" />
+    <Content Include="Views\Shared\_Error.cshtml" />
+    <Content Include="Views\Sitzungen\Form.cshtml" />
+    <Content Include="Views\Calendar\SchedulerPartial.cshtml" />
+    <Content Include="Views\Tasks\MyTasksPartial.cshtml" />
+    <Content Include="Views\Tasks\MyTasksDetailsPartial.cshtml" />
+    <Content Include="Views\Tasks\MyTasksDetailsVerantwortlichkeitenPartial.cshtml" />
+    <Content Include="Views\Tasks\MyTasksDetailsBemerkungenPartial.cshtml" />
+    <Content Include="Views\Tasks\MyTasksDetailsMutationenPartial.cshtml" />
+    <Content Include="Views\Home\Bitacora.cshtml" />
+    <Content Include="Views\Calendar\Home.cshtml" />
+    <Content Include="Views\Tasks\Home.cshtml" />
+    <Content Include="Views\Ewk\Home.cshtml" />
+    <Content Include="Views\Ewk\EwkGeburtenPartial.cshtml" />
+    <Content Include="Views\Ewk\EwkTodesfaellePartial.cshtml" />
+    <Content Include="Views\Ewk\EwkZuzuegePartial.cshtml" />
+    <Content Include="Views\Ewk\EwkWegzuegePartial.cshtml" />
+    <Content Include="Views\Ewk\EwkTotalePartial.cshtml" />
+    <Content Include="Views\Sitzungen\Traktandum_Popup.cshtml" />
+    <Content Include="Views\Verzeichnis\VerzeichnisGridPartial.cshtml" />
+    <Content Include="Views\Verzeichnis\VerzeichnisTreePartial.cshtml" />
+    <Content Include="Views\Verzeichnis\Home.cshtml" />
+    <Content Include="Views\Geschaeft\GeschaefteGridPartial.cshtml" />
+    <Content Include="Views\Geschaeft\Home.cshtml" />
+    <Content Include="Views\Geschaeft\Geschaeft.cshtml" />
+    <Content Include="Views\Geschaeft\TraktandenGridPartial.cshtml" />
+    <Content Include="Views\Geschaeft\DokumentePartial.cshtml" />
+    <Content Include="Views\Geschaeft\TraktandumAnzeigenViewPartial.cshtml" />
+    <Content Include="Views\Shared\_LayoutMin.cshtml" />
+    <Content Include="Views\Geschaeft\TaskBemerkungenGridPartial.cshtml" />
+    <Content Include="Views\Geschaeft\TaskMutationenGridPartial.cshtml" />
+    <Content Include="Views\Geschaeft\TaskVerantwortlichkeitenGridPartial.cshtml" />
+    <Content Include="Views\Geschaeft\TasksGridPartial.cshtml" />
+    <Content Include="Views\Geschaeft\DokumenteGridPartial.cshtml" />
+    <Content Include="Views\Geschaeft\BemerkungenGridPartial.cshtml" />
+    <Content Include="Views\Geschaeft\DokumenteTreePartial.cshtml" />
+    <Content Include="Views\Home\TreeViewPartial.cshtml" />
+    <Content Include="Views\Home\TreeViewTest.cshtml" />
+    <Content Include="Views\Ewk\EwkJubilarePartial.cshtml" />
+    <Content Include="Views\Geschaeft\UploadControlPartial.cshtml" />
+    <Content Include="Views\Tasks\MyTasksDetailsBeilagenPartial.cshtml" />
+    <Content Include="Views\Ewk\EwkJubilare1Partial.cshtml" />
+    <Content Include="Views\Ewk\EwkJubilare2Partial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="ContentFiles\" />
+    <Folder Include="Views\Test\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="ADODB">
+      <Guid>{B691E011-1797-432E-907A-4D8C69339129}</Guid>
+      <VersionMajor>6</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CDO">
+      <Guid>{CD000000-8B95-11D1-82DB-00C04FB1625D}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50128</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:82</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

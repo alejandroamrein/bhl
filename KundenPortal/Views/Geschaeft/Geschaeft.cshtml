@@ -1,0 +1,562 @@
+﻿@using System.Web.UI.WebControls
+@using Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models
+@model Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models.GeschaeftItem
+
+@{
+    ViewBag.Title = "Geschäftsverzeichnisitem Bearbeiten";
+    var _VD_ = System.Configuration.ConfigurationManager.AppSettings["vd"];
+}
+
+<div id="laden" style="position:absolute;left:10px;top:60px"><img src="~/Content/Images/loading.gif" alt="Warten..." /></div>
+
+<script type="text/javascript">
+function OnFileUploadComplete(s, e) {
+    if (e.callbackData !== "") {
+        $('#divDateien').html("");
+        $.ajax({    
+            url: '@(_VD_)/Geschaeft/DokumenteGridPartial/' + e.callbackData,
+            type: "GET",
+            cache: false,               // <------ Damit frisch geladen wird!
+            success: function (html) {
+                $('#divDateien').html(html);
+                pcUploadFile.Hide();
+            }
+        });
+        //$('#divDateien').load('@(_VD_)/Geschaeft/DokumenteGridPartial/' + e.callbackData);
+    }
+    else {
+        alert("Die Datei konnte nicht hochgeladen werden.");
+    }
+}
+function OnHochladenClick(s, e) {
+    uc.Upload();
+}
+$(document).on("click", ".downloadDatei", function () {
+    var $tr = $(this).closest('tr');
+    var id = $tr.data('id');
+    //alert(id);
+    var url = _VD_ + "/Sitzungen/GetFile/" + id;
+    window.location = url;
+    return false;
+});
+</script>
+
+@using (Html.BeginForm())
+{
+    <table style="table-layout:fixed;width:100%;margin-top:20px">
+        <tr>
+            <td style="vertical-align:top;padding:5px;width:100px" class="formLabel">Geschäft:</td>
+            <td rowspan="3" style="vertical-align:top;padding:5px">
+                @Html.DevExpress().MemoFor(i => i.Titel, s =>
+                {
+                    s.ReadOnly = true;
+                    s.Width = Unit.Percentage(100);
+                    s.Properties.Rows = 5;
+                }).GetHtml()
+            </td>
+            <td style="vertical-align:top;padding:5px 2px 5px 20px;width:100px" class="formLabel">Status:</td>
+            <td style="vertical-align:top;padding:5px">
+                @Html.DevExpress().TextBoxFor(i => i.Status, s =>
+                {
+                    s.ReadOnly = true;
+                    s.Width = Unit.Percentage(100);
+                }).GetHtml()
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="2" class="gesid">@Model.TbGESGeschaeft_id</td>
+            <td style="vertical-align:top;padding:0px 2px 5px 20px" class="formLabel">Typ:</td>
+            <td style="vertical-align:top;padding:5px">
+                @Html.DevExpress().TextBoxFor(i => i.Typ, s =>
+                {
+                    s.ReadOnly = true;
+                    s.Width = Unit.Percentage(100);
+                }).GetHtml()
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align:top;padding:0px 2px 5px 20px" class="formLabel">Beginn/Ende:</td>
+            <td style="vertical-align:top;padding:5px">
+                <table>
+                    <tr>
+                        <td style="vertical-align:top;padding:0px">
+                            @Html.DevExpress().TextBox(s =>
+                            {
+                                s.Name = "Beginn";
+                                s.ReadOnly = true;
+                                s.Text = Model.Beginn.HasValue ? Model.Beginn.Value.ToShortDateString() : "";
+                                s.Width = Unit.Pixel(100);
+                            }).GetHtml()
+                        </td>
+                        <td style="vertical-align:top;padding:0px 0px 0px 10px">
+                            @Html.DevExpress().TextBox(s =>
+                            {
+                                s.Name = "Ende";
+                                s.ReadOnly = true;
+                                s.Text = Model.Ende.HasValue ? Model.Ende.Value.ToShortDateString() : "";
+                                s.Width = Unit.Pixel(100);
+                                // settings.Date = Model.StellungnahmeDatum;
+                            }).GetHtml()
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align:top;padding:5px" class="formLabel">Archivplan:</td>
+            <td colspan="3" style="vertical-align:top;padding:5px">
+                @Html.DevExpress().TextBox(s =>
+                {
+                    s.Name = "ArchivplanNrBez";
+                    s.Text = Model.ArchivplanNr + " - " + Model.ArchivplanBez;
+                    s.ReadOnly = true;
+                    s.Width = Unit.Percentage(100);
+                }).GetHtml()
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align:top;padding:5px" class="formLabel">Verantwortlich:</td>
+            <td style="vertical-align:top;padding:5px">
+                @Html.DevExpress().TextBoxFor(i => i.Verantwortlich, s =>
+                {
+                    s.ReadOnly = true;
+                    s.Width = Unit.Percentage(100);
+                }).GetHtml()
+            </td>
+            <td style="vertical-align:top;padding:5px 2px 5px 20px" class="formLabel">Fälligkeit:</td>
+            <td style="vertical-align:top;padding:5px">
+                @Html.DevExpress().TextBox(s =>
+                {
+                    s.Name = "Faelligkeit";
+                    s.ReadOnly = true;
+                    s.Text = Model.Faelligkeit.HasValue ? Model.Faelligkeit.Value.ToShortDateString() : "";
+                    s.Width = Unit.Pixel(100);
+                }).GetHtml()
+            </td>
+        </tr>
+    </table>
+}
+
+<div class="row" style="margin-top:10px;">
+    @Html.DevExpress().PageControl(settings =>
+    {
+        settings.Name = "pcGeschaeft";
+        settings.Width = Unit.Percentage(100);
+
+        //settings.ActivateTabPageAction = options.ActivateTabPageAction;
+        //settings.EnableHotTrack = options.EnableHotTrack;
+        //settings.SaveStateToCookies = options.SaveStateToCookies;
+        //settings.TabAlign = options.TabAlign;
+        //settings.TabPosition = options.TabPosition;
+        settings.TabPages.Add("Traktanden").SetContent(() =>
+        {
+            Html.RenderAction("TraktandenGridPartial", "Geschaeft", new { id = Model.TbGESGeschaeft_id });
+        });
+        settings.TabPages.Add("Aufgaben").SetContent(() =>
+        {
+            Html.RenderAction("TasksGridPartial", "Geschaeft", new { id = Model.TbGESGeschaeft_id });
+        });
+        settings.TabPages.Add("Dokumente").SetContent(() =>
+        {
+            Html.RenderAction("DokumentePartial", "Geschaeft", new { id = Model.TbGESGeschaeft_id });
+        });
+        settings.TabPages.Add("Bemerkungen").SetContent(() =>
+        {
+            Html.RenderAction("BemerkungenGridPartial", "Geschaeft", new { id = Model.TbGESGeschaeft_id });
+            if (Model.CanEdit)
+            {
+                ViewContext.Writer.Write("<div style='float:right;margin-top:20px'>");
+                Html.DevExpress().Button(btnSettings =>
+                {
+                    btnSettings.Name = "btnAddGesBemerkung";
+                    btnSettings.Text = "Neue Bemerkung";
+                    btnSettings.ClientSideEvents.Click = "function(s, e){ onAddGesBemerkung(); }";
+                }).Render();
+                ViewContext.Writer.Write("</div>");
+            }
+        });
+    }).GetHtml()
+</div>
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    settings.Name = "pcUpload";
+    //settings.Width = new Unit("Auto");
+    settings.AllowDragging = true;
+    settings.CloseAction = CloseAction.CloseButton;
+    //settings.CloseOnEscape = true;
+    settings.PopupAnimationType = AnimationType.Slide;
+    settings.HeaderText = "Dokument hochladen";
+    settings.Modal = true;
+    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SetContent(() =>
+    {
+        using (Html.BeginForm("ModalMode", "PopupControl", FormMethod.Post,
+            new { id = "popupUploadForm", @class = "edit_form", @style = "width:auto" }))
+        {
+            ViewContext.Writer.Write("<input type='hidden' id='dialogAfgId' />");
+            ViewContext.Writer.Write("<table style='width:100%' border='0'>");
+            ViewContext.Writer.Write("<tr>");
+            ViewContext.Writer.Write("<td style='width:auto;padding:5px;font-weight:bold'>Datum:</td>");
+            ViewContext.Writer.Write("<td style='width:100%;padding:5px'>");
+            @Html.DevExpress().DateEdit(s =>
+            {
+                s.Name = "uploadDatum";
+                s.Properties.DisplayFormatString = "d";
+                s.Width = Unit.Pixel(100);
+            }).Render();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("<td style='width:auto;padding:5px;font-weight:bold'>Art:</td>");
+            ViewContext.Writer.Write("<td style='width:100%;padding:5px'>");
+            @Html.DevExpress().ComboBox(s =>
+            {
+                s.Name = "uploadArtId";
+                s.Properties.ValueField = "Value";
+                s.Properties.TextField = "Text";
+                s.Properties.ValueType = typeof(int);
+                s.Width = Unit.Pixel(100);
+            }).BindList(ViewData["artListAfg"]).Render();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("<td style='width:auto;padding:5px;font-weight:bold'>Sachbearbeiter:</td>");
+            ViewContext.Writer.Write("<td style='width:100%;padding:5px'>");
+            @Html.DevExpress().ComboBox(s =>
+            {
+                s.Name = "uploadSachbearbeiterId";
+                s.Properties.ValueField = "Value";
+                s.Properties.TextField = "Text";
+                s.Properties.ValueType = typeof(int);
+                s.Width = Unit.Pixel(100);
+            }).BindList(ViewData["sachbearbeiterList"]).Render();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("</tr>");
+            ViewContext.Writer.Write("<tr>");
+            ViewContext.Writer.Write("<td style='padding:5px;vertical-align:top;font-weight:bold'>Bemerkung:</td>");
+            ViewContext.Writer.Write("<td style='padding:5px' colspan='5'><textarea id='dialogAfgText' name='dialogAfgText' rows='8' style='width:100%'' placeholder=''Bemerkung eingeben...'></textarea></td>");
+            ViewContext.Writer.Write("</tr>");
+            ViewContext.Writer.Write("</table>");
+            ViewContext.Writer.Write("<div style='text-align:right;margin-top:20px'>");
+            Html.DevExpress().Button(s =>
+            {
+                s.Name = "btnUploadSpeichern";
+                s.ControlStyle.CssClass = "button";
+                s.Width = 80;
+                s.Text = "Speichern";
+                s.ClientSideEvents.Click = "function(s, e){ doUpload(); }";
+            }).Render();
+            Html.DevExpress().Button(s =>
+            {
+                s.Name = "btnUploadCancel";
+                s.ControlStyle.CssClass = "button";
+                s.Width = 80;
+                s.Text = "Abbrechen";
+                s.ClientSideEvents.Click = "function(s, e){ pcUpload.Hide(); }";
+            }).Render();
+            ViewContext.Writer.Write("</div>");
+        }
+    });
+}).GetHtml()
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    settings.Name = "pcAfgNeueBemerkung";
+    //settings.Width = new Unit("Auto");
+    settings.AllowDragging = true;
+    settings.CloseAction = CloseAction.CloseButton;
+    //settings.CloseOnEscape = true;
+    settings.PopupAnimationType = AnimationType.Slide;
+    settings.HeaderText = "Neue Bemerkung (Aufgaben)";
+    settings.Modal = true;
+    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SetContent(() =>
+    {
+        using (Html.BeginForm("ModalMode", "PopupControl", FormMethod.Post,
+            new { id = "popupAfgForm", @class = "edit_form", @style = "width:auto" }))
+        {
+            ViewContext.Writer.Write("<input type='hidden' id='dialogAfgId' />");
+            ViewContext.Writer.Write("<table style='width:100%' border='0'>");
+            ViewContext.Writer.Write("<tr>");
+            ViewContext.Writer.Write("<td style='width:auto;padding:5px;font-weight:bold'>Datum:</td>");
+            ViewContext.Writer.Write("<td style='width:100%;padding:5px'>");
+            @Html.DevExpress().DateEdit(s =>
+            {
+                s.Name = "dialogAfgDatum";
+                s.Properties.DisplayFormatString = "d";
+                s.Width = Unit.Pixel(100);
+            }).Render();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("<td style='width:auto;padding:5px;font-weight:bold'>Art:</td>");
+            ViewContext.Writer.Write("<td style='width:100%;padding:5px'>");
+            @Html.DevExpress().ComboBox(s =>
+            {
+                s.Name = "dialogAfgArtId";
+                s.Properties.ValueField = "Value";
+                s.Properties.TextField = "Text";
+                s.Properties.ValueType = typeof(int);
+                s.Width = Unit.Pixel(100);
+            }).BindList(ViewData["artListAfg"]).Render();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("<td style='width:auto;padding:5px;font-weight:bold'>Sachbearbeiter:</td>");
+            ViewContext.Writer.Write("<td style='width:100%;padding:5px'>");
+            @Html.DevExpress().ComboBox(s =>
+            {
+                s.Name = "dialogAfgSachbearbeiterId";
+                s.Properties.ValueField = "Value";
+                s.Properties.TextField = "Text";
+                s.Properties.ValueType = typeof(int);
+                s.Width = Unit.Pixel(100);
+            }).BindList(ViewData["sachbearbeiterList"]).Render();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("</tr>");
+            ViewContext.Writer.Write("<tr>");
+            ViewContext.Writer.Write("<td style='padding:5px;vertical-align:top;font-weight:bold'>Bemerkung:</td>");
+            ViewContext.Writer.Write("<td style='padding:5px' colspan='5'><textarea id='dialogAfgText' name='dialogAfgText' rows='8' style='width:100%'' placeholder=''Bemerkung eingeben...'></textarea></td>");
+            ViewContext.Writer.Write("</tr>");
+            ViewContext.Writer.Write("</table>");
+            ViewContext.Writer.Write("<div style='text-align:right;margin-top:20px'>");
+            Html.DevExpress().Button(s =>
+            {
+                s.Name = "btnAddAfgBemSpeichern";
+                s.ControlStyle.CssClass = "button";
+                s.Width = 80;
+                s.Text = "Speichern";
+                s.ClientSideEvents.Click = "function(s, e){ doAddAfgBemerkung(); }";
+            }).Render();
+            Html.DevExpress().Button(s =>
+            {
+                s.Name = "btnAddAfgBemCancel";
+                s.ControlStyle.CssClass = "button";
+                s.Width = 80;
+                s.Text = "Abbrechen";
+                s.ClientSideEvents.Click = "function(s, e){ pcAfgNeueBemerkung.Hide(); }";
+            }).Render();
+            ViewContext.Writer.Write("</div>");
+        }
+    });
+}).GetHtml()
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    settings.Name = "pcGesNeueBemerkung";
+    //settings.Width = new Unit("Auto");
+    settings.AllowDragging = true;
+    settings.CloseAction = CloseAction.CloseButton;
+    //settings.CloseOnEscape = true;
+    settings.PopupAnimationType = AnimationType.Slide;
+    settings.HeaderText = "Neue Bemerkung (Geschäft)";
+    settings.Modal = true;
+    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SetContent(() =>
+    {
+        using (Html.BeginForm("ModalMode", "PopupControl", FormMethod.Post,
+            new { id = "popupGesForm", @class = "edit_form", @style = "width: auto" }))
+        {
+            ViewContext.Writer.Write("<table style='width:100%' border='0'>");
+            ViewContext.Writer.Write("<tr>");
+            ViewContext.Writer.Write("<td style='width:auto;padding:5px;font-weight:bold'>Datum:</td>");
+            ViewContext.Writer.Write("<td style='width:100%;padding:5px'>");
+            @Html.DevExpress().DateEdit(s =>
+            {
+                s.Name = "dialogGesDatum";
+                s.Properties.DisplayFormatString = "d";
+                s.Width = Unit.Pixel(100);
+            }).Render();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("<td style='width:auto;padding:5px;font-weight:bold'>Art:</td>");
+            ViewContext.Writer.Write("<td style='width:100%;padding:5px'>");
+            @Html.DevExpress().ComboBox(s =>
+            {
+                s.Name = "dialogGesArtId";
+                s.Properties.ValueField = "Value";
+                s.Properties.TextField = "Text";
+                s.Properties.ValueType = typeof(int);
+                s.Width = Unit.Pixel(100);
+            }).BindList(ViewData["artListGes"]).Render();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("<td style='width:auto;padding:5px;font-weight:bold'>Sachbearbeiter:</td>");
+            ViewContext.Writer.Write("<td style='width:100%;padding:5px'>");
+            @Html.DevExpress().ComboBox(s =>
+            {
+                s.Name = "dialogGesSachbearbeiterId";
+                s.Properties.ValueField = "Value";
+                s.Properties.TextField = "Text";
+                s.Properties.ValueType = typeof(int);
+                s.Width = Unit.Pixel(100);
+            }).BindList(ViewData["sachbearbeiterList"]).Render();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("</tr>");
+            ViewContext.Writer.Write("<tr>");
+            ViewContext.Writer.Write("<td style='padding:5px;vertical-align:top;font-weight:bold'>Bemerkung:</td>");
+            ViewContext.Writer.Write("<td style='padding:5px' colspan='5'><textarea id='dialogGesText' name='dialogGesText' rows='8' style='width:100%'' placeholder=''Bemerkung eingeben...'></textarea></td>");
+            ViewContext.Writer.Write("</tr>");
+            ViewContext.Writer.Write("</table>");
+            ViewContext.Writer.Write("<div style='text-align:right;margin-top:20px'>");
+            Html.DevExpress().Button(s =>
+            {
+                s.Name = "btnAddGesBemSpeichern";
+                s.ControlStyle.CssClass = "button";
+                s.Width = 80;
+                s.Text = "Speichern";
+                s.ClientSideEvents.Click = "function(s, e){ doAddGesBemerkung(); }";
+            }).Render();
+            Html.DevExpress().Button(s =>
+            {
+                s.Name = "btnAddGesBemCancel";
+                s.ControlStyle.CssClass = "button";
+                s.Width = 80;
+                s.Text = "Abbrechen";
+                s.ClientSideEvents.Click = "function(s, e){ pcGesNeueBemerkung.Hide(); }";
+            }).Render();
+            ViewContext.Writer.Write("</div>");
+        }
+    });
+}).GetHtml()
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    settings.Name = "pcProtokoll";
+    settings.Width = 100;
+    settings.AllowDragging = true;
+    settings.CloseAction = CloseAction.CloseButton;
+    //settings.CloseOnEscape = true;
+    settings.PopupAnimationType = AnimationType.Slide;
+    settings.HeaderText = "Protokoll";
+    settings.Modal = true;
+    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SetContent(() =>
+    {
+        using (Html.BeginForm("ModalMode", "PopupControl", FormMethod.Post,
+            new { id = "popupProtokollForm", @class = "edit_form", @style = "width: 600px" }))
+        {
+            ViewContext.Writer.Write("<div id='popupContent'><div style='height:300px'>Wird geladen...</div></div>");
+            ViewContext.Writer.Write("<div style='text-align:right;margin-top:20px'>");
+            Html.DevExpress().Button(buttonSettings =>
+            {
+                buttonSettings.Name = "btnProtokollCancel";
+                buttonSettings.ControlStyle.CssClass = "button";
+                buttonSettings.Width = 80;
+                buttonSettings.Text = "Schliessen";
+                buttonSettings.ClientSideEvents.Click = "function(s, e){ pcProtokoll.Hide(); }";
+            }).Render();
+            ViewContext.Writer.Write("</div>");
+        }
+    });
+}).GetHtml()
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    settings.Name = "pcUploadFile";
+    settings.Width = 100;
+    settings.AllowDragging = true;
+    settings.CloseAction = CloseAction.CloseButton;
+    //settings.CloseOnEscape = true;
+    settings.PopupAnimationType = AnimationType.Slide;
+    settings.HeaderText = "Upload File";
+    settings.Modal = true;
+    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SetContent(() =>
+    {
+        //using (Html.BeginForm("ModalMode", "PopupControl", FormMethod.Post,
+        //    new { id = "popupUploadFileForm", @class = "edit_form", @style = "width: 400px" }))
+        //{
+        using(Html.BeginForm("UploadControlCallbackAction", "Geschaeft", FormMethod.Post,
+            new { id = "popupUploadFileForm", @class = "edit_form", @style = "width: 400px" })) {
+            ViewContext.Writer.Write("<input type='hidden' id='ucFolderId' name='ucFolderId' value='' />");
+            ViewContext.Writer.Write("<table style='text-align:right;margin-top:10px;border-collapse:separate;border-spacing:8px' border='0'>");
+            ViewContext.Writer.Write("<tr>");
+            ViewContext.Writer.Write("<td>Kategorie:</td><td>");
+            @Html.DevExpress().ComboBox(combobox =>
+            {
+                combobox.Name = "ucCategoryId";
+                combobox.Properties.ValueField = "Value";
+                combobox.Properties.TextField = "Text";
+                combobox.Properties.ValueType = typeof(int);
+                combobox.Width = Unit.Pixel(300);
+            }).BindList(ViewData["categoryList"]).Render();
+            ViewContext.Writer.Write("</td></tr><td>Titel:</td><td>");
+            @Html.DevExpress().TextBox(textbox =>
+            {
+                textbox.Name = "ucTitel";
+                textbox.Width = Unit.Pixel(300);
+            }).Render();
+            ViewContext.Writer.Write("</td></tr><tr><td>Datei:</td><td>");
+            Html.RenderPartial("UploadControlPartial");
+            ViewContext.Writer.Write("</td></tr><tr><td>Beschreibung:</td><td>");
+            @Html.DevExpress().TextBox(textbox =>
+            {
+                textbox.Name = "ucBeschreibung";
+                textbox.Width = Unit.Pixel(300);
+            }).Render();
+            ViewContext.Writer.Write("</td></tr><tr><td>Erstelldatum:</td><td>");
+            @Html.DevExpress().DateEdit(s =>
+            {
+                s.Name = "ucErstellDatum";
+                s.Properties.DisplayFormatString = "d";
+                s.Width = Unit.Pixel(100);
+            }).Bind(DateTime.Today).Render();
+            ViewContext.Writer.Write("</td></tr><tr><td>Visum:</td><td>");
+            @Html.DevExpress().ComboBox(combobox =>
+            {
+                combobox.Name = "ucSachbearbeiterId";
+                combobox.Properties.ValueField = "Value";
+                combobox.Properties.TextField = "Text";
+                combobox.Properties.ValueType = typeof(int);
+                combobox.Width = Unit.Pixel(300);
+            }).BindList(ViewData["sachbearbeiterList"]).Bind((Session["SessionContext"] as HomeViewModel).SysUsrId).Render();
+            ViewContext.Writer.Write("</td></tr><tr><td>&nbsp;</td><td style='text-align:right'>");
+            @Html.DevExpress().Button(button =>
+            {
+                button.Name = "ucButtonUpload";
+                button.Text = "Bestätigen";
+                button.ClientSideEvents.Click = "OnHochladenClick";
+            }).Render();
+            ViewContext.Writer.Write("&nbsp;");
+            Html.DevExpress().Button(buttonSettings =>
+            {
+                buttonSettings.Name = "btnUploadFileCancel";
+                buttonSettings.ControlStyle.CssClass = "button";
+                buttonSettings.Width = 80;
+                buttonSettings.Text = "Schliessen";
+                buttonSettings.ClientSideEvents.Click = "function(s, e){ pcUploadFile.Hide(); }";
+            }).Render();
+            ViewContext.Writer.Write("</td></tr></table>");
+        };
+    });
+}).GetHtml()
+
+<div style="width:100%; margin-top: 20px">
+    <div style="width:200px;float:right; text-align: right"><a href="~/Geschaeft/Home" class="btn btn-default">Zurück</a></div>
+</div>
+
+@section styles {
+    <link href="~/Content/ui/jquery-ui.css" rel="stylesheet">
+    <link href="~/Content/Behoerdenloesung/Geschaeft/Geschaeft.css" rel="stylesheet">
+    <link href="~/Content/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/ui")
+    <script src="~/Scripts/fileinput.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/fileinput_locale_de.js" type="text/javascript"></script>
+    <script type="text/javascript" src="~/Scripts/Behoerdenloesung/Geschaeft/Geschaeft.js"></script>
+}
+
+@section navbarex
+{
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("Geschäft", "Home", "Geschaeft")</li>
+    </ul>
+}
+
+
+
+
+
+
+
+
+

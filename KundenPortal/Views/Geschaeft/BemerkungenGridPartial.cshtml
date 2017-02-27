@@ -1,0 +1,149 @@
+﻿@using System.Web.UI.WebControls
+@using Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models
+@model  List<Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models.TbGESGeschaeftBemerkung>
+@{ 
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "gvGeschaeftBemerkungen";
+
+        settings.SettingsDetail.MasterGridName = "grid";
+        settings.CallbackRouteValues = new { Controller = "Geschaeft", Action = "BemerkungenGridPartial" };
+        settings.Width = Unit.Percentage(100);
+
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Geschaeft", Action = "BemerkungenGridPartialUpdate" };
+        settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+        settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowEditButton = true;
+        settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = false;
+
+        settings.KeyFieldName = "TbGESGeschaeftBemerkung_ID";
+
+        settings.Columns.Add("Bemerkungen");
+        settings.Columns.Add("BemerkungDatum").PropertiesEdit.DisplayFormatString = "d";
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TbGMXCodeArt_ID";
+            column.Caption = "Art";
+            //column.Width = Unit.Percentage(20);
+            column.ColumnType = MVCxGridViewColumnType.ComboBox;
+            //column.Settings.HeaderFilterMode = HeaderFilterMode.CheckedList;
+            column.Settings.HeaderFilterMode = HeaderFilterMode.List;
+            var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+            comboBoxProperties.ValueField = "Value";
+            comboBoxProperties.TextField = "Text";
+            comboBoxProperties.ValueType = typeof(int);
+            comboBoxProperties.DataSource = ViewData["artListGes"];
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Sachbearbeiter_ID";
+            column.Caption = "Sachbearbeiter";
+            //column.Width = Unit.Percentage(20);
+            column.ColumnType = MVCxGridViewColumnType.ComboBox;
+            //column.Settings.HeaderFilterMode = HeaderFilterMode.CheckedList;
+            column.Settings.HeaderFilterMode = HeaderFilterMode.List;
+            var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+            comboBoxProperties.ValueField = "Value";
+            comboBoxProperties.TextField = "Text";
+            comboBoxProperties.ValueType = typeof(int);
+            comboBoxProperties.DataSource = ViewData["sachbearbeiterList"];
+        });
+
+        settings.SetEditFormTemplateContent(c =>
+        {
+            var _id_ = DataBinder.Eval(c.DataItem, "TbGESGeschaeftBemerkung_ID");
+            var _gesid_ = DataBinder.Eval(c.DataItem, "TbGESGeschaeft_ID");
+            var _datum_ = DataBinder.Eval(c.DataItem, "BemerkungDatum");
+            var _beschreibung_ = DataBinder.Eval(c.DataItem, "Bemerkungen");
+
+            Html.DevExpress().FormLayout(formLayoutSettings =>
+            {
+                formLayoutSettings.Name = "FormLayoutGesBeschreibung";
+                formLayoutSettings.Width = Unit.Pixel(460);
+                formLayoutSettings.ColCount = 3;
+                formLayoutSettings.Items.Add(itemSettings =>
+                {
+                    itemSettings.FieldName = "BemerkungDatum";
+                    itemSettings.Caption = "Datum";
+                    itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.DateEdit;
+                    var dateEditSettings = (DateEditSettings)itemSettings.NestedExtensionSettings;
+                    dateEditSettings.Properties.DisplayFormatString = "d";
+                    dateEditSettings.Width = Unit.Pixel(120);
+                });
+                formLayoutSettings.Items.Add(itemSettings =>
+                {
+                    itemSettings.FieldName = "TbGMXCodeArt_ID";
+                    itemSettings.Caption = "Art";
+                    itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+                    var comboBoxSettings = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+                    comboBoxSettings.Properties.ValueField = "Value";
+                    comboBoxSettings.Properties.TextField = "Text";
+                    comboBoxSettings.Properties.ValueType = typeof(int);
+                    comboBoxSettings.Properties.DataSource = ViewData["artListGes"];
+                    comboBoxSettings.Width = Unit.Pixel(120);
+                });
+                formLayoutSettings.Items.Add(itemSettings =>
+                {
+                    itemSettings.FieldName = "Sachbearbeiter_ID";
+                    itemSettings.Caption = "Sachbearbeiter";
+                    itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+                    var comboBoxSettings = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+                    comboBoxSettings.Properties.ValueField = "Value";
+                    comboBoxSettings.Properties.TextField = "Text";
+                    comboBoxSettings.Properties.ValueType = typeof(int);
+                    comboBoxSettings.Properties.DataSource = ViewData["sachbearbeiterList"];
+                    comboBoxSettings.Width = Unit.Pixel(120);
+                });
+                formLayoutSettings.Items.Add(itemSettings =>
+                {
+                    itemSettings.ColSpan = 3;
+                    itemSettings.Caption = "Bemerkung";
+                    itemSettings.ShowCaption = DefaultBoolean.True;
+                    itemSettings.Width = Unit.Pixel(500);
+                }).SetNestedContent(() =>
+                {
+                    ViewContext.Writer.Write(Html.TextArea("Bemerkungen",
+                        _beschreibung_.ToString(),
+                        new { rows = "8", style = "width:500px" }));
+                });
+                formLayoutSettings.Items.AddEmptyItem();
+                formLayoutSettings.Items.Add(itemSettings =>
+                {
+                    itemSettings.ShowCaption = DefaultBoolean.False;
+                    itemSettings.ColSpan = 3;
+                }).SetNestedContent(() =>
+                {
+                    ViewContext.Writer.Write("<div style='float:right'>");
+                    ViewContext.Writer.Write("<input type='hidden' value='" + _gesid_ + "' name='TbGESGeschaeft_ID' id='TbGESGeschaeft_ID' />");
+                    Html.DevExpress().Button(
+                        btnSettings =>
+                    {
+                        btnSettings.Name = "btnUpdate_" + ViewData["TbAFGAufgabe_id"];
+                        btnSettings.Text = "Speichern";
+                        btnSettings.Style[HtmlTextWriterStyle.MarginLeft] = "5px";
+                        btnSettings.ClientSideEvents.Click = "function(s, e){ gvGeschaeftBemerkungen.UpdateEdit(); gvGeschaeftBemerkungen.CancelEdit(); }";
+                    }).Render();
+                    Html.DevExpress().Button(
+                        btnSettings =>
+                    {
+                        btnSettings.Name = "btnCancel_" + ViewData["TbAFGAufgabe_id"];
+                        btnSettings.Text = "Schliessen";
+                        btnSettings.Style[HtmlTextWriterStyle.MarginLeft] = "5px";
+                        btnSettings.ClientSideEvents.Click = "function(s, e){ gvGeschaeftBemerkungen.CancelEdit(); }";
+                    }).Render();
+                    ViewContext.Writer.Write("</div>");
+                });
+            })
+        .Bind(c.DataItem)
+        .Render();
+        });
+    });
+
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DialogConfigBLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Antrag">
+          <Key>
+            <PropertyRef Name="AntragId" />
+          </Key>
+          <Property Name="AntragId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FormData" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Erledigt" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Datenbank">
+          <Key>
+            <PropertyRef Name="DatenbankId" />
+          </Key>
+          <Property Name="DatenbankId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MandantId" Type="int" Nullable="false" />
+          <Property Name="Bezeichnung" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="LogId" />
+          </Key>
+          <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OpId" Type="bigint" Nullable="false" />
+          <Property Name="SeqId" Type="int" Nullable="false" />
+          <Property Name="Text" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Mandant">
+          <Key>
+            <PropertyRef Name="MandantId" />
+          </Key>
+          <Property Name="MandantId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Bezeichnung" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="MandantUrl" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Module" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MIDRequest">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="Timestamp" Type="datetime2" Precision="7" />
+          <Property Name="RequestId" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="DatenbankId" Type="int" Nullable="false" />
+          <Property Name="Erfolgreich" Type="bit" Nullable="false" />
+          <Property Name="Handynummer" Type="nvarchar" MaxLength="20" />
+          <Property Name="Hash" Type="nvarchar(max)" />
+          <Property Name="IsAdmin" Type="bit" Nullable="false" />
+          <Property Name="ResponseMessage" Type="nvarchar(max)" />
+          <Property Name="Shortname" Type="nvarchar" MaxLength="6" />
+          <Property Name="Status" Type="nvarchar" MaxLength="10" />
+          <Property Name="Token" Type="nvarchar(max)" />
+          <Property Name="Url" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="UserMapping">
+          <Key>
+            <PropertyRef Name="HandyNummer" />
+            <PropertyRef Name="DatenbankId" />
+          </Key>
+          <Property Name="HandyNummer" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="DatenbankId" Type="int" Nullable="false" />
+          <Property Name="ShortName" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="IsAdmin" Type="bit" Nullable="false" />
+          <Property Name="IsGesperrt" Type="bit" Nullable="false" />
+          <Property Name="Vorname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Demo" Type="bit" />
+          <Property Name="Module" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Datenbank_Mandant">
+          <End Role="Mandant" Type="Self.Mandant" Multiplicity="1" />
+          <End Role="Datenbank" Type="Self.Datenbank" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mandant">
+              <PropertyRef Name="MandantId" />
+            </Principal>
+            <Dependent Role="Datenbank">
+              <PropertyRef Name="MandantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserMapping_Datenbank">
+          <End Role="Datenbank" Type="Self.Datenbank" Multiplicity="1" />
+          <End Role="UserMapping" Type="Self.UserMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Datenbank">
+              <PropertyRef Name="DatenbankId" />
+            </Principal>
+            <Dependent Role="UserMapping">
+              <PropertyRef Name="DatenbankId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DialogConfigBLModelStoreContainer">
+          <EntitySet Name="Antrag" EntityType="Self.Antrag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Datenbank" EntityType="Self.Datenbank" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mandant" EntityType="Self.Mandant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MIDRequest" EntityType="Self.MIDRequest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserMapping" EntityType="Self.UserMapping" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Datenbank_Mandant" Association="Self.FK_Datenbank_Mandant">
+            <End Role="Mandant" EntitySet="Mandant" />
+            <End Role="Datenbank" EntitySet="Datenbank" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserMapping_Datenbank" Association="Self.FK_UserMapping_Datenbank">
+            <End Role="Datenbank" EntitySet="Datenbank" />
+            <End Role="UserMapping" EntitySet="UserMapping" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DialogConfigBLModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Datenbank">
+          <Key>
+            <PropertyRef Name="DatenbankId" />
+          </Key>
+          <Property Name="DatenbankId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MandantId" Type="Int32" Nullable="false" />
+          <Property Name="Bezeichnung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Mandant" Relationship="Self.FK_Datenbank_Mandant" FromRole="Datenbank" ToRole="Mandant" />
+          <NavigationProperty Name="UserMappings" Relationship="DialogConfigBLModel.FK_UserMapping_Datenbank" FromRole="Datenbank" ToRole="UserMapping" />
+        </EntityType>
+        <EntityType Name="Mandant">
+          <Key>
+            <PropertyRef Name="MandantId" />
+          </Key>
+          <Property Name="MandantId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bezeichnung" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MandantUrl" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Datenbanks" Relationship="Self.FK_Datenbank_Mandant" FromRole="Mandant" ToRole="Datenbank" />
+          <Property Name="Module" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserMapping">
+          <Key>
+            <PropertyRef Name="HandyNummer" />
+            <PropertyRef Name="DatenbankId" />
+          </Key>
+          <Property Name="HandyNummer" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DatenbankId" Type="Int32" Nullable="false" />
+          <Property Name="ShortName" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Datenbank" Relationship="DialogConfigBLModel.FK_UserMapping_Datenbank" FromRole="UserMapping" ToRole="Datenbank" />
+          <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
+          <Property Name="IsGesperrt" Type="Boolean" Nullable="false" />
+          <Property Name="Vorname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Demo" Type="Boolean" />
+          <Property Name="Module" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_Datenbank_Mandant">
+          <End Role="Mandant" Type="Self.Mandant" Multiplicity="1" />
+          <End Role="Datenbank" Type="Self.Datenbank" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mandant">
+              <PropertyRef Name="MandantId" />
+            </Principal>
+            <Dependent Role="Datenbank">
+              <PropertyRef Name="MandantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DialogConfigBLEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Datenbanks" EntityType="Self.Datenbank" />
+          <EntitySet Name="Mandants" EntityType="Self.Mandant" />
+          <EntitySet Name="UserMappings" EntityType="Self.UserMapping" />
+          <AssociationSet Name="FK_Datenbank_Mandant" Association="Self.FK_Datenbank_Mandant">
+            <End Role="Mandant" EntitySet="Mandants" />
+            <End Role="Datenbank" EntitySet="Datenbanks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserMapping_Datenbank" Association="DialogConfigBLModel.FK_UserMapping_Datenbank">
+            <End Role="Datenbank" EntitySet="Datenbanks" />
+            <End Role="UserMapping" EntitySet="UserMappings" />
+          </AssociationSet>
+          <EntitySet Name="Antrags" EntityType="DialogConfigBLModel.Antrag" />
+          <EntitySet Name="Logs" EntityType="DialogConfigBLModel.Log" />
+          <EntitySet Name="MIDRequests" EntityType="DialogConfigBLModel.MIDRequest" />
+        </EntityContainer>
+        <Association Name="FK_UserMapping_Datenbank">
+          <End Type="DialogConfigBLModel.Datenbank" Role="Datenbank" Multiplicity="1" />
+          <End Type="DialogConfigBLModel.UserMapping" Role="UserMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Datenbank">
+              <PropertyRef Name="DatenbankId" />
+            </Principal>
+            <Dependent Role="UserMapping">
+              <PropertyRef Name="DatenbankId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Antrag">
+          <Key>
+            <PropertyRef Name="AntragId" />
+          </Key>
+          <Property Name="AntragId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FormData" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Erledigt" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="LogId" />
+          </Key>
+          <Property Name="LogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OpId" Type="Int64" Nullable="false" />
+          <Property Name="SeqId" Type="Int32" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MIDRequest">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="RequestId" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="true" />
+          <Property Name="DatenbankId" Type="Int32" Nullable="false" />
+          <Property Name="Erfolgreich" Type="Boolean" Nullable="false" />
+          <Property Name="Handynummer" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Hash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
+          <Property Name="ResponseMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Shortname" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Token" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Timestamp" Type="DateTime" Precision="7" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DialogConfigBLModelStoreContainer" CdmEntityContainer="DialogConfigBLEntities">
+          <EntitySetMapping Name="Datenbanks">
+            <EntityTypeMapping TypeName="DialogConfigBLModel.Datenbank">
+              <MappingFragment StoreEntitySet="Datenbank">
+                <ScalarProperty Name="DatenbankId" ColumnName="DatenbankId" />
+                <ScalarProperty Name="MandantId" ColumnName="MandantId" />
+                <ScalarProperty Name="Bezeichnung" ColumnName="Bezeichnung" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mandants">
+            <EntityTypeMapping TypeName="DialogConfigBLModel.Mandant">
+              <MappingFragment StoreEntitySet="Mandant">
+                <ScalarProperty Name="Module" ColumnName="Module" />
+                <ScalarProperty Name="MandantId" ColumnName="MandantId" />
+                <ScalarProperty Name="Bezeichnung" ColumnName="Bezeichnung" />
+                <ScalarProperty Name="MandantUrl" ColumnName="MandantUrl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserMappings">
+            <EntityTypeMapping TypeName="DialogConfigBLModel.UserMapping">
+              <MappingFragment StoreEntitySet="UserMapping">
+                <ScalarProperty Name="Module" ColumnName="Module" />
+                <ScalarProperty Name="Demo" ColumnName="Demo" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+                <ScalarProperty Name="IsGesperrt" ColumnName="IsGesperrt" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="HandyNummer" ColumnName="HandyNummer" />
+                <ScalarProperty Name="DatenbankId" ColumnName="DatenbankId" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Antrags">
+            <EntityTypeMapping TypeName="DialogConfigBLModel.Antrag">
+              <MappingFragment StoreEntitySet="Antrag">
+                <ScalarProperty Name="Erledigt" ColumnName="Erledigt" />
+                <ScalarProperty Name="FormData" ColumnName="FormData" />
+                <ScalarProperty Name="AntragId" ColumnName="AntragId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="DialogConfigBLModel.Log">
+              <MappingFragment StoreEntitySet="Log">
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="SeqId" ColumnName="SeqId" />
+                <ScalarProperty Name="OpId" ColumnName="OpId" />
+                <ScalarProperty Name="LogId" ColumnName="LogId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MIDRequests">
+            <EntityTypeMapping TypeName="DialogConfigBLModel.MIDRequest">
+              <MappingFragment StoreEntitySet="MIDRequest">
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Shortname" ColumnName="Shortname" />
+                <ScalarProperty Name="ResponseMessage" ColumnName="ResponseMessage" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="Hash" ColumnName="Hash" />
+                <ScalarProperty Name="Handynummer" ColumnName="Handynummer" />
+                <ScalarProperty Name="Erfolgreich" ColumnName="Erfolgreich" />
+                <ScalarProperty Name="DatenbankId" ColumnName="DatenbankId" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

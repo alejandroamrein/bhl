@@ -1,0 +1,88 @@
+﻿@*@model Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models.SitzungenViewModel*@
+
+@using System.Web.UI.WebControls
+@using DevExpress.XtraPrinting.Native
+@using Dialog.Behoerdenloesung.Sitzungen.UI.Web.Helpers
+
+@{
+    ViewBag.Title = "Geschäftsverzeichnis";
+    var suchText = ViewBag.SuchText.ToString();
+}
+
+<div id="laden" style="position:absolute;left:10px;top:60px"><img src="~/Content/Images/loading.gif" alt="Warten..." /></div>
+
+@using (Html.BeginForm())
+{
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-xs-4">
+            <div style="float:left">
+                <table style="border:0px">
+                    <tr>
+                        <td><div class="titel">Suchtext:</div></td>
+                        <td style="padding-left:5px">@Html.DevExpress().TextBox(textboxSettings =>
+                            {
+                                textboxSettings.Name = "suchText";
+                                textboxSettings.Width = Unit.Pixel(200);
+                                textboxSettings.Text = suchText;
+                            }).GetHtml()</td>
+                        <td style="padding-left:5px">
+                            @Html.DevExpress().Button(buttonSettings =>
+                            {
+                                buttonSettings.Name = "suchenButton";
+                                buttonSettings.Text = "Suchen";
+                                buttonSettings.ClientSideEvents.Click = "function(s,e){onSuchen();}";
+                            }).GetHtml()
+                    </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-xs-12">
+            <div class="titel">Geschäftsverzeichnis</div>
+            @{ Html.RenderAction("GeschaefteGridPartial", "Geschaeft", new { suchText = ViewBag.SuchText }); }
+        </div>
+    </div>
+}
+
+<div style="width:100%; margin-top: 20px">
+    <div style="width:200px;float:right; text-align: right"><a href="~/Home/Portal" class="btn btn-default">Zurück</a></div>
+</div>
+
+@section styles {
+    <link href="~/Content/Behoerdenloesung/Geschaeft/Home.css" rel="stylesheet">
+}
+
+@section scripts {
+    <script src="~/Scripts/Behoerdenloesung/Geschaeft/Home.js" type="text/javascript"></script>
+}
+
+@section navbarex
+{
+    <ul class="nav navbar-nav">
+    @if (ViewBag.S)
+    {
+        <li>@Html.ActionLink("Sitzungen", "Home", "Sitzungen")</li>
+    }
+    @if (ViewBag.A)
+    {
+        <li>@Html.ActionLink("Aufgaben", "Home", "Tasks")</li>
+    }
+    @if (ViewBag.K)
+    {
+        <li>@Html.ActionLink("Kalender", "Home", "Calendar")</li>
+    }
+    @if (ViewBag.V)
+    {
+        <li>@Html.ActionLink("Behördenverzeichnis", "Home", "Verzeichnis")</li>
+    }
+    @if (ViewBag.E)
+    {
+        <li>@Html.ActionLink("EWK Info", "Home", "EWK")</li>
+    }   
+    </ul>
+}
+
+
+

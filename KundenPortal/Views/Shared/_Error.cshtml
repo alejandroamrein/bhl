@@ -1,0 +1,15 @@
+﻿@model Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models.PreLogOffModel
+
+@{
+    ViewBag.Title = Model.Titel;
+}
+
+<h1 class="text-danger">@Model.Message</h1>
+<h2 class="text-danger">@Model.Loesung</h2>
+
+@Html.ActionLink("Weiter", "LogOff", null, new { id = "weiterButton", @class = "btn btn-default" })
+
+@section scripts
+{
+    <script type="text/javascript" src="~/Scripts/Behoerdenloesung/_Error.js"></script>
+}

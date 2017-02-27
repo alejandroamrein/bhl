@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models.BitacoraItem>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Bitacora</title>
+</head>
+<body>
+    <p>
+        <a href="#" onclick="javascript: window.history.back();">Zurück</a>
+    </p>
+    <p>
+        <h1>Versionen</h1>
+    </p>
+    @foreach (var item in Model) {
+        @item.Html
+    }   
+</body>
+</html>

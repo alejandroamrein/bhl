@@ -1,0 +1,16 @@
+﻿@model DialogPortal.Models.IndexViewModel
+@{
+    ViewBag.Title = "MIDTest";
+}
+
+<h2>MIDTest</h2>
+
+@if (Model.erfolgreich)
+{
+    <h3>Erfolg!</h3>
+}
+else
+{
+    <h3>@Model.responseMessage</h3>
+}
+

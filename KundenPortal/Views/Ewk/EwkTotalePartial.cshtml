@@ -1,0 +1,29 @@
+﻿@using System.Web.UI.WebControls
+@model  List<Dialog.Behoerdenloesung.Sitzungen.UI.Web.Models.EwkTotal>
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "gvEwkTotaleGridView";
+
+        settings.CallbackRouteValues = new { Controller = "Ewk", Action = "EwkTotalePartial" };
+        settings.Width = Unit.Percentage(100);
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Text";
+            column.Caption = "Bezeichnung";
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+            column.Width = Unit.Percentage(70);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.PropertiesEdit.DisplayFormatString = "N0";
+            column.FieldName = "Total";
+            column.Caption = "Total";
+            column.ColumnType = MVCxGridViewColumnType.TextBox;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            column.Width = Unit.Percentage(30);
+        });
+    });
+}
+@grid.Bind(Model).GetHtml()

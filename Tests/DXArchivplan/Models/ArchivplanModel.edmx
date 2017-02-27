@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ArchivplanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbArchivplan">
+          <Key>
+            <PropertyRef Name="RegPlanId" />
+          </Key>
+          <Property Name="RegPlanId" Type="int" Nullable="false" />
+          <Property Name="RegPlanNr" Type="nvarchar" MaxLength="50" />
+          <Property Name="ParentId" Type="int" Nullable="false" />
+          <Property Name="BezeichnungDE" Type="nvarchar" MaxLength="255" />
+          <Property Name="BezeichnungFR" Type="nvarchar" MaxLength="255" />
+          <Property Name="DossierbildungDE" Type="nvarchar" MaxLength="255" />
+          <Property Name="DossierbildungFR" Type="nvarchar" MaxLength="255" />
+          <Property Name="AufbewahrungsfristDE" Type="nvarchar" MaxLength="255" />
+          <Property Name="AufbewahrungsfristFR" Type="nvarchar" MaxLength="255" />
+          <Property Name="HaupttitelDE" Type="nvarchar" MaxLength="255" />
+          <Property Name="HaupttitelFR" Type="nvarchar" MaxLength="255" />
+          <Property Name="UntertitelDE" Type="nvarchar" MaxLength="255" />
+          <Property Name="UntertitelFR" Type="nvarchar" MaxLength="255" />
+          <Property Name="HinweisDE" Type="nvarchar(max)" />
+          <Property Name="HinweisFR" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityContainer Name="ArchivplanModelStoreContainer">
+          <EntitySet Name="tbArchivplan" EntityType="Self.tbArchivplan" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ArchivplanModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbArchivplan">
+          <Key>
+            <PropertyRef Name="RegPlanId" />
+          </Key>
+          <Property Name="RegPlanId" Type="Int32" Nullable="false" />
+          <Property Name="RegPlanNr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ParentId" Type="Int32" Nullable="false" />
+          <Property Name="BezeichnungDE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="BezeichnungFR" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DossierbildungDE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DossierbildungFR" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AufbewahrungsfristDE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AufbewahrungsfristFR" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="HaupttitelDE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="HaupttitelFR" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UntertitelDE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UntertitelFR" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="HinweisDE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HinweisFR" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="ArchivplanEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbArchivplan" EntityType="Self.tbArchivplan" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ArchivplanModelStoreContainer" CdmEntityContainer="ArchivplanEntities">
+          <EntitySetMapping Name="tbArchivplan">
+            <EntityTypeMapping TypeName="ArchivplanModel.tbArchivplan">
+              <MappingFragment StoreEntitySet="tbArchivplan">
+                <ScalarProperty Name="RegPlanId" ColumnName="RegPlanId" />
+                <ScalarProperty Name="RegPlanNr" ColumnName="RegPlanNr" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="BezeichnungDE" ColumnName="BezeichnungDE" />
+                <ScalarProperty Name="BezeichnungFR" ColumnName="BezeichnungFR" />
+                <ScalarProperty Name="DossierbildungDE" ColumnName="DossierbildungDE" />
+                <ScalarProperty Name="DossierbildungFR" ColumnName="DossierbildungFR" />
+                <ScalarProperty Name="AufbewahrungsfristDE" ColumnName="AufbewahrungsfristDE" />
+                <ScalarProperty Name="AufbewahrungsfristFR" ColumnName="AufbewahrungsfristFR" />
+                <ScalarProperty Name="HaupttitelDE" ColumnName="HaupttitelDE" />
+                <ScalarProperty Name="HaupttitelFR" ColumnName="HaupttitelFR" />
+                <ScalarProperty Name="UntertitelDE" ColumnName="UntertitelDE" />
+                <ScalarProperty Name="UntertitelFR" ColumnName="UntertitelFR" />
+                <ScalarProperty Name="HinweisDE" ColumnName="HinweisDE" />
+                <ScalarProperty Name="HinweisFR" ColumnName="HinweisFR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
